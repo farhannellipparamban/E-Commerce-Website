@@ -26,23 +26,23 @@ const verifyLogin = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-
     const adminData = await admin.findOne({ email: email });
     if (adminData) {
-      if (password == adminData.password) {
+      if (password === adminData.password) {
         req.session.admin_id = adminData._id;
-
-        res.redirect("/admin/dashboard");
+        return res.redirect("/admin/dashboard");
       } else {
-        res.render("adminLogin");
+        return res.render("adminLogin", { error: "Invalid password" });
       }
     } else {
-      res.render("adminLogin");
+      return res.render("adminLogin", { error: "Admin not found" });
     }
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
 };
+
 
 //dashboard get
 const loadDashboard = async (req, res) => {

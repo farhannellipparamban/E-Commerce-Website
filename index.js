@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/watch_palace");
+const config = require("./config/config");
 const nocache = require("nocache");
 const express = require("express");
+
+config.mongooseConnect()
 
 const app = express();
 

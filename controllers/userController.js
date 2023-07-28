@@ -3,6 +3,10 @@ const productdb = require("../models/prodectModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const user_address = require("../models/addressModel");
+const randomstring = require("randomstring")
+const dotenv=require('dotenv')
+
+dotenv.config()
 
 let otp;
 let email2;
@@ -28,29 +32,41 @@ const sendVerifymail = async (name, email, otp) => {
       secure: false,
       requireTLS: true,
       auth: {
-        user: "anufarhan111@gmail.com",
-        pass: "nzpjxvviniwetzxw",
+        user: process.env.email,
+        pass: process.env.password,
       },
     });
     const mailOption = {
-      from: "anufarhan111@gmail.com",
+      from: process.env.email,
       to: email,
       subject: "For OTP verification",
       html:
-        "<p>Hi <h3>" +
-        name +
-        ',</h3><br><br>   Please click here to <a href="http://localhost:3000/otp"> verify </a> and enter the OTP : <b>' +
-        otp +
-        "</b> for your verification " +
-        email +
-        "</p>",
+      "<div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>"+
+      "<div style='margin:50px auto;width:70%;padding:20px 0'>"+
+        "<div style='border-bottom:1px solid #eee'>"+
+         "<a href='' style='font-size:1.4em;color: #f30d0d;text-decoration:none;font-weight:600'>CLOC<a style='color: #f30d0d;'></a>KSY</a>"+
+        "</div>"+
+        "<p style='font-size:1.1em'>Hi,</p>"+
+        "<p>Thank you for choosing Clocksy. Use the following OTP to complete your Sign Up procedures. OTP is valid for few minutes</p>"+
+        "<h2 style='background:#f30d0d;margin: 0 auto;width: max-content;padding: 0 10px;color: white;border-radius: 4px;'>"+
+        +otp+
+        "</h2>"+
+        "<p style='font-size:0.9em;'>Regards,<br />Clocksy</p>"+
+        "<hr style='border:none;border-top:1px solid #eee' />"+
+        "<div style='float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300'>"+
+          "<p>Clocksy Eco</p>"+
+          "<p>1600 Ocean Of Heaven</p>"+
+          "<p>Pacific</p>"+
+        "</div>"+
+      "</div>"+
+    "</div>"
     };
 
     transporter.sendMail(mailOption, (error, info) => {
       if (error) {
         console.log(error.message);
       } else {
-        console.log("emai has been send to:", info.response);
+        console.log("email has been send to:", info.response);
         console.log(otp);
       }
     });
@@ -190,7 +206,69 @@ const verifyFromLogin = async (req, res) => {
   }
 };
 
-//forget password
+//reset password send mail
+const resetsendVerifymail = async(name,email,token)=>{
+  try{
+    const transporter = nodemailer.createTransport({
+      host:"smtp.gmail.com",
+      port:587,
+      securel:false,
+      requireTLS:true,
+      auth:{
+        user: process.env.email,
+        pass: process.env.password,
+      },
+    });
+    const mailOption={
+      from:process.env.email,
+      to:email,
+      subject:"For Reset Password",
+      html:
+        "<p>hi " +
+        name +
+        ' ,please click here to<a href="https://tzwatches.shop/resetPassword?token=' +
+        token +
+        '">Reset</a> your password </p>',
+    };
+    transporter.sendMail(mailOption,(error,info)=>{
+      if(error){
+        console.log(error.message);
+      }else{
+        console.log("email has been send to:",info.response);
+      }
+    })
+  }catch(error){
+    console.log(error.message);
+  }
+}
+
+//reset password get
+const resetPassword = async(req,res)=>{
+  try{
+    const token=req.query.token;
+    console.log(token);
+    const userData =await User.findOne({token:token});
+    res.render("resetPassword",{email:userData.email})
+  }catch(error){
+    console.log(error.message);
+  }
+}
+
+//reset password post
+const resetpassVerify = async(req,res)=>{
+  try {
+    const password = req.body.password;
+    const email =req.body.email
+
+    const spassword =await securePassword(password);
+    const updatedData = await User.findOneAndUpdate({email:email},{$set:{password:spassword,token:""}})
+    res.redirect("/")
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//forget password get
 
 const forgetLoad = async (req, res) => {
   try {
@@ -199,6 +277,30 @@ const forgetLoad = async (req, res) => {
     console.log(error.message);
   }
 };
+
+//forget post
+const forgetSendEmail = async(req,res)=>{
+  try{
+  const email =req.body.email;
+  const userData =await User.findOne({email:email})
+  if(userData){
+    if(userData.is_verified==0){
+      res.render("forgetPassword",{message:"Email Not Verified"})
+    }else{
+      const randomString=randomstring.generate();
+      const updatedData = await User.updateOne({email:email},{$set:{token:randomString}})
+      const user = await User.findOne({email:email})
+      resetsendVerifymail("User", user.email,randomString);
+      res.render("forgetPassword",{message:"Please check your Mail for Reset your password"})
+    }
+  }else{
+    res.render("forgetPassword",{message:"Wrong Email Id"})
+  }
+}catch(error){
+  console.log(error.message);
+}
+}
+
 
 //home get
 const loadHome = async (req, res) => {
@@ -394,6 +496,9 @@ module.exports = {
   verifyUser,
   verifyLogin,
   forgetLoad,
+  forgetSendEmail,
+  resetPassword,
+  resetpassVerify,
   verifyFromLogin,
   userLogout,
   myAcco,

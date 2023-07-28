@@ -27,6 +27,11 @@ user_route.get("/verify_from_login", userController.verifyFromLogin);
 
 //forget
 user_route.get("/forget", userAuth.isLogout, userController.forgetLoad);
+user_route.post("/forget",userController.forgetSendEmail)
+
+//reset
+user_route.get("/reset_password", userAuth.isLogout, userController.resetPassword);
+user_route.post("/reset",userAuth.isLogout,userController.resetpassVerify)
 
 //shop
 user_route.get("/shop", userController.loadShoping);
