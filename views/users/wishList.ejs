@@ -1,0 +1,101 @@
+<%- include("../layouts/userPartials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Wishlist</title>
+    <!-- Add your CSS styles here or link to an external CSS file -->
+    <style>
+      /* Add your custom styles here */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      .wishlist-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .wishlist-item {
+        display: flex;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .wishlist-item img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+      }
+
+      .wishlist-item-info {
+        flex: 1;
+      }
+
+      .wishlist-item-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .wishlist-item-price {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .wishlist-item-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .wishlist-item-actions a {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+
+      .wishlist-item-actions a:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wishlist-container">
+      <h1>My Wishlist</h1>
+      <div class="wishlist-item">
+        <img src="path/to/wishlist-item-1.jpg" alt="Wishlist Item 1" />
+        <div class="wishlist-item-info">
+          <div class="wishlist-item-title">Product Name 1</div>
+          <div class="wishlist-item-price">Price: ₹100</div>
+          <div class="wishlist-item-actions">
+            <a href="/cart">Add to Cart</a>
+            <a href="#">Remove</a>
+          </div>
+        </div>
+      </div>
+      <div class="wishlist-item">
+        <img src="path/to/wishlist-item-2.jpg" alt="Wishlist Item 2" />
+        <div class="wishlist-item-info">
+          <div class="wishlist-item-title">Product Name 2</div>
+          <div class="wishlist-item-price">Price: ₹80</div>
+          <div class="wishlist-item-actions">
+            <a href="/cart">Add to Cart</a>
+            <a href="#">Remove</a>
+          </div>
+        </div>
+      </div>
+      <!-- Add more wishlist items as needed -->
+    </div>
+  </body>
+</html>
+<%- include("../layouts/userPartials/footer.ejs") %>

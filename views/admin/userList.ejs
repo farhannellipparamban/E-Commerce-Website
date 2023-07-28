@@ -1,0 +1,134 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<style>
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #f7fafc;
+    border: 1px solid #c9d3df;
+    border-radius: 8px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 30px;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  .table th,
+  .table td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  .table th {
+    background-color: #f7fafc;
+    color: #000000;
+    font-weight: bold;
+    border-bottom: 1px solid #17181a;
+  }
+
+  .table tbody tr:nth-child(even) {
+    background-color: #edf2f7;
+  }
+
+  .table .badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .badge.bg-success {
+    background-color: #04ff10;
+    color: #ffffff;
+  }
+
+  .badge.bg-danger {
+    background-color: #f50000;
+    color: #ffffff;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .btn-danger {
+    background-color: #ff0000;
+    color: #ffffff;
+  }
+
+  .btn-success {
+    background-color: #0edf18;
+    color: #ffffff;
+  }
+</style>
+
+<div class="container">
+  <h1>User Management</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Email Status</th>
+        <th>Account Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (user.length > 0) { %> <% for (let i = 0; i < user.length; i++) { %>
+      <tr>
+        <td><%= user[i].name %></td>
+        <td><%= user[i].email %></td>
+        <td>
+          <% if (user[i].is_verified === 1) { %>
+          <span class="badge bg-success">Verified</span>
+          <% } else { %>
+          <span class="badge bg-danger">Not Verified</span>
+          <% } %>
+        </td>
+        <td>
+          <% if (user[i].is_blocked === false) { %>
+          <span class="badge bg-success">Active</span>
+          <% } else { %>
+          <span class="badge bg-danger">Blocked</span>
+          <% } %>
+        </td>
+        <td>
+          <% if (user[i].is_blocked === false) { %>
+          <a href="/admin/Block_user?id=<%=user[i]._id%>" class="btn btn-danger"
+            >Block</a
+          >
+          <% } else { %>
+          <a
+            href="/admin/Unblock_user?id=<%=user[i]._id%>"
+            class="btn btn-success"
+            >Unblock</a
+          >
+          <% } %>
+        </td>
+      </tr>
+      <% } %> <% } else { %>
+      <tr>
+        <td colspan="5">No users found.</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("../layouts/adminPartials/footer.ejs") %>

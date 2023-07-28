@@ -1,0 +1,99 @@
+<%- include("../layouts/userPartials/header.ejs") %>
+
+<br /><br /><br />
+
+<div class="container">
+  <form class="row contact_form" action="" method="post">
+    <div class="col-md-6 form-group p_star">
+      <!-- <span  placeholder="First name">Last Name</span> -->
+
+      <input
+        type="text"
+        class="form-control"
+        id="sname"
+        name="fname"
+        value="<%=value.fname%>"
+      />
+    </div>
+
+    <div class="col-md-6 form-group p_star">
+      <!-- <span  placeholder="First name">Last Name</span> -->
+
+      <input
+        type="text"
+        class="form-control"
+        id="sname"
+        name="sname"
+        value="<%=value.sname%>"
+      />
+    </div>
+    <input type="hidden" name="index" value="<%=index%>" id="" />
+
+    <div class="col-md-6 form-group p_star">
+      <!-- <span  placeholder="First name">Mobile</span> -->
+
+      <input
+        value="<%=value.mobile%>"
+        type="text"
+        class="form-control"
+        id="mobile"
+        name="mobile"
+      />
+    </div>
+
+    <div class="col-md-6 form-group p_star">
+      <!-- <span  placeholder="First name">Email</span> -->
+
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        name="email"
+        value="<%=value.email%>"
+      />
+    </div>
+
+    <div class="col-md-12 form-group p_star">
+      <!-- <span  placeholder="First name">Address</span> -->
+
+      <textarea
+        class="form-control"
+        name="address"
+        id="address"
+        rows="1"
+        placeholder="Address"
+      >
+<%=value.address%></textarea
+      >
+    </div>
+
+    <div class="col-md-12 form-group p_star">
+      <!-- <span  placeholder="First name">City</span> -->
+
+      <input
+        value="<%=value.city%>"
+        type="text"
+        class="form-control"
+        id="city"
+        name="city"
+      />
+    </div>
+
+    <div class="col-md-12 form-group">
+      <!-- <span  placeholder="First name">PIN</span> -->
+
+      <input
+        type="text"
+        class="form-control"
+        id="pin"
+        name="pin"
+        placeholder="PIN"
+        value="<%=value.pin%>"
+      />
+    </div>
+
+    <BUtton type="submit" class="btn_1">SUBMIT</BUtton>
+  </form>
+</div>
+
+<%- include("../layouts/userPartials/footer.ejs") %>

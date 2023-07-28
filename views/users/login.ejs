@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>WATCH PALACE</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicon.ico"
+    />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/css/flaticon.css" />
+    <link rel="stylesheet" href="assets/css/slicknav.css" />
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/themify-icons.css" />
+    <link rel="stylesheet" href="assets/css/slick.css" />
+    <link rel="stylesheet" href="assets/css/nice-select.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+    />
+  </head>
+
+  <body>
+    <div id="preloader-active">
+      <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+          <div class="preloader-circle"></div>
+          <div class="preloader-img pere-text">
+            <span style="color: #f30d0d; font-family: Helvetica">cloc</span
+            ><span style="color: #000000; font-family: Times New Roman"
+              >ksy</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- Hero Area Start-->
+      <div class="slider-area">
+        <div class="single-slider slider-height2 d-flex align-items-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="hero-cap text-center">
+                  <h2>Login</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hero Area End-->
+      <!--================login_part Area =================-->
+      <section class="login_part section_padding">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+              <div class="login_part_text text-center">
+                <div class="login_part_text_iner">
+                  <h2>New to our Shop?</h2>
+                  <p>
+                    There are advances being made in science and technology
+                    everyday, and a good example of this is the
+                  </p>
+                  <a href="/register" class="btn_3">Create an Account</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="login_part_form">
+                <div class="login_part_form_iner">
+                  <% if(typeof message !=='undefined' ){ %>
+                  <span
+                    id="er2"
+                    style="color: hwb(128 3% 15%); text-align: center"
+                  >
+                    <%= message%>
+                  </span>
+                  <% } %>
+                  <h3>
+                    Welcome Back!<br />
+                    Please Sign in now
+                  </h3>
+                  <!-- <form id="loginForm" class="row contact_form" action="/login" method="post" novalidate="novalidate" onsubmit="return validateLoginForm();"> -->
+
+                  <form
+                    id="loginForm"
+                    class="row contact_form"
+                    action="/login"
+                    method="post"
+                  >
+                    <div class="col-md-12 form-group p_star">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value=""
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        value=""
+                        placeholder="Password"
+                      />
+                    </div>
+                    <div class="col-md-12 form-group">
+                      <div class="creat_account d-flex align-items-center">
+                        <input type="checkbox" id="f-option" name="selector" />
+                        <label for="f-option">Remember me</label>
+                      </div>
+                      <button
+                        type="submit"
+                        value="submit"
+                        class="btn btn-primary btn-block"
+                        onclick="fromData()"
+                      >
+                        Log In
+                      </button>
+                      <a class="lost_pass" href="/forget">Forgot Password?</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--================login_part end =================-->
+    </main>
+
+    <!-- scriot Tag -->
+    <script>
+      function fromData() {
+        // var email = document.getElementsByName("email")[0];
+        // var password = document.getElementsByName("password")[0];
+        // // Check if email is empty
+        // var isvalid = true;
+        // if (email.trim() === "") {
+        //     alert("Please enter your email.");
+
+        //     isvalid =  false;
+        // }
+        // // Check if password is empty
+        // if (password.trim() === "") {
+        //     alert("Please enter your password.");
+        //     isvalid =  false;
+        // }
+        // -----------------------------------------------------------
+        let formDt = $("#loginForm").serialize();
+        $.ajax({
+          url: "/login",
+          data: formDt,
+          method: "post",
+          success: (response) => {
+            if (response.status === true) {
+              location.href = "/";
+            } else if (response.IncPassword === true) {
+              alert("incorrect Password!");
+              location.href = "/login";
+            } else if (response.IsBlock === true) {
+              alert("Your Account is Blocked!");
+              location.href = "/login";
+            } else if (response.invEmail === true) {
+              alert("invalid Email or Password!");
+              location.href = "/login";
+            } else {
+              alert("Try Again!!!");
+            }
+          },
+        });
+
+        return isvalid;
+      }
+    </script>
+
+    <%- include("../layouts/userPartials/footer.ejs") %>
+  </body>
+</html>

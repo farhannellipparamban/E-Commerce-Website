@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>OTP Verification</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+      }
+      .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card {
+        width: 400px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background-color: #fff;
+      }
+      .card h5 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .card .mobile-text {
+        display: block;
+        text-align: center;
+        color: #666;
+        margin-bottom: 20px;
+      }
+      .card .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .card .form-group input[type="number"] {
+        width: 100%;
+        max-width: 200px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .card .error-msg {
+        color: #f10707;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .card .btn-enter {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .card .btn-enter:hover {
+        background-color: #45a049;
+      }
+      .card .timer {
+        text-align: center;
+        color: #888;
+      }
+      .card .timer a {
+        color: #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h5>OTP Verification</h5>
+        <span class="mobile-text"
+          ><b>Enter the code we just sent to your Email</b></span
+        >
+        <form action="/otp" method="post">
+          <div class="form-group">
+            <input type="number" name="otp" id="otp" placeholder="OTP here" />
+          </div>
+          <div class="error-msg" id="er1"></div>
+          <button type="submit" class="btn-enter">Enter</button>
+        </form>
+        <div class="timer">
+          OTP will expire in <span id="countdown">30</span> seconds. Resend the
+          OTP <a href="/resend">here</a>.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Add your JavaScript code here (if needed)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<main class="h-full pb-16 overflow-y-auto mt-5">
+  <div class="container px-6 mx-auto grid">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      Edit Products
+    </h2>
+    <div class="container mt-5">
+      <div
+        class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+      >
+        <form
+          action="/admin/edit_products?id=<%=dataedit._id %>"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="mb-3">
+            <label for="name" class="form-label text-sm">Name</label>
+            <input
+              value="<%= dataedit.name %>"
+              class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+              type="text"
+              id="name"
+              name="name"
+            />
+          </div>
+          <!-- Price -->
+          <div class="mb-3">
+            <label for="price" class="form-label text-sm">Price</label>
+            <input
+              value="<%= dataedit.price %>"
+              class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+              type="number"
+              id="price"
+              name="price"
+            />
+          </div>
+          <!-- Image -->
+          <div class="mb-3">
+            <label for="image" class="form-label text-sm">Image</label>
+            <input
+              value="<%= dataedit.arrimage %>"
+              onchange="viewimage(event)"
+              accept="image/*"
+              class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+              type="file"
+              id="image"
+              name="image"
+              multiple
+              required
+            />
+          </div>
+          <!-- Existing Images -->
+          <!-- Existing Images -->
+          <div style="display: flex">
+            <% for (let index=0; index < dataedit.image.length; index++) { %>
+            <div
+              style="
+                width: 100px;
+                height: 100px;
+                border: solid 2px rgb(250, 10, 10);
+                margin-right: 25px;
+              "
+            >
+              <img
+                style="width: 100px; height: 100px"
+                src="/assets/IMAGES/<%= dataedit.image[index] %>"
+                alt="<%= dataedit.name %>"
+                id="imgView-<%= index %>"
+              />
+              <br />
+              <div>
+                <button
+                  type="button"
+                  onclick="deletePhoto('<%= index %>','<%= dataedit._id %>')"
+                  class="btn btn-sm btn-danger"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+            <% } %>
+          </div>
+
+          <!-- Category -->
+          <div class="mt-5">
+            <label for="category" class="form-label text-sm">Category</label>
+            <select
+              name="category"
+              id="category"
+              class="form-select text-sm dark:text-gray-300 dark:bg-gray-700"
+            >
+              <% if (Catdata.length> 0) { for (let i = 0; i < Catdata.length;
+              i++) { %>
+              <option><%= Catdata[i].name %></option>
+              <% } } %>
+            </select>
+          </div>
+          <!-- Description -->
+          <!-- <div class="mb-3">
+              <label for="description" class="form-label text-sm">Description</label>
+              <textarea name="description"
+                class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+                rows="3" placeholder="Enter some long form content." id="description" value="<%= dataedit.discription %>"></textarea>
+            </div> -->
+          <div class="m-3">
+            <label for="discription" class="form-label text-sm"
+              >Description</label
+            >
+            <input
+              value="<%= dataedit.discription %>"
+              class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+              type="text"
+              id="discription"
+              name="discription"
+            />
+          </div>
+          <!-- Stock -->
+          <div class="mb-3">
+            <label for="stock" class="form-label text-sm">Stock</label>
+            <input
+              value="<%= dataedit.stock %>"
+              class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
+              type="text"
+              id="stock"
+              name="stock"
+            />
+          </div>
+
+          <br />
+          <button type="submit" class="btn btn-sm btn-primary">
+            Edit Products
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- Add this script after the form -->
+<script>
+  function deletePhoto(index, productId) {
+    // Perform an AJAX request to delete the image
+    fetch(`/admin/delete_image`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        position: index,
+        id: productId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // If the image was deleted successfully, remove it from the view
+        if (data.success) {
+          document.getElementById(`imgView-${index}`).remove();
+        } else {
+          console.log("Image deletion failed.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error while deleting image:", error);
+      });
+  }
+</script>
+
+<%- include("../layouts/adminPartials/footer.ejs") %>

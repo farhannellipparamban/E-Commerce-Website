@@ -1,0 +1,194 @@
+<%- include("../layouts/userPartials/header.ejs") %>
+
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">
+                <%=user%>
+              </h5>
+              <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+
+            <!-- <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">Vailidty Till
+                  <p class="mb-0"> <u> Coupons </u></p>
+                </li>
+                <% if(typeof coupon1 !=="undefined" ){%>
+
+                  <% coupon1.forEach((value)=>{%>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                      <i style="color: #333333;">
+                        <%= value.expiryDate.toISOString().substring(0,10)%>
+                      </i>
+                      <p class="mb-0">
+                        <%=value.code%>
+                      </p>
+                    </li>
+
+                    <% })%>
+                      <%}%>
+
+              </ul>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card mb-4">
+
+            <form action="/myacco" method="post">
+
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Full Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input name="name" class="text-muted mb-0" value="<%= data.name%>">
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input name="email" class="text-muted mb-0" value="<%= data.email%>">
+                  </div>
+                </div>
+                <!-- <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">wallet</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      <%= data.wallet%>
+                    </p>
+                  </div>
+                </div> -->
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Mobile</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input name="mobile" class="text-muted mb-0" value="<%= data.mob%>">
+                  </div>
+                </div>
+
+                <button class="genric-btn success circle arrow" type="submit">Submit</button>
+
+              </div>
+            </form>
+
+          </div>
+
+          <a class="btn_3" href="/addAddress">ADD ADDRESS</a> <br><br>
+          <div class="card mb-4">
+
+
+            <div class="card-body">
+
+              <% if(typeof address !=="undefined" ){%>
+
+                <% address.address.forEach((value,index)=>{
+                  %>
+
+                  Name: &nbsp; <%= value.fname%>
+                    <%=value.sname%> <br>
+                      Address:&nbsp; <%=value.address%><br>
+                        Phone: &nbsp; <%= value.mobile%><br>
+                          Email: &nbsp; <%=value.email%><br>
+                            City: &nbsp; <%=value.city%><br>
+                              PIN: &nbsp; <%= value.pin%><br>
+
+                                <br>
+                                <div style="display: flex;">
+
+                                  <input type="hidden" value="<%= index%>" name="index">
+                                  <div>
+                                    <a class="genric-btn danger-border circle arrow"
+                                      href="/editAddress?id=<%=value._id%>&index=<%=index%>">Edit</a>
+
+                                  </div>
+                                  <div style="margin-left: 10px;">
+
+                                    <a class="genric-btn danger-border circle arrow"
+                                      href="/deleteAddress?id=<%=value._id%>&index=<%=index%>">Delete</a>
+
+
+                                  </div>
+                                </div>
+
+                                <hr>
+
+                                <% })%>
+
+
+                                  <%}%>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+  </section>
+
+  <script>
+    function deleteaddress(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "/deleteAddress",
+            data: {
+
+              id: id,
+            },
+            method: "post",
+            success: (response) => {
+              if ((response.remove = true)) {
+                location.reload();
+              }
+            },
+          });
+        }
+      });
+    }
+  </script>
+
+  <%- include("../layouts/userPartials/footer.ejs") %>

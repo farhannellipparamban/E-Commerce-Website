@@ -1,0 +1,129 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+<style>
+  /* Add these styles to adjust the alignment of price and stock columns */
+  .col-price,
+  .col-date {
+    display: flex;
+    align-items: center;
+  }
+
+  .price {
+    margin-left: 60px;
+  }
+  .stock {
+    margin-left: 75px;
+  }
+  .name {
+    margin-left: 35px;
+  }
+
+  /* Add these styles to make the buttons uniform in size */
+  .col-action .btn {
+    width: 80px;
+    margin-left: 100px;
+  }
+
+  /* Add these styles to adjust the alignment of checkbox and content in the header */
+  .card-header .form-check {
+    margin: 0;
+  }
+
+  .card-header .row {
+    align-items: center;
+  }
+
+  .card-header h4 {
+    margin: 5px;
+  }
+</style>
+
+<section class="content-main">
+  <div class="content-header">
+    <div>
+      <h2 class="content-title card-title">Products List</h2>
+    </div>
+    <div>
+      <a href="#" class="btn btn-success rounded font-md">Export</a>
+      <a href="#" class="btn btn-danger rounded font-md">Import</a>
+      <a href="/admin/addproduct" class="btn btn-primary btn-sm rounded"
+        >Add Product</a
+      >
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <header class="card-header">
+      <div class="row align-items-center">
+        <div class="col col-check flex-grow-0">
+          <div class="form-check ms-2">
+            <input class="form-check-input" type="checkbox" value="" />
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-4 flex-grow-1 col-name">
+          <h4 class="column-heading">Name</h4>
+        </div>
+        <div class="col-lg-2 col-sm-2 col-4 col-price">
+          <h4 class="column-heading">Price</h4>
+        </div>
+        <div class="col-lg-3 col-sm-2 col-4 col-date">
+          <h4 class="column-heading">Stock</h4>
+        </div>
+        <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
+          <h4 class="column-heading mx-4">Action</h4>
+        </div>
+      </div>
+    </header>
+
+    <div class="card-body">
+      <% for (let i = 0; i < data.length; i++) { %>
+      <article class="itemlist">
+        <div class="row align-items-center item-row">
+          <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+            <a class="itemside" href="#">
+              <div class="left">
+                <img
+                  src="/assets/IMAGES/<%=data[i].image[0]%>"
+                  class="img-sm img-thumbnail"
+                  alt="Item"
+                />
+              </div>
+              <div class="info">
+                <h6 class="mb-0"><%=data[i].name%></h6>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-2 col-sm-2 col-4 col-price">
+            <span class="price">&#8377;<%=data[i].price%></span>
+          </div>
+          <div class="col-lg-3 col-sm-2 col-4 col-date">
+            <span class="stock"><%=data[i].stock%></span>
+          </div>
+          <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
+            <a
+              href="/admin/edit_products/?id=<%= data[i]._id %>"
+              class="btn btn-sm font-sm btn-success mb-2 rounded btn-brand"
+            >
+              <i class="material-icons md-edit"></i> Edit
+            </a>
+            <% if (data[i].is_blocked === false) { %>
+            <a
+              href="/admin/productBlock/?id=<%= data[i]._id %>"
+              class="btn btn-sm btn-success btn-action"
+              >List</a
+            >
+            <% } else { %>
+            <a
+              href="/admin/productUnblock/?id=<%= data[i]._id %>"
+              class="btn btn-sm btn-danger btn-action"
+              >Unlist</a
+            >
+            <% } %>
+          </div>
+        </div>
+      </article>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include("../layouts/adminPartials/footer.ejs") %>
