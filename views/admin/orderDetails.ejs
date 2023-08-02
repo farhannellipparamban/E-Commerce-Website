@@ -1,0 +1,211 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<style>
+  /* Add some spacing and background color to the header section */
+  .header {
+    padding: 20px;
+    background-color: #000000;
+    color: #fff;
+  }
+
+  /* Add some spacing and background color to the footer section */
+  .footer {
+    padding: 20px;
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+  }
+
+  /* Style for the "Order Details" heading */
+  h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 20px;
+  }
+
+  /* Style for the table container */
+  .table-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* Add some shadow to the table */
+  .table-container {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Style for the table headers */
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 22px;
+  }
+
+  /* Style for the table rows */
+  .table tr {
+    transition: background-color 0.2s ease;
+  }
+
+  /* Highlight the table rows on hover */
+  .table tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  /* Style for the "View" button */
+  .genric-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+    font-size: 12px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .genric-btn:hover {
+    background-color: #f2f2f2;
+  }
+
+  /* Style for the different order statuses */
+  .status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .status-placed {
+    color: #00d42e;
+  }
+
+  .status-canceled {
+    color: #ff0000;
+  }
+
+  .status-pending {
+    color: #fbff00;
+  }
+
+  .btn-primary {
+    background-color: #00a2ff;
+    margin: 15px;
+  }
+</style>
+<main class="h-full pb-16 overflow-y-auto">
+  <div class="container grid px-6 mx-auto">
+    <h2 class="my-6 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+      Order Details
+    </h2>
+
+    <!-- With avatar -->
+    <!-- With actions -->
+
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+      <div class="w-full overflow-x-auto">
+        <table class="w-full whitespace-no-wrap">
+          <thead>
+            <tr
+              class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+            >
+              <th class="px-4 py-3">SL</th>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">Price</th>
+              <th class="px-4 py-3">View</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3">Order Actions</th>
+            </tr>
+          </thead>
+
+          <tbody
+            class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+          >
+            <% if (orderData.length > 0) { for (let i = 0; i < orderData.length;
+            i++) { %>
+            <tr class="text-gray-700 dark:text-gray-400">
+              <td class="px-4 py-3"><%= i + 1 %></td>
+              <td class="px-4 py-3"><%= orderData[i].userName %></td>
+              <td class="px-4 py-3">₹ <%= orderData[i].totalAmount %></td>
+              <td class="px-4 py-3">
+                <a
+                  href="/admin/viewOrders?id=<%= orderData[i]._id %>"
+                  class="btn-success px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                >
+                  View
+                </a>
+              </td>
+              <td class="px-4 py-3">
+                <% if (orderData[i].status === "placed" || orderData[i].status
+                === "delivered") { %>
+                <a href="/admin/orderStatus?id=<%= orderData[i]._id %>">
+                  <span
+                    class="status-placed px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                  >
+                    <%= orderData[i].status %>
+                  </span>
+                </a>
+                <% } else if (orderData[i].status === "canceled") { %>
+                <a>
+                  <span
+                    class="status-canceled px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+                  >
+                    <%= orderData[i].status %>
+                  </span>
+                </a>
+                <% } else if (orderData[i].status === "pending") { %>
+                <a href="/admin/orderStatus?id=<%= orderData[i]._id %>">
+                  <span
+                    class="status-pending px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+                  >
+                    <%= orderData[i].status %>
+                  </span>
+                </a>
+                <% } %>
+              </td>
+
+              <td class="px-4 py-3">
+                <% if (orderData[i].status === "canceled") { %>
+                <a
+                  class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+                >
+                  Canceled
+                </a>
+                <% } else if (orderData[i].status !== "delivered" &&
+                orderData[i].status !== "pending") { %>
+                <a href="/admin/orderCancel?id=<%= orderData[i]._id %>">
+                  <span
+                    class="btn-danger px-2 py-2 font-semibold leading-tight text-red-700 bg-green-100 rounded-full dark:bg-red-700 dark:text-red-100"
+                  >
+                    Cancel
+                  </span>
+                </a>
+                <% if (orderData[i].status === "placed" || orderData[i].status
+                === "delivered" && orderData[i].status !== "delivered" &&
+                orderData[i].status !== "pending") { %>
+                <a href="/admin/orderDelivered?id=<%= orderData[i]._id %>">
+                  <span
+                    class="btn-primary py-2 px-2 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                  >
+                    Delivered
+                  </span>
+                </a>
+                <% } %> <% } %>
+              </td>
+            </tr>
+            <% } } else { %>
+            <tr>
+              <td colspan="6" class="text-center">
+                <h1>No orders found</h1>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include("../layouts/adminPartials/footer.ejs") %>

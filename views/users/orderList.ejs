@@ -1,0 +1,117 @@
+<%- include("../layouts/userPartials/header.ejs") %>
+
+
+<div class="container mt-5">
+  <table class="table table-bordered table-striped table-hover align-middle mb-0 bg-white" style="table-layout: auto;">
+    <thead class="bg-light">
+      <tr>
+        <th class="text-center">SL NO</th>
+        <th>Total Amount</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  <% orders.forEach((value,index)=>{%>
+  <tr>
+    <td class="text-center"><%=index+1 %></td>
+    <td><%=value.totalAmount%></td>
+    <td><%=value.paymentMethod%></td>
+    <td><%=value.status %></td>
+    <td><a href="/ordershow?id=<%= value._id%>" type="button" class="genric-btn info-border circle arrow">View</a>
+          <% if(value.status!=="canceled"&&value.status!=="delivered"&&value.status!=="Return Approved"&&value.status!=="pending"&&value.status!=="waiting for approval"){%>
+
+            <a onclick="cancelOrder('<%= value._id %>')" type="button" class="genric-btn danger-border circle arrow">cancel</a>
+            <%}%>
+
+        <% if(value.status=="delivered"){%>
+          <a  onclick="returnOrder('<%= value._id%>')" type="button" class="genric-btn danger-border circle arrow">Return</a>
+        
+          <%}%>
+          <% if(value.status=="delivered"||value.status=="Return Approved"){%>
+
+          <!-- <a   href="./invoice_pdf?id=<%= value._id%>"><span style="color:rgb(6, 0, 12); margin-left: 13px;"><i class="ti-printer"></i></span></a> -->
+          <%}%>
+       </td>
+  </tr>
+  <%})%>
+</tbody>
+  </table>
+</div>
+
+
+
+
+<script>
+   function cancelOrder( id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cance it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/cancelOrder",
+          data: {
+           
+            id: id,
+          },
+          method: "post",
+          success: (response) => {
+            if ((response.remove = true)) {
+              location.reload();
+            }
+          },
+        });
+      }
+    });
+  }
+</script>
+
+<!-- <script>
+  function returnOrder( id) {
+   Swal.fire({
+     title: "Are you sure?",
+     text: "You won't be able to revert this!",
+     icon: "warning",
+     showCancelButton: true,
+     confirmButtonColor: "#3085d6",
+     cancelButtonColor: "#d33",
+     confirmButtonText: "Yes, Do it!",
+     cancelButtonText: "Cancel",
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+         url: "/return_order",
+         data: {
+          
+           id: id,
+         },
+         method: "post",
+         success: (response) => {
+           if ((response.datelimit)) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Return Date expired'
+            })
+           }else if(response.return) {
+            
+            location.reload();
+            
+           }
+         },
+       });
+     }
+   });
+ }
+</script> -->
+
+<%- include("../layouts/userPartials/footer.ejs") %>

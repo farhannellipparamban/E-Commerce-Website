@@ -1,164 +1,268 @@
+<%- include("../layouts/userPartials/header.ejs") %>
 
-  <%- include("../layouts/userPartials/header.ejs") %>
+  <style>
+    /* Add your custom styles here */
+    .cart_area {
+      padding: 30px 0;
+    }
+
+    .cart_area table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cart_area th,
+    .cart_area td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .cart_area th {
+      background-color: #f2f2f2;
+    }
+
+    .cart_area img {
+      max-width: 80px;
+    }
+
+    .product_count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    .genric-btn {
+      padding: 8px 15px;
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .genric-btn.primary-border {
+      color: #007bff;
+      margin: 5px;
+    }
+
+    .genric-btn.primary-border:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .genric-btn.danger-border {
+      color: #dc3545;
+    }
+
+    .genric-btn.dark-border {
+      border-color: black;
+    }
+
+    .genric-btn.danger-border:hover {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .checkout_btn_inner {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .checkout_btn_1,
+    .checkout_btn_2 {
+      padding: 12px 30px;
+      font-size: 16px;
+      text-transform: uppercase;
+      border-radius: 50px;
+      transition: background-color 0.3s;
+      font-weight: bold;
+    }
+
+    .checkout_btn_1 {
+      /* background-color: #007bff; */
+      border: none;
+      border: 2px solid #007bff;
+      color: #007bff;
+      background-color: transparent;
+    }
+
+    .checkout_btn_1:hover {
+      background-color: #0056b3;
+      color: #fff;
+    }
+
+    .checkout_btn_2 {
+      border: 2px solid #007bff;
+      color: #007bff;
+      background-color: transparent;
+    }
+
+    .checkout_btn_2:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
 
   <main>
-      <!-- Hero Area Start-->
-      <div class="slider-area ">
-          <div class="single-slider slider-height2 d-flex align-items-center">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-xl-12">
-                          <div class="hero-cap text-center">
-                              <h2>Cart List</h2>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--================Cart Area =================-->
-      <section class="cart_area section_padding">
+    <!-- Hero Area Start-->
+    <div class="slider-area">
+      <div class="single-slider slider-height2 d-flex align-items-center">
         <div class="container">
-          <div class="cart_inner">
-            <div class="table-responsive">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="hero-cap text-center">
+                <h2>Cart List</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--================Cart Area =================-->
+    <section class="cart_area section_padding">
+      <div class="container">
+        <div class="cart_inner">
+          <div class="table-responsive">
+            <% if(typeof products !=="undefined" ){ %>
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">Product</th>
-                    <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="assets/img/gallery/card1.png" alt="" />
+                  <%products.forEach((value,index)=>{%>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="d-flex">
+                            <img src="/assets/IMAGES/<%= value.productId.image[0]%>" alt="" />
+                          </div>
+                          <div class="media-body">
+                            <p>
+                              <%= value.productId.name%>
+                            </p>
+                          </div>
                         </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                        <input class="input-number" type="text" value="1" min="0" max="10">
-                        <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="assets/img/gallery/card2.png" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                          <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                          <input class="input-number" type="text" value="1" min="0" max="10">
-                          <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
-                  <tr class="bottom_button">
-                    <td>
-                      <a class="btn_1" href="#">Update Cart</a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Close Coupon</a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Subtotal</h5>
-                    </td>
-                    <td>
-                      <h5>$2160.00</h5>
-                    </td>
-                  </tr>
-                  <tr class="shipping_area">
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Shipping</h5>
-                    </td>
-                    <td>
-                      <div class="shipping_box">
-                        <ul class="list">
-                          <li>
-                            Flat Rate: $5.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Free Shipping
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Flat Rate: $10.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li class="active">
-                            Local Delivery: $2.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                        </ul>
-                        <h6>
-                          Calculate Shipping
-                          <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </h6>
-                        <select class="shipping_select">
-                          <option value="1">Bangladesh</option>
-                          <option value="2">India</option>
-                          <option value="4">Pakistan</option>
-                        </select>
-                        <select class="shipping_select section_bg">
-                          <option value="1">Select a State</option>
-                          <option value="2">Select a State</option>
-                          <option value="4">Select a State</option>
-                        </select>
-                        <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                        <a class="btn_1" href="#">Update Details</a>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                      <td class="product_count" colspan="2" style="display: flex">
+                        <button type="button" class="genric-btn primary-border small"
+                          onclick="changeQuantity('<%= value.productId._id %>', -1)">
+                          -
+                        </button>
+                        <span id="<%= value.productId._id %>" name="count"
+                          class="genric-btn dark-border small quantity input-number">
+                          <%= value.quantity %>
+                        </span>
+                        <button type="button" class="genric-btn primary-border small"
+                          onclick="changeQuantity('<%= value.productId._id %>', 1)">
+                          +
+                        </button>
+                      </td>
+                      <td>
+                        <h5 id="price">
+                          <%=value.productId.price%>
+                        </h5>
+                      </td>
+                      <td>
+                        <a href="/deleteCart?id=<%= value.productId._id%>"
+                          class="genric-btn danger-border small">Remove</a>
+                      </td>
+                    </tr>
+                    <%})%>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <h5>Subtotal</h5>
+                        </td>
+                        <td>
+                          <h5 id="total">
+                            <%=Total%>
+                          </h5>
+                        </td>
+                      </tr>
+                      <tr class="shipping_area">
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <!-- <h5>Shipping</h5> -->
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <!-- <div class="shipping_box">
+                            <ul class="list">
+                              <li>
+                                Flat Rate: ₹5.00<input type="radio"
+                                  aria-label="Radio button for following text input" />
+                              </li>
+                              <li>
+                                Free Shipping<input type="radio" aria-label="Radio button for following text input" />
+                              </li>
+                              <li>
+                                Flat Rate: ₹10.00<input type="radio"
+                                  aria-label="Radio button for following text input" />
+                              </li>
+                              <li class="active">
+                                Local Delivery: ₹2.00<input type="radio"
+                                  aria-label="Radio button for following text input" />
+                              </li>
+                            </ul>
+                          </div> -->
+                        </td>
+                      </tr>
                 </tbody>
               </table>
-              <div class="checkout_btn_inner float-right">
-                <a class="btn_1" href="#">Continue Shopping</a>
-                <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+              <div class="checkout_btn_inner">
+                <a class="genric-btn checkout_btn_1" href="/checkout">Proceed to checkout</a>
+                <a class="genric-btn checkout_btn_2" href="./shop">Continue Shopping</a>
               </div>
-            </div>
+              <% }else{ %>
+                <h1>Your Cart is empty</h1>
+                <div class="checkout_btn_inner">
+                  <a class="genric-btn checkout_btn_2" href="./shop">Go To Shop</a>
+                </div>
+                <% } %>
           </div>
-      </section>
-      <!--================End Cart Area =================-->
-  </main>>
- 
+        </div>
+      </div>
+    </section>
+    <!--================End Cart Area =================-->
+  </main>
+
+  <script>
+    function changeQuantity(proId, count) {
+      let quantity = parseInt(document.getElementById(proId).innerHTML);
+      count = parseInt(count);
+      quantity = parseInt(quantity);
+      $.ajax({
+        url: "/cartqntincrease",
+        data: {
+          product: proId,
+          count: count,
+          quantity: quantity,
+        },
+        method: "post",
+        success: (response) => {
+          if (response.removeProduct) {
+            alert("Product removed from cart");
+            location.reload();
+          } else {
+            document.getElementById(proId).innerHTML = quantity + count;
+          }
+        },
+      });
+    }
+  </script>
 
   <%- include("../layouts/userPartials/footer.ejs") %>

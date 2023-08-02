@@ -85,6 +85,20 @@ const deleteaddress = async (req, res) => {
   }
 };
 
+const deleteaddressCheckout = async (req, res) => {
+  try {
+    const id = req.query.id;
+    await user_address.updateOne(
+      { user: req.session.user_id },
+      { $pull: { address: { _id: id } } }
+    );
+    res.redirect("/checkout");
+    // res.json({ remove: true });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 //edit Address get
 const editAddress = async (req, res) => {
   try {
@@ -152,10 +166,119 @@ const updateAddress = async (req, res) => {
   }
 };
 
+//address checkout
+const verifyAddresscheck = async (req, res) => {
+  try {
+    const user = req.session.user_id;
+
+    const userData = await User.findOne({ _id: req.session.user_id });
+    const dataaddress = await user_address.findOne({
+      user: req.session.user_id,
+    });
+    if (dataaddress) {
+      const update = await user_address.updateOne(
+        { user: user },
+        {
+          $push: {
+            address: {
+              fname: req.body.fname,
+              sname: req.body.sname,
+              mobile: req.body.mobile,
+              email: req.body.email,
+              address: req.body.address,
+              city: req.body.city,
+              pin: req.body.pin,
+            },
+          },
+        }
+      );
+      res.redirect("/checkout");
+    } else {
+      const data = new user_address({
+        user: userData._id,
+        address: [
+          {
+            fname: req.body.fname,
+            sname: req.body.sname,
+            mobile: req.body.mobile,
+            email: req.body.email,
+            address: req.body.address,
+            city: req.body.city,
+            pin: req.body.pin,
+          },
+        ],
+      });
+      const addressData = await data.save();
+
+      if (addressData) {
+        res.redirect("/checkout");
+      } else {
+        res.render("addAddress");
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//edit post checkout
+const posteditaddresscheck = async (req, res) => {
+  try {
+    const index = req.body.index;
+    const fname = req.body.fname;
+    const sname = req.body.sname;
+    const email = req.body.email;
+    const mobile = req.body.mobile;
+    const address = req.body.address;
+    const city = req.body.city;
+    const pin = req.body.pin;
+
+    if (
+      fname.trim().length == 0 ||
+      sname.trim().length == 0 ||
+      mobile.trim().length == 0 ||
+      email.trim().length == 0 ||
+      address.trim().length == 0 ||
+      city.trim().length == 0 ||
+      pin.trim().length == 0
+    ) {
+      res.redirect("/myacco");
+    } else {
+      const dataeditaddress = await user_address.findOne({
+        user: req.session.user_id,
+      });
+      if (dataeditaddress) {
+        const update = await user_address.updateOne(
+          { user: req.session.user_id },
+          {
+            $set: {
+              [`address.${index}`]: {
+                fname: req.body.fname,
+                sname: req.body.sname,
+                email: req.body.email,
+                mobile: req.body.mobile,
+                address: req.body.address,
+                city: req.body.city,
+                pin: req.body.pin,
+              },
+            },
+          }
+        );
+      }
+      res.redirect("/checkout");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   addressLoad,
   verifyAddress,
   deleteaddress,
   editAddress,
   updateAddress,
+  verifyAddresscheck,
+  posteditaddresscheck,
+  deleteaddressCheckout,
 };

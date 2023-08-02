@@ -1,293 +1,301 @@
 <%- include("../layouts/userPartials/header.ejs") %>
-<style>
-  /* Add your custom styles here */
+  <style>
+    /* Add your custom styles here */
 
-  /* Hero Area */
-  .hero-area {
-    background: url("/path/to/hero-image.jpg") no-repeat center;
-    background-size: cover;
-    padding: 200px 0;
-    color: #b43333;
-    text-align: center;
-    background: #e0e0e0;
-  }
+    /* Hero Area */
+    .hero-area {
+      background: url("/path/to/hero-image.jpg") no-repeat center;
+      background-size: cover;
+      padding: 200px 0;
+      color: #b43333;
+      text-align: center;
+      background: #e0e0e0;
+    }
 
-  .hero-content h2 {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
+    .hero-content h2 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-  /* Breadcrumb Area */
-  .breadcrumb-area {
-    padding: 20px 0;
-    background-color: #e6e6e6;
-  }
+    /* Breadcrumb Area */
+    .breadcrumb-area {
+      padding: 20px 0;
+      background-color: #e6e6e6;
+    }
 
-  .breadcrumb-content h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #000000;
-  }
+    .breadcrumb-content h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #000000;
+    }
 
-  .breadcrumb-content nav {
-    font-size: 16px;
-  }
+    .breadcrumb-content nav {
+      font-size: 16px;
+    }
 
-  /* Single Product Area */
-  .single-product-area {
-    margin-top: 50px;
-  }
+    /* Single Product Area */
+    .single-product-area {
+      margin-top: 50px;
+    }
 
-  .product-carousel .single-product-item img {
-    max-width: 100%;
-  }
+    .product-carousel .single-product-item img {
+      max-width: 100%;
+    }
 
-  .product-info h3 {
-    font-size: 38px;
-    font-weight: bold;
-    margin-bottom: 35px;
-  }
+    .product-info h3 {
+      font-size: 38px;
+      font-weight: bold;
+      margin-bottom: 35px;
+    }
 
-  .product-info h2 {
-    font-size: 36px;
-    font-weight: bold;
-    color: #092399;
-    margin-bottom: 15px;
-  }
+    .product-info h2 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #092399;
+      margin-bottom: 15px;
+    }
 
-  .product-info ul.list {
-    margin-bottom: 20px;
-  }
+    .product-info ul.list {
+      margin-bottom: 20px;
+    }
 
-  .product-info ul.list li {
-    font-size: 16px;
-    color: #000000;
-    margin-bottom: 5px;
-  }
+    .product-info ul.list li {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 5px;
+    }
 
-  .product-info p {
-    font-size: 16px;
-    color: #000000;
-    margin-bottom: 20px;
-  }
+    .product-info p {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 20px;
+    }
 
-  .product-actions {
-    display: flex;
-    align-items: center;
-  }
+    .product-actions {
+      display: flex;
+      align-items: center;
+    }
 
-  .quantity {
-    margin-right: 20px;
-  }
+    .quantity {
+      margin-right: 20px;
+    }
 
-  .quantity input {
-    width: 70px;
-    height: 50px;
-    text-align: center;
-  }
+    .quantity input {
+      width: 70px;
+      height: 50px;
+      text-align: center;
+    }
 
-  /* Subscribe Part */
-  .subscribe-part {
-    padding: 50px 0;
-    background-color: #191d4d;
-    text-align: center;
-    margin-top: 30px;
-  }
+    /* Subscribe Part */
+    .subscribe-part {
+      padding: 50px 0;
+      background-color: #191d4d;
+      text-align: center;
+      margin-top: 30px;
+    }
 
-  .subscribe-content h2 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #ffffff;
-  }
+    .subscribe-content h2 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
 
-  .subscribe-content p {
-    font-size: 16px;
-    color: #ffffff;
-    margin-bottom: 30px;
-  }
+    .subscribe-content p {
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
 
-  .subscribe-form input {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 30px;
-    background-color: #f1d7d7;
-  }
+    .subscribe-form input {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 30px;
+      background-color: #f1d7d7;
+    }
 
-  .subscribe-form .btn_1 {
-    padding: 12px 25px;
-    border: none;
-    background-color: #ff0000;
-    color: #ffffff;
-    border-radius: 30px;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-  }
+    .subscribe-form .btn_1 {
+      padding: 12px 25px;
+      border: none;
+      background-color: #ff0000;
+      color: #ffffff;
+      border-radius: 30px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+    }
 
-  .subscribe-form .btn_1:hover {
-    background-color: #222;
-  }
-</style>
-<main>
-  <!-- Hero Area Start -->
-  <section class="hero-area">
-    <div class="container">
-      <div class="hero-content">
-        <h2>Product Details</h2>
+    .subscribe-form .btn_1:hover {
+      background-color: #222;
+    }
+
+    /* Custom styles for carousel buttons */
+  </style>
+  <main>
+    <!-- Hero Area Start -->
+    <section class="hero-area">
+      <div class="container">
+        <div class="hero-content">
+          <h2>Product Details</h2>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Hero Area End -->
+    <!-- Hero Area End -->
 
-  <!-- Breadcrumb Area Start -->
-  <section class="breadcrumb-area">
-    <div class="container">
-      <div class="breadcrumb-content">
-        <h1><%= data.name %></h1>
-        <nav>
-          <a href="/">Home</a>
-          <span class="lnr lnr-arrow-right"></span>
-          <a href="/shop">Shop</a>
-          <span class="lnr lnr-arrow-right"></span>
-          <a href="#">Product Details</a>
-        </nav>
+    <!-- Breadcrumb Area Start -->
+    <section class="breadcrumb-area">
+      <div class="container">
+        <div class="breadcrumb-content">
+          <h1>
+            <%= data.name %>
+          </h1>
+          <nav>
+            <a href="/">Home</a>
+            <span class="lnr lnr-arrow-right"></span>
+            <a href="/shop">Shop</a>
+            <span class="lnr lnr-arrow-right"></span>
+            <a href="#">Product Details</a>
+          </nav>
+        </div>
       </div>
-    </div>
-  </section>
-  <!-- Breadcrumb Area End -->
+    </section>
+    <!-- Breadcrumb Area End -->
 
-  <!-- Single Product Area Start -->
-  <section class="single-product-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="product-carousel">
-            <div
-              id="product-carousel"
-              class="carousel slide"
-              data-ride="carousel"
-            >
-              <div class="carousel-inner">
-                <% data.image.forEach((image, index) => { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img
-                    class="zoom-image"
-                    src="/assets/IMAGES/<%= image %>"
-                    alt="<%= data.name %>"
-                    data-zoom-image="/assets/IMAGES/<%= image %>"
-                  />
-                  <div
-                    id="zoomContainer_<%= index %>"
-                    class="zoomContainer"
-                  ></div>
+    <!-- Single Product Area Start -->
+    <section class="single-product-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="product-carousel">
+              <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <% data.image.forEach((image, index)=> { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                      <img class="zoom-image" src="/assets/IMAGES/<%= image %>" alt="<%= data.name %>"
+                        data-zoom-image="/assets/IMAGES/<%= image %>">
+                      <div id="zoomContainer_<%= index %>" class="zoomContainer"></div>
+                    </div>
+                    <% }); %>
                 </div>
-                <% }); %>
+                <a class="carousel-control-prev" href="#product-carousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
               </div>
-              <a
-                class="carousel-control-prev"
-                href="#product-carousel"
-                role="button"
-                data-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a
-                class="carousel-control-next"
-                href="#product-carousel"
-                role="button"
-                data-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="product-info">
-            <h3><%= data.name %></h3>
-            <h2>₹ <%= data.price %></h2>
-            <ul class="list">
-              <li><span>Category</span>: <%= data.category %></li>
-              <li>
-                <span>Availability</span>: <% if (data.stock > 0) { %> In Stock
-                <% } else { %> Out of stock <% } %>
-              </li>
-            </ul>
-            <p><%= data.description %></p>
-            <div class="product-actions">
-              <div class="quantity">
-                <input
-                  class="input-number"
-                  type="number"
-                  value="1"
-                  min="1"
-                  max="10"
-                />
+          <div class="col-lg-6">
+            <div class="product-info">
+              <h3>
+                <%= data.name %>
+              </h3>
+              <h2>₹ <%= data.price %>
+              </h2>
+              <ul class="list">
+                <li><span>Category</span>: <%= data.category %>
+                </li>
+                <li>
+                  <span>Availability</span>: <% if (data.stock> 0) { %> In Stock
+                    <% } else { %> Out of stock <% } %>
+                </li>
+              </ul>
+              <p>
+                <%= data.description %>
+              </p>
+              <div class="product-actions">
+                <div class="quantity">
+                  <input class="input-number" type="number" value="1" min="1" max="10" />
+                </div>
+                <div class="add_to_cart">
+                  <button type="submit" onclick="addToCart('<%=data._id%>')" class="btn btn-danger">add to cart</button>
+                </div>
+                <!-- <a href="/cart" class="btn_1">Add to Cart</a> -->
               </div>
-              <a href="/cart" class="btn_1">Add to Cart</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- Single Product Area End -->
+    </section>
+    <!-- Single Product Area End -->
 
-  <!-- Subscribe Part Start -->
-  <section class="subscribe-part">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="subscribe-content">
-            <h2>Get promotions & updates!</h2>
-            <p>
-              Seamlessly empower fully researched growth strategies and
-              interoperable internal or “organic” sources credibly innovate
-              granular internal.
-            </p>
-            <div class="subscribe-form">
-              <input type="email" placeholder="Enter your email" />
-              <a href="#" class="btn_1">Subscribe</a>
+    <!-- Subscribe Part Start -->
+    <section class="subscribe-part">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="subscribe-content">
+              <h2>Get promotions & updates!</h2>
+              <p>
+                Seamlessly empower fully researched growth strategies and
+                interoperable internal or “organic” sources credibly innovate
+                granular internal.
+              </p>
+              <div class="subscribe-form">
+                <input type="email" placeholder="Enter your email" />
+                <a href="#" class="btn_1">Subscribe</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- Subscribe Part End -->
-</main>
-<%- include("../layouts/userPartials/footer.ejs") %>
+    </section>
+    <!-- Subscribe Part End -->
+  </main>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
 
-<script>
-  $(document).ready(function () {
-    // Iterate through each image and apply zoom functionality
-    $(".zoom-image").each(function (index) {
-      // Create a unique ID for the zoom container for each image
-      var zoomContainerId = "zoomContainer_" + index;
-      $(this).attr("data-zoom-image", $(this).attr("src")); // Set the data-zoom-image attribute to the image src
+  <script>
+    $(document).ready(function () {
+      // Iterate through each image and apply zoom functionality
+      $(".zoom-image").each(function (index) {
+        // Create a unique ID for the zoom container for each image
+        var zoomContainerId = "zoomContainer_" + index;
+        $(this).attr("data-zoom-image", $(this).attr("src")); // Set the data-zoom-image attribute to the image src
 
-      $(this).elevateZoom({
-        zoomType: "inner",
-        cursor: "crosshair",
-        zoomWindowFadeIn: 300,
-        zoomWindowFadeOut: 300,
-        scrollZoom: true,
-        zoomContainer: zoomContainerId, // Use the unique ID for the zoom container
+        $(this).elevateZoom({
+          zoomType: "inner",
+          cursor: "crosshair",
+          zoomWindowFadeIn: 300,
+          zoomWindowFadeOut: 300,
+          scrollZoom: true,
+          zoomContainer: zoomContainerId, // Use the unique ID for the zoom container
+        });
       });
     });
-  });
-</script>
+  </script>
+
+  <script>
+    function addToCart(id) {
+      console.log(id);
+      $.ajax({
+        url: '/addtocart',
+        method: "post",
+        encoded: true,
+        data: {
+          id: id,
+        },
+      }).done((data) => {
+        if (data.success) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Product added to cart',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
+
+    }
+
+
+  </script>
+
+  <%- include("../layouts/userPartials/footer.ejs") %>

@@ -119,7 +119,7 @@
                   </a>
 
                   <div class="img-cap">
-                    <span><a href="/cart">Add to cart</a></span>
+                    <button type="submit" onclick="addToCart('<%=product._id%>')" class="btn btn-danger">add to cart</button>
                   </div>
                 </div>
                 <div class="popular-caption">
@@ -173,6 +173,31 @@
   <!-- Shop Method End-->
 
   <script>
+
+    function addToCart(id){
+          console.log(id);
+          $.ajax({
+              url:'/addtocart',
+              method:"post",
+              encoded:true,
+              data:{
+                  id:id,
+              },
+          }).done((data)=>{
+              if (data.success){
+                  Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Product added to cart',
+                  showConfirmButton: false,
+                  timer: 1500
+                  })
+              }
+          })
+
+      }
+
+
     // Your JavaScript code for handling product filters
 
     // Function to fetch filtered products based on selected brand and gender

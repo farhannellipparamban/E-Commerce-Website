@@ -1,0 +1,86 @@
+<%- include("../layouts/userPartials/header.ejs") %>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+  body {
+    background-color: #eee;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+  }
+  .cart {
+    height: 100vh;
+  }
+  .progresses {
+    display: flex;
+    align-items: center;
+  }
+  .line {
+    width: 76px;
+    height: 6px;
+    background: #63d19e;
+  }
+  .steps {
+    display: flex;
+    background-color: #63d19e;
+    color: #fff;
+    font-size: 12px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .check1 {
+    display: flex;
+    background-color: #63d19e;
+    color: #fff;
+    font-size: 17px;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  .invoice-link {
+    font-size: 15px;
+  }
+  .order-button {
+    height: 50px;
+  }
+  .background-muted {
+    background-color: #fafafc;
+  }
+</style>
+
+<div class="container mt-4 mb-4">
+  <div class="row d-flex cart align-items-center justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-6 border-right p-5">
+            <div class="text-center order-details">
+              <div
+                class="d-flex justify-content-center mb-5 flex-column align-items-center"
+              >
+                <span class="check1"><i class="fa fa-check"></i></span>
+                <span class="font-weight-bold">Order Confirmed</span>
+                <small class="mt-2">Thank You</small>
+                <a href="#" class="text-decoration-none invoice-link"
+                  >View Invoice</a
+                >
+              </div>
+              <a href="/orderlist"
+                ><button class="btn btn-danger btn-block order-button">
+                  View Yor Orders
+                </button></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<%- include("../layouts/userPartials/footer.ejs") %>
+

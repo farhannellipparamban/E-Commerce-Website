@@ -55,7 +55,11 @@ admin_route.get('/productUnblock',adminAuth.isLogin,productController.productUnb
 // admin_route.get('/products/gender/:gender', productController.filterGender);
 
 //order_details
-admin_route.get('/ordersList',adminAuth.isLogin,adminController.orderDetails)
+admin_route.get('/orderDetails',adminAuth.isLogin,adminController.orderDetails)
+admin_route.get("/orderStatus",adminAuth.isLogin,adminController.orderStatus)
+admin_route.get("/orderCancel",adminAuth.isLogin,adminController.orderCancelstatus)
+admin_route.get("/viewOrders",adminAuth.isLogin,adminController.orderView)
+admin_route.get("/orderDeliverd",adminAuth.isLogin,adminController.orderDeliverd)
 
 
 module.exports = admin_route

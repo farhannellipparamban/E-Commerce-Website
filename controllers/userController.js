@@ -3,10 +3,12 @@ const productdb = require("../models/prodectModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const user_address = require("../models/addressModel");
-const randomstring = require("randomstring")
-const dotenv=require('dotenv')
+const order = require("../models/orderModel");
+const randomstring = require("randomstring");
 
-dotenv.config()
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 let otp;
 let email2;
@@ -41,25 +43,25 @@ const sendVerifymail = async (name, email, otp) => {
       to: email,
       subject: "For OTP verification",
       html:
-      "<div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>"+
-      "<div style='margin:50px auto;width:70%;padding:20px 0'>"+
-        "<div style='border-bottom:1px solid #eee'>"+
-         "<a href='' style='font-size:1.4em;color: #f30d0d;text-decoration:none;font-weight:600'>CLOC<a style='color: #f30d0d;'></a>KSY</a>"+
-        "</div>"+
-        "<p style='font-size:1.1em'>Hi,</p>"+
-        "<p>Thank you for choosing Clocksy. Use the following OTP to complete your Sign Up procedures. OTP is valid for few minutes</p>"+
-        "<h2 style='background:#f30d0d;margin: 0 auto;width: max-content;padding: 0 10px;color: white;border-radius: 4px;'>"+
-        +otp+
-        "</h2>"+
-        "<p style='font-size:0.9em;'>Regards,<br />Clocksy</p>"+
-        "<hr style='border:none;border-top:1px solid #eee' />"+
-        "<div style='float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300'>"+
-          "<p>Clocksy Eco</p>"+
-          "<p>1600 Ocean Of Heaven</p>"+
-          "<p>Pacific</p>"+
-        "</div>"+
-      "</div>"+
-    "</div>"
+        "<div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>" +
+        "<div style='margin:50px auto;width:70%;padding:20px 0'>" +
+        "<div style='border-bottom:1px solid #eee'>" +
+        "<a href='' style='font-size:1.4em;color: #f30d0d;text-decoration:none;font-weight:600'>CLOC<a style='color: #f30d0d;'></a>KSY</a>" +
+        "</div>" +
+        "<p style='font-size:1.1em'>Hi,</p>" +
+        "<p>Thank you for choosing Clocksy. Use the following OTP to complete your Sign Up procedures. OTP is valid for few minutes</p>" +
+        "<h2 style='background:#f30d0d;margin: 0 auto;width: max-content;padding: 0 10px;color: white;border-radius: 4px;'>" +
+        +otp +
+        "</h2>" +
+        "<p style='font-size:0.9em;'>Regards,<br />Clocksy</p>" +
+        "<hr style='border:none;border-top:1px solid #eee' />" +
+        "<div style='float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300'>" +
+        "<p>Clocksy Eco</p>" +
+        "<p>1600 Ocean Of Heaven</p>" +
+        "<p>Pacific</p>" +
+        "</div>" +
+        "</div>" +
+        "</div>",
     };
 
     transporter.sendMail(mailOption, (error, info) => {
@@ -207,66 +209,72 @@ const verifyFromLogin = async (req, res) => {
 };
 
 //reset password send mail
-const resetsendVerifymail = async(name,email,token)=>{
-  try{
+const resetsendVerifymail = async (name, email, token) => {
+  try {
     const transporter = nodemailer.createTransport({
-      host:"smtp.gmail.com",
-      port:587,
-      securel:false,
-      requireTLS:true,
-      auth:{
+      host: "smtp.gmail.com",
+      port: 587,
+      securel: false,
+      requireTLS: true,
+      auth: {
         user: process.env.email,
         pass: process.env.password,
       },
     });
-    const mailOption={
-      from:process.env.email,
-      to:email,
-      subject:"For Reset Password",
+    const mailOption = {
+      from: process.env.email,
+      to: email,
+      subject: "For Reset Password",
       html:
         "<p>hi " +
         name +
-        ' ,please click here to<a href="https://tzwatches.shop/resetPassword?token=' +
+        ' ,please click here to<a href="http://localhost:3000/resetPassword?token=' +
         token +
         '">Reset</a> your password </p>',
     };
-    transporter.sendMail(mailOption,(error,info)=>{
-      if(error){
+    transporter.sendMail(mailOption, (error, info) => {
+      if (error) {
         console.log(error.message);
-      }else{
-        console.log("email has been send to:",info.response);
+      } else {
+        console.log("email has been send to:", info.response);
       }
-    })
-  }catch(error){
-    console.log(error.message);
-  }
-}
-
-//reset password get
-const resetPassword = async(req,res)=>{
-  try{
-    const token=req.query.token;
-    console.log(token);
-    const userData =await User.findOne({token:token});
-    res.render("resetPassword",{email:userData.email})
-  }catch(error){
-    console.log(error.message);
-  }
-}
-
-//reset password post
-const resetpassVerify = async(req,res)=>{
-  try {
-    const password = req.body.password;
-    const email =req.body.email
-
-    const spassword =await securePassword(password);
-    const updatedData = await User.findOneAndUpdate({email:email},{$set:{password:spassword,token:""}})
-    res.redirect("/")
+    });
   } catch (error) {
     console.log(error.message);
   }
-}
+};
+
+//reset password get
+const resetPassword = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const userData = await User.findOne({ token: token });
+    if (userData) {
+      res.render("resetPassword", { email: userData.email });
+    } else {
+      res.render("404", { message: "Invalid Token" });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//reset password post
+const resetpassVerify = async (req, res) => {
+  try {
+    const password = req.body.password;
+    const email = req.body.email;
+    console.log(email);
+    const spassword = await securePassword(password);
+    const updatedData = await User.findOneAndUpdate(
+      { email: email },
+      { $set: { password: spassword, token: "" } }
+    );
+    res.redirect("/");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 //forget password get
 
@@ -279,28 +287,32 @@ const forgetLoad = async (req, res) => {
 };
 
 //forget post
-const forgetSendEmail = async(req,res)=>{
-  try{
-  const email =req.body.email;
-  const userData =await User.findOne({email:email})
-  if(userData){
-    if(userData.is_verified==0){
-      res.render("forgetPassword",{message:"Email Not Verified"})
-    }else{
-      const randomString=randomstring.generate();
-      const updatedData = await User.updateOne({email:email},{$set:{token:randomString}})
-      const user = await User.findOne({email:email})
-      resetsendVerifymail("User", user.email,randomString);
-      res.render("forgetPassword",{message:"Please check your Mail for Reset your password"})
+const forgetSendEmail = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const userData = await User.findOne({ email: email });
+    if (userData) {
+      if (userData.is_verified == 0) {
+        res.render("forgetPassword", { message: "Email Not Verified" });
+      } else {
+        const randomString = randomstring.generate();
+        const updatedData = await User.updateOne(
+          { email: email },
+          { $set: { token: randomString } }
+        );
+        const user = await User.findOne({ email: email });
+        resetsendVerifymail("User", user.email, randomString);
+        res.render("forgetPassword", {
+          message: "Please check your Mail for Reset your password",
+        });
+      }
+    } else {
+      res.render("forgetPassword", { message: "Wrong Email Id" });
     }
-  }else{
-    res.render("forgetPassword",{message:"Wrong Email Id"})
+  } catch (error) {
+    console.log(error.message);
   }
-}catch(error){
-  console.log(error.message);
-}
-}
-
+};
 
 //home get
 const loadHome = async (req, res) => {
@@ -316,7 +328,7 @@ const loadHome = async (req, res) => {
 //logout get
 const userLogout = async (req, res) => {
   try {
-    req.session.user_id = false;
+    req.session.destroy();
     res.redirect("/login");
   } catch (error) {
     console.log(error.message);
@@ -366,33 +378,23 @@ const loadContact = async (req, res) => {
   }
 };
 
-//cart get
-const loadCart = async (req, res) => {
-  try {
-    const loadlogIn = req.session.user_id;
-    res.render("cart", { loadlogIn });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-//profile get
+// myAcco get route
 const myAcco = async (req, res) => {
   try {
     const loadlogIn = req.session.user_id;
-    const address = await user_address.findOne({ user: req.session.user_id });
-    const userd = await User.findOne({ _id: req.session.user_id });
+    const userAddress = await user_address.findOne({
+      user: req.session.user_id,
+    });
     const userData = await User.findOne({ _id: req.session.user_id });
-    if (address) {
-      res.render("myacco", {
-        loadlogIn,
-        user: userd.name,
-        data: userData,
-        address,
-      });
-    } else {
-      res.render("myacco", { loadlogIn, user: userd.name, data: userData });
-    }
+    const orders = await order.find({ user: req.session.user_id });
+
+    res.render("myacco", {
+      loadlogIn,
+      user: userData.name,
+      userData: userData,
+      userAddress: userAddress,
+      orders: orders,
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -405,40 +407,31 @@ const profilesubmit = async (req, res) => {
     const email = req.body.email;
     const mobile = req.body.mobile;
 
-    if (
-      name.trim().length == 0 ||
-      email.trim().length == 0 ||
-      mobile.trim().length == 0
-    ) {
+    const alreyMail = await User.findOne({ email: email });
+    if (alreyMail) {
+      await User.updateOne(
+        { _id: req.session.user_id },
+        {
+          $set: {
+            name: name,
+            mob: mobile,
+          },
+        }
+      );
       res.redirect("/myacco");
     } else {
-      const alreyMail = await User.findOne({ email: email });
-      if (alreyMail) {
-        await User.updateOne(
-          { _id: req.session.user_id },
-          {
-            $set: {
-              name: name,
-              mob: mobile,
-            },
-          }
-        );
-        res.redirect("/myacco");
-      } else {
-        const data = await User.updateOne(
-          { _id: req.session.user_id },
-          {
-            $set: {
-              name: name,
-              email: email,
-              mob: mobile,
-            },
-          }
-        );
-        console.log("hell0");
-        console.log(data);
-        res.redirect("/myacco");
-      }
+      const data = await User.updateOne(
+        { _id: req.session.user_id },
+        {
+          $set: {
+            name: name,
+            email: email,
+            mob: mobile,
+          },
+        }
+      );
+      console.log(data);
+      res.redirect("/myacco");
     }
   } catch (error) {
     console.log(error.message);
@@ -455,18 +448,6 @@ const loadWish = async (req, res) => {
   }
 };
 
-//checkout get
-
-// const loadCheckout =async(req,res)=>{
-//     try{
-//       const loadlogIn=req.session.user_id;
-//         res.render("checkout",{loadlogIn})
-//     }
-//     catch(error){
-//         console.log(error.message );
-//     }
-// }
-
 //confirmation get
 
 // const loadConfirmation =async(req,res)=>{
@@ -479,6 +460,14 @@ const loadWish = async (req, res) => {
 //     }
 // }
 
+const error404 = async (req, res) => {
+  try {
+    res.render("404");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   loadRegister,
   loadShoping,
@@ -486,9 +475,7 @@ module.exports = {
   loadAbout,
   loadContact,
   loadLogin,
-  loadCart,
   loadWish,
-  // loadCheckout,
   // loadConfirmation,
   productDetails,
   otpVerify,
@@ -503,4 +490,5 @@ module.exports = {
   userLogout,
   myAcco,
   profilesubmit,
+  error404,
 };

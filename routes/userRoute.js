@@ -14,6 +14,8 @@ user_route.set("views", "./views/users");
 //controllers
 const userController = require("../controllers/userController");
 const addressController = require("../controllers/addressController");
+const cartController = require("../controllers/cartController")
+const orderController = require("../controllers/orderController")
 
 //home
 user_route.get("/", userController.loadHome);
@@ -30,8 +32,8 @@ user_route.get("/forget", userAuth.isLogout, userController.forgetLoad);
 user_route.post("/forget",userController.forgetSendEmail)
 
 //reset
-user_route.get("/reset_password", userAuth.isLogout, userController.resetPassword);
-user_route.post("/reset",userAuth.isLogout,userController.resetpassVerify)
+user_route.get("/resetPassword",userAuth.isLogout, userController.resetPassword);
+user_route.post("/resetPassword",userAuth.isLogout,userController.resetpassVerify)
 
 //shop
 user_route.get("/shop", userController.loadShoping);
@@ -54,8 +56,21 @@ user_route.post("/otp", userController.otpValidation);
 user_route.get("/logout", userAuth.isLogin, userController.userLogout);
 
 //cart
-user_route.get("/cart", userController.loadCart);
+user_route.get("/cart",userAuth.isLogin,cartController.loadCart);
+user_route.post("/addtocart",userAuth.isLogin,cartController.addtoCart)
+user_route.get("/deleteCart",userAuth.isLogin,cartController.deleteCartitem)
+user_route.post("/cartqntIncrease", userAuth.isLogin, cartController.cartquantity);
+user_route.post("/cartqntincrease", userAuth.isLogin,cartController.totalproductPrice);
 
+// product Checkout
+user_route.get('/checkout', userAuth.isLogin, cartController.productCheckout);
+user_route.post('/checkout', cartController.placeTheOrderCOD);
+user_route.get("/orderplaced",userAuth.isLogin,cartController.orderPlaced)
+
+//order list
+user_route.get("/orderlist",userAuth.isLogin,orderController.orderlistLoad)
+user_route.get("/ordershow",userAuth.isLogin,orderController.showorderLoad)
+user_route.post("/cancelOrder",userAuth.isLogin,orderController.canceluserOrder)
 // wishlist
 user_route.get("/wishList", userController.loadWish);
 
@@ -70,8 +85,14 @@ user_route.get("/deleteAddress", addressController.deleteaddress);
 user_route.get("/editAddress", addressController.editAddress);
 user_route.post("/editAddress", addressController.updateAddress);
 
-//product_checkout
-// user_route.get("/checkout",userController.loadCheckout)
+
+user_route.get("/addAddresscheck",userAuth.isLogin,addressController.addressLoad)
+user_route.get("/deleteAddressCheckout", addressController.deleteaddressCheckout);
+user_route.post("/addAddresscheck",addressController.verifyAddresscheck)
+user_route.get("/editAddresscheck", addressController.editAddress);
+user_route.post('/editAddresscheck',addressController.posteditaddresscheck)
+
+
 
 //confirmation
 // user_route.get("/confirmation",userController.loadConfirmation)

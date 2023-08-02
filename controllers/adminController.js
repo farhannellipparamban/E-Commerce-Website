@@ -2,6 +2,8 @@ const User = require("../models/userModels");
 const bcrypt = require("bcrypt");
 const admin = require("../models/adminModel");
 const CatDB = require("../models/categoryModel");
+const order = require("../models/orderModel");
+const productDB = require("../models/prodectModel");
 
 const securePassword = async (password) => {
   try {
@@ -42,7 +44,6 @@ const verifyLogin = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
 
 //dashboard get
 const loadDashboard = async (req, res) => {
@@ -129,11 +130,77 @@ const unblockUser = async (req, res) => {
   }
 };
 
-//order_details listing get
+//orderDetails listing get
 const orderDetails = async (req, res) => {
   try {
-    // const orderData = await order.find();
-    res.render("ordersList");
+    const orderData = await order.find();
+    res.render("orderDetails", { orderData });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//order Status
+const orderStatus = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const orderData = await order.findById({ _id: id });
+    if (orderData.status === "pending") {
+      await order.updateOne({ _id: id }, { $set: { status: "placed" } });
+      res.redirect("/admin/orderDetails");
+    }
+    if (orderData.status === "placed") {
+      await order.updateOne({ _id: id }, { $set: { status: "pending" } });
+      res.redirect("/admin/orderDetails");
+    } else {
+      res.redirect("/admin/orderDetails");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//cancel order status
+const orderCancelstatus = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const orderData = await order.findById({ _id: id });
+    if (orderData) {
+      await order.updateOne({ _id: id }, { $set: { status: "canceled" } });
+      res.redirect("/admin/orderDetails");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const orderDeliverd = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const orderData = await order.findById({ _id: id });
+
+    if (orderData.status === "placed") {
+      await order.updateOne({ _id: id }, { $set: { status: "deliverd" } });
+      res.redirect("/admin/orderDetails");
+    } else {
+      res.redirect("/admin/orderDetails");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//orderView
+const orderView = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const orderData = await order
+      .findById({ _id: id })
+      .populate("product.productId");
+    const Catdata = await CatDB.find({ is_blocked: false });
+    const product = orderData.product;
+
+    res.render("orderView", { orderData, product, Catdata });
   } catch (error) {
     console.log(error.message);
   }
@@ -149,4 +216,8 @@ module.exports = {
   blockUser,
   unblockUser,
   orderDetails,
+  orderStatus,
+  orderCancelstatus,
+  orderDeliverd,
+  orderView,
 };

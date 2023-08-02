@@ -1,291 +1,418 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
-<main>
-  <!-- Hero Area Start-->
-  <div class="slider-area">
-    <div class="single-slider slider-height2 d-flex align-items-center">
+  <main>
+    <!-- Hero Area Start-->
+    <div class="slider-area ">
+      <div class="single-slider slider-height2 d-flex align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="hero-cap text-center">
+                <h2>Checkout</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_padding">
       <div class="container">
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="hero-cap text-center">
-              <h2>Checkout</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--================Checkout Area =================-->
-  <section class="checkout_area section_padding">
-    <div class="container">
-      <div class="returning_customer">
-        <div class="check_title">
-          <h2>
-            Returning Customer?
-            <a href="#">Click here to login</a>
-          </h2>
-        </div>
-        <p>
-          If you have shopped with us before, please enter your details in the
-          boxes below. If you are a new customer, please proceed to the Billing
-          & Shipping section.
-        </p>
-        <form
-          class="row contact_form"
-          action="#"
-          method="post"
-          novalidate="novalidate"
-        >
-          <div class="col-md-6 form-group p_star">
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              name="name"
-              value=" "
-            />
-            <span
-              class="placeholder"
-              data-placeholder="Username or Email"
-            ></span>
-          </div>
-          <div class="col-md-6 form-group p_star">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              value=""
-            />
-            <span class="placeholder" data-placeholder="Password"></span>
-          </div>
-          <div class="col-md-12 form-group">
-            <button type="submit" value="submit" class="btn_3">log in</button>
-            <div class="creat_account">
-              <input type="checkbox" id="f-option" name="selector" />
-              <label for="f-option">Remember me</label>
-            </div>
-            <a class="lost_pass" href="#">Lost your password?</a>
-          </div>
-        </form>
-      </div>
-      <div class="cupon_area">
-        <div class="check_title">
-          <h2>
-            Have a coupon?
-            <a href="#">Click here to enter your code</a>
-          </h2>
-        </div>
-        <input type="text" placeholder="Enter coupon code" />
-        <a class="tp_btn" href="#">Apply Coupon</a>
-      </div>
-      <div class="billing_details">
-        <div class="row">
-          <div class="col-lg-8">
-            <h3>Billing Details</h3>
-            <form
-              class="row contact_form"
-              action="#"
-              method="post"
-              novalidate="novalidate"
-            >
-              <div class="col-md-6 form-group p_star">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="first"
-                  name="name"
-                />
-                <span class="placeholder" data-placeholder="First name"></span>
-              </div>
-              <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" id="last" name="name" />
-                <span class="placeholder" data-placeholder="Last name"></span>
-              </div>
-              <div class="col-md-12 form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="company"
-                  name="company"
-                  placeholder="Company name"
-                />
-              </div>
-              <div class="col-md-6 form-group p_star">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="number"
-                  name="number"
-                />
-                <span
-                  class="placeholder"
-                  data-placeholder="Phone number"
-                ></span>
-              </div>
-              <div class="col-md-6 form-group p_star">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  name="compemailany"
-                />
-                <span
-                  class="placeholder"
-                  data-placeholder="Email Address"
-                ></span>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <select class="country_select">
-                  <option value="1">Country</option>
-                  <option value="2">Country</option>
-                  <option value="4">Country</option>
-                </select>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" id="add1" name="add1" />
-                <span
-                  class="placeholder"
-                  data-placeholder="Address line 01"
-                ></span>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" id="add2" name="add2" />
-                <span
-                  class="placeholder"
-                  data-placeholder="Address line 02"
-                ></span>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" id="city" name="city" />
-                <span class="placeholder" data-placeholder="Town/City"></span>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <select class="country_select">
-                  <option value="1">District</option>
-                  <option value="2">District</option>
-                  <option value="4">District</option>
-                </select>
-              </div>
-              <div class="col-md-12 form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="zip"
-                  name="zip"
-                  placeholder="Postcode/ZIP"
-                />
-              </div>
-              <div class="col-md-12 form-group">
-                <div class="creat_account">
-                  <input type="checkbox" id="f-option2" name="selector" />
-                  <label for="f-option2">Create an account?</label>
-                </div>
-              </div>
-              <div class="col-md-12 form-group">
-                <div class="creat_account">
-                  <h3>Shipping Details</h3>
-                  <input type="checkbox" id="f-option3" name="selector" />
-                  <label for="f-option3">Ship to a different address?</label>
-                </div>
-                <textarea
-                  class="form-control"
-                  name="message"
-                  id="message"
-                  rows="1"
-                  placeholder="Order Notes"
-                ></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="col-lg-4">
-            <div class="order_box">
-              <h2>Your Order</h2>
-              <ul class="list">
-                <li>
-                  <a href="#"
-                    >Product
-                    <span>Total</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#"
-                    >Fresh Blackberry
-                    <span class="middle">x 02</span>
-                    <span class="last">$720.00</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#"
-                    >Fresh Tomatoes
-                    <span class="middle">x 02</span>
-                    <span class="last">$720.00</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#"
-                    >Fresh Brocoli
-                    <span class="middle">x 02</span>
-                    <span class="last">$720.00</span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="list list_2">
-                <li>
-                  <a href="#"
-                    >Subtotal
-                    <span>$2160.00</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#"
-                    >Shipping
-                    <span>Flat rate: $50.00</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#"
-                    >Total
-                    <span>$2210.00</span>
-                  </a>
-                </li>
-              </ul>
-              <div class="payment_item">
-                <div class="radion_btn">
-                  <input type="radio" id="f-option5" name="selector" />
-                  <label for="f-option5">Check payments</label>
-                  <div class="check"></div>
-                </div>
-                <p>
-                  Please send a check to Store Name, Store Street, Store Town,
-                  Store State / County, Store Postcode.
-                </p>
-              </div>
-              <div class="payment_item active">
-                <div class="radion_btn">
-                  <input type="radio" id="f-option6" name="selector" />
-                  <label for="f-option6">Paypal </label>
-                  <img src="img/product/single-product/card.jpg" alt="" />
-                  <div class="check"></div>
-                </div>
-                <p>
-                  Please send a check to Store Name, Store Street, Store Town,
-                  Store State / County, Store Postcode.
-                </p>
-              </div>
-              <div class="creat_account">
-                <input type="checkbox" id="f-option4" name="selector" />
-                <label for="f-option4">I’ve read and accept the </label>
-                <a href="#">terms & conditions*</a>
-              </div>
-              <a class="btn_3" href="#">Proceed to Paypal</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--================End Checkout Area =================-->
-</main>
+        <div class="order_box col-lg-4">
 
+          <h2>Coupon</h2>
+
+          <label for="coupon"></label>
+          <input type="text" name="code" id="code" placeholder="Enter Coupon code" required>
+          <button class=" genric-btn success circle arrow" onclick="applycoupon($('#code').val())">apply</button>
+          <br>
+          <br>
+          <h2> wallet</h2>
+          <h6 id="walletbalance">
+            <%=userd.wallet%>
+          </h6>
+
+
+
+          <label for="wal"></label>
+          <input type="text" name="wal" id="wal" placeholder="Enter Wallet Amount" required>
+          <button class=" genric-btn success circle arrow" onclick="walamount($('#wal').val())">Add</button>
+
+
+        </div>
+        <br>
+
+        <div class="billing_details">
+          <div class="row">
+            <div class="col-lg-8">
+              <h3>Billing Address</h3>
+
+              <hr>
+
+              <!-- <a class="btn_3" href="./user_profile">ADD ADDRESS</a> -->
+
+              <a class="btn_3" href="/addAddresscheck">ADD ADDRESS</a> <br><br>
+
+
+              <form id="checkout">
+
+                <% if(typeof address !=="undefined" ){%>
+
+                  <div style="width:auto;height:auto" class="order_box">
+
+                    <% address.forEach((value,index)=>{%>
+
+                      <input class="form-check-input" name="address" type="radio" value="  <%= value.fname%> <%= value.sname %> 
+                      <%= value.address %>
+                        <%= value.mobile %> 
+                         <%= value.email%>
+                         <%= value.city%>
+                         <%= value.pin %>" id="flexCheckDefault" required> <br>
+                      <label class="form-check-label" for="flexCheckDefault">
+
+                        Name: &nbsp; <%= value.fname%>
+                          <%=value.sname%> <br>
+                            Address:&nbsp; <%=value.address%><br>
+                              Phone: &nbsp; <%= value.mobile%><br>
+                                Email: &nbsp; <%=value.email%><br>
+                                City: &nbsp; <%=value.city%><br>
+                                  PIN: &nbsp; <%= value.pin%><br>
+
+
+                      </label>
+                      <br>
+                      <div style="display: flex;">
+
+
+                        <div>
+                          <a class="genric-btn danger-border circle arrow"
+                            href="/editAddresscheck?id=<%=value._id%>&index=<%=index%>">Edit</a>
+
+                        </div>
+                        <div style="margin-left: 10px;">
+
+                          <a class="genric-btn danger-border circle arrow"
+                            href="/deleteAddressCheckout?id=<%=value._id%>">Delete</a>
+
+
+
+                        </div>
+                      </div>
+
+                      <hr>
+                      <% })%>
+                  </div>
+                  <% }%>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="order_box">
+                <h2>Your Order Payement Deatails</h2>
+
+                <ul class="list list_2">
+                  <li>
+                    <a>Subtotal
+
+                      <span id="total2">
+                        <%= Total%>
+                      </span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <div class="switch-wrap d-flex justify-content-between">
+                      <input type="hidden" name="wallet" id="" value="<%= userd.wallet%>"> <a>Wallet</a>
+                      <h6 id="wallet">
+
+                      </h6>
+
+                      <!-- <div class="form-check">
+                        <label class="form-check-label ">
+                          <input type="checkbox" class="form-check-input" value="" id="" >
+                        </label>
+                      </div> -->
+                    </div>
+
+                  </li>
+                  <li>
+                    <a>CouponAmount
+                      <span id="coupon"></span>
+                    </a>
+
+                  </li>
+
+                  <input type="hidden" name="grand" id="hide" value="<%= Total - userd.wallet %>">
+                  <li>
+
+                    <a>grandTotal
+                      <span id="total1">
+                        <%=grandTotal%>
+                      </span>
+                    </a>
+
+                  </li>
+                </ul>
+
+                <div>
+
+                  <input type="radio" name="Payment" value="COD" required>
+                  <label for="Payement">COD</label>
+                </div>
+                <div>
+                  <input type="radio" name="Payment" value="online" required>
+                  <label for="Payement">Online</label>
+                </div>
+                <button class="btn_3" type="submit">Place order</button>
+                </form>
+
+                <br>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Checkout Area =================-->
+  </main>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+  <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+
+
+  <script>
+    $("#checkout").submit((e) => {
+
+      const amount = document.getElementById("total1").innerHTML;
+      const amount2 = document.getElementById("total2").innerHTML;
+      const walletamount = document.getElementById("wallet").innerHTML;
+      const coupon1 = document.getElementById('coupon').innerHTML;
+      const grand1 = amount2 - hide
+      let address = $("input[name=address]:checked").val();
+      let payment = $("input[name=Payment]:checked").val();
+
+
+      console.log(amount);
+      console.log(address)
+      console.log(payment)
+      e.preventDefault();
+      $.ajax({
+        url: "/checkout",
+        method: "post",
+        data: {
+          amount: amount,
+          total: amount2,
+          address: address,
+          payment: payment,
+          wallet: walletamount,
+          coupon: coupon1
+        },
+        success: (response) => {
+          if (response.codsuccess) {
+            location.href = "/orderplaced";
+          } else {
+            razorpayPayment(response.order);
+          }
+        }
+      })
+    })
+
+    // function razorpayPayment(order) {
+
+    //   var options = {
+    //     "key": "rzp_test_QK6YRj6TBJfBBw", // Enter the Key ID generated from the Dashboard
+    //     "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    //     "currency": "INR",
+    //     "name": "TZ watches", //your business name
+    //     "description": "Test Transaction",
+    //     "image": "https://example.com/your_logo",
+    //     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    //     "handler": function (response) {
+
+    //       verifyPayment(response, order);
+    //     },
+    //     "prefill": {
+    //       "name": "Gaurav Kumar", //your customer's name
+    //       "email": "gaurav.kumar@example.com",
+    //       "contact": "9000090000"
+    //     },
+    //     "notes": {
+    //       "address": "Razorpay Corporate Office"
+    //     },
+    //     "theme": {
+    //       "color": "#3399cc"
+    //     }
+    //   };
+    //   var rzp1 = new Razorpay(options);
+    //   rzp1.open();
+    // }
+
+
+    // function verifyPayment(payment, order) {
+    //   const amount = document.getElementById("total1").innerHTML;
+    //   // const amount2 = document.getElementById("gt2").innerHTML;
+    //   $.ajax({
+    //     url: "/verifyPayment",
+    //     method: "post",
+    //     data: {
+    //       payment,
+    //       amount,
+    //       order
+    //     },
+    //     success: (response) => {
+    //       if (response.success) {
+    //         location.href = '/order-placed';
+    //       } else {
+    //         alert('payment failed');
+    //         location.href = '/home';
+
+    //       }
+    //     }
+    //   })
+    // }
+
+
+
+
+
+  </script>
+
+
+  <!-- <script>
+    function deleteaddress(id) {
+      
+          $.ajax({
+            url: "/deleteaddress",
+            data: {
+              id: id,
+            },
+            method: "post",
+            success: (response) => {
+              if ((response.status)) {
+               alert("item deleted")
+              } else{ 
+                alert("not deleted!")
+              }
+            },
+          });
+        }
+     
+  </script> -->
+
+  <!-- <script>
+    function applycoupon(code) {
+      const amount = document.getElementById('total1').innerHTML;
+      $.ajax({
+        url: "/applyCoupon",
+        data: {
+          code: code,
+          amount: amount
+        },
+        method: "post",
+        success: (response) => {
+          if (response.user) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'This coupon already used!'
+            })
+          } else if (response.limit) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'coupon limit exceeded!'
+            })
+          } else if (response.status) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'coupon limit exceeded!'
+            })
+          } else if (response.cartAmount) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'You cant use the coupon...Buy more'
+            })
+          } else if (response.date) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'date expired!!!'
+            })
+          } else if (response.amountOkey) {
+            document.getElementById('coupon').innerHTML = response.disAmount
+            document.getElementById('total1').innerHTML = response.disTotal
+            console.log("done");
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Discount redeemed',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } else if (response.invalid) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Invalid Coupon!!!'
+            })
+          }
+        }
+      })
+    }
+
+  </script>
+
+  <script>
+    function walamount(wal) {
+
+      const stotlal = document.getElementById('total2').innerHTML
+      const gtotal = document.getElementById('total1').innerHTML
+      //const wal = document.getElementById('wal').innerHTML
+      console.log(wal);
+
+      $.ajax({
+        url: "/walamount",
+        data: {
+          wal: wal,
+          gtotal: gtotal,
+          stotlal: stotlal
+        },
+        method: 'post',
+
+        success: (response) => {
+          console.log('hi2');
+
+          if (response.limit) {
+
+            console.log("coupon limit exceeded");
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Wallet limit exceeded!'
+            })
+
+          } else {
+            document.getElementById('wallet').innerHTML = response.wal
+            document.getElementById('total1').innerHTML = response.grandtotal
+            document.getElementById('walletbalance').innerHTML = response.twallet - response.wal
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Wallet Amount Added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+
+        }
+
+      })
+    }
+  </script> -->
 <%- include("../layouts/userPartials/footer.ejs") %>
