@@ -1,12 +1,13 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
 <main>
-  <!--? slider Area Start -->
-  <div class="slider-area">
-    <div class="slider-active">
+  <!-- Slider Area Start -->
+  <div class="slider-area" style="position: relative; z-index: 1;">
+    <div class="owl-carousel owl-theme">
       <!-- Single Slider -->
       <div
         class="single-slider slider-height d-flex align-items-center slide-bg"
+        style="background-image: url('/assets/img/gallery/header-bg.png')"
       >
         <div class="container">
           <div class="row justify-content-between align-items-center">
@@ -16,16 +17,18 @@
                   data-animation="fadeInLeft"
                   data-delay=".4s"
                   data-duration="2000ms"
+                  style="color: #b8b6b6; font-size: 70px"
                 >
-                  Select Your New Perfect Style
+                  Discover Your Perfect Timepiece
                 </h1>
                 <p
                   data-animation="fadeInLeft"
                   data-delay=".7s"
                   data-duration="2000ms"
+                  style="color: #ffffff"
                 >
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat is aute irure.
+                  Explore our exquisite collection of premium watches. Timeless
+                  elegance meets modern design.
                 </p>
                 <!-- Hero-btn -->
                 <div
@@ -34,13 +37,13 @@
                   data-delay=".8s"
                   data-duration="2000ms"
                 >
-                  <a href="/shop" class="btn hero-btn">Shop Now</a>
+                  <a
+                    href="/shop"
+                    class="btn hero_btn"
+                    style="background-color: #ff0000; color: #ffffff"
+                    >Shop Now</a
+                  >
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
-              <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                <img src="assets/img/hero/watch.png" alt="" class="heartbeat" />
               </div>
             </div>
           </div>
@@ -49,40 +52,46 @@
       <!-- Single Slider -->
       <div
         class="single-slider slider-height d-flex align-items-center slide-bg"
+        style="background-image: url('/assets/img/gallery/store-bg.png')"
       >
         <div class="container">
-          <div class="row justify-content-between align-items-center">
+          <div class="row justify-content-end align-items-center">
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-              <div class="hero__caption">
+              <div class="hero__caption text-right">
                 <h1
-                  data-animation="fadeInLeft"
+                  data-animation="fadeInRight"
                   data-delay=".4s"
                   data-duration="2000ms"
+                  style="color: #b8b6b6; font-size: 70px"
                 >
-                  Select Your New Perfect Style
+                  Timeless Elegance
+                  <br />
+                  Modern Design
                 </h1>
                 <p
-                  data-animation="fadeInLeft"
+                  data-animation="fadeInRight"
                   data-delay=".7s"
                   data-duration="2000ms"
+                  style="color: #ffffff; font-size: 20px; line-height: 1.5"
                 >
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat is aute irure.
+                  Discover our premium collection of luxury watches that blend
+                  timeless elegance with modern sophistication. Each timepiece
+                  is a testament to craftsmanship and style.
                 </p>
                 <!-- Hero-btn -->
                 <div
                   class="hero__btn"
-                  data-animation="fadeInLeft"
+                  data-animation="fadeInRight"
                   data-delay=".8s"
                   data-duration="2000ms"
                 >
-                  <a href="/shop" class="btn hero-btn">Shop Now</a>
+                  <a
+                    href="/shop"
+                    class="btn hero_btn"
+                    style="background-color: #ff0000; color: #ffffff"
+                    >Explore Now</a
+                  >
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
-              <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                <img src="assets/img/hero/watch.png" alt="" class="heartbeat" />
               </div>
             </div>
           </div>
@@ -90,7 +99,8 @@
       </div>
     </div>
   </div>
-  <!-- slider Area End-->
+  <!-- slider Area End -->
+
   <!-- ? New Product Start -->
   <section class="new-product-area section-padding30">
     <div class="container">
@@ -174,7 +184,7 @@
               <div class="single-gallery mb-30">
                 <div
                   class="gallery-img small-img"
-                  style="background-image: url(assets/img/gallery/gallery4.png)"
+                  style="background-image: url(/assets/img/gallery/homebanner.avif)"
                 ></div>
               </div>
             </div>
@@ -206,34 +216,35 @@
           <div class="row">
             <div class="col-xl-12">
               <!-- <div class="section-tittle mb-70">
-                                    <h2>New Arrivals</h2>
-                                </div> -->
+                <h2>New Arrivals</h2>
+              </div> -->
             </div>
           </div>
           <div class="row">
-            <% data.forEach((product) => { %>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-pro mb-30 text-center">
-                <div class="product-img">
-                  <img
-                    src="/assets/IMAGES/<%= product.image %>"
-                    alt="<%= product.name %>"
-                  />
-                </div>
-                <div class="product-caption">
-                  <h3>
-                    <a href="/product/<%= product._id %>"
-                      ><%= product.name %></a
-                    >
-                  </h3>
-                  <span>₹ <%= product.price %></span>
-                </div>
-              </div>
-            </div>
-            <% }); %>
+            <% data.forEach((product, index) => { %>
+              <% if (index < 9) { %>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-new-pro mb-30 text-center">
+                      <div class="product-img" multiple>
+                        <img
+                          src="/assets/IMAGES/<%= product.image %>"
+                          alt="<%= product.name %>"
+                        />
+                      </div>
+                      <div class="product-caption">
+                        <h3>
+                          <a href="/product_details/<%= product._id %>"><%= product.name %></a>
+                        </h3>
+                        <span>₹ <%= product.price %></span>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+              <% }); %>
           </div>
         </div>
       </section>
+      
       <!-- Button -->
       <div class="row justify-content-center">
         <div class="room-btn pt-70">
@@ -252,7 +263,7 @@
             <div class="play-btn">
               <a
                 class="popup-video"
-                href="https://www.youtube.com/watch?v=KMc6DyEJp04"
+                href="https://www.youtube.com/watch?v=rPjLkQsnZOc"
                 ><i class="fas fa-play"></i
               ></a>
             </div>
@@ -357,5 +368,32 @@
   </div>
   <!-- Shop Method End-->
 </main>
+
+<script>
+  $(document).ready(function () {
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 0,
+      nav: false,
+      dots: true,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        768: {
+          items: 1,
+        },
+        991: {
+          items: 1,
+        },
+        1200: {
+          items: 1,
+        },
+      },
+    });
+  });
+</script>
 
 <%- include("../layouts/userPartials/footer.ejs") %>

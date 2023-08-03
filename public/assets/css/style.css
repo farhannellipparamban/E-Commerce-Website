@@ -8812,7 +8812,9 @@ input:focus {
     #4b3049 64%,
     #b08ead 100%
   );
-  background-size: 200% auto;
+  background-size: 110% auto;
+  background-image: url(/assets/img/gallery/loginpa);
+
 }
 .login_part .login_part_text h2 {
   font-size: 24px;
