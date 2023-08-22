@@ -223,6 +223,7 @@ const listBanner = async(req,res)=>{
   try {
     const admin = req.session.admin_id;
     const BannerData = await Banner.find({});
+    console.log(BannerData);
     if (admin) {
       res.render("listBanner",{admin,BannerData})
 
@@ -245,8 +246,8 @@ const addBanner = async(req,res)=>{
 // add Banner post
 const addBannerPage =async(req,res)=>{
   try {
-    const Images = req.file.filename;
     const {bannerTitle,description} = req.body
+    const Images = req.file.filename;
 
     const bannerData = new Banner ({
       bannerTitle,
