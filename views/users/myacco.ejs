@@ -233,6 +233,16 @@
                                 </div>
                             </div>
                             <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0">Wallet:</p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <span class="text-danger" style="font-weight: 500;font-size: larger;">₹
+                                    <%= userData.wallet%>
+                                  </span>
+                                </div>
+                              </div>
                             <!-- <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0 mt-2">Actions:</p>
@@ -362,7 +372,7 @@
                                           <% }); %>
                                       <% } else { %>
                                           <tr>
-                                              <td colspan="5">No products found.</td>
+                                              <td colspan="5" class="text-danger">No products found</td>
                                           </tr>
                                       <% } %>
                                   </tbody>

@@ -1,26 +1,29 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+  /* Add your custom styles here */
+
+  /* Background and font styles */
   body {
-    background-color: #eee;
+    background-color: #f5f5f5;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
   }
-  .cart {
-    height: 100vh;
-  }
+
+  /* Progress bar styles */
   .progresses {
     display: flex;
     align-items: center;
   }
+
   .line {
     width: 76px;
     height: 6px;
-    background: #63d19e;
+    background: #09ff00;
   }
+
   .steps {
     display: flex;
-    background-color: #63d19e;
+    background-color: #00ff40;
     color: #fff;
     font-size: 12px;
     width: 30px;
@@ -29,11 +32,13 @@
     justify-content: center;
     border-radius: 50%;
   }
+
+  /* Checkmark styles */
   .check1 {
     display: flex;
-    background-color: #63d19e;
+    background-color: #2bff00;
     color: #fff;
-    font-size: 17px;
+    font-size: 24px;
     width: 60px;
     height: 60px;
     align-items: center;
@@ -41,23 +46,85 @@
     border-radius: 50%;
     margin-bottom: 10px;
   }
+
+  /* Invoice link styles */
   .invoice-link {
     font-size: 15px;
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
   }
+
+  .invoice-link:hover {
+    color: #0099ff;
+  }
+
+  /* Order button styles */
   .order-button {
     height: 50px;
+    background-color: #ff1900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
+
+  .order-button:hover {
+    background-color: #ff1900;
+  }
+
+  /* Background-muted styles */
   .background-muted {
     background-color: #fafafc;
+  }
+.order_card {
+  line-height: 250%;
+  color: #28b803;
+
+}
+  /* Product card styles */
+  .product_card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .product_image {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+
+  .product_details {
+    flex: 1;
+  }
+
+  .product_name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .product_quantity,
+  .product_price {
+    color: #ff0000;
+    margin: 20px;
+  }
+
+  .product_status {
+    font-weight: bold;
+    color: #0099ff;
   }
 </style>
 
 <div class="container mt-4 mb-4">
   <div class="row d-flex cart align-items-center justify-content-center">
     <div class="col-md-10">
-      <div class="card">
+      <div class="card shadow">
         <div class="row g-0">
-          <div class="col-md-6 border-right p-5">
+          <div class="col-md-6 border-right p-5 background-muted">
             <div class="text-center order-details">
               <div
                 class="d-flex justify-content-center mb-5 flex-column align-items-center"
@@ -65,22 +132,35 @@
                 <span class="check1"><i class="fa fa-check"></i></span>
                 <span class="font-weight-bold">Order Confirmed</span>
                 <small class="mt-2">Thank You</small>
-                <a href="#" class="text-decoration-none invoice-link"
-                  >View Invoice</a
-                >
               </div>
-              <a href="/orderlist"
-                ><button class="btn btn-danger btn-block order-button">
-                  View Yor Orders
-                </button></a
-              >
+              <a href="/orderlist" class="text-decoration-none">
+                <button class="btn btn-danger btn-block order-button">
+                  View Your Orders
+                </button>
+              </a>
             </div>
+          </div>
+          <div class="col-md-6 p-5">
+            <h3><strong>Customer Address</strong></h3>
+            <hr>
+            <div class="order_card py-4">
+              <%= orderData.deliveryDetails %>
+            </div>
+      
+            <hr>
+            <!-- <h3>Order Details</h3> -->
+              <div class="product_card">
+                <div class="product_details">
+                  <p class="product_price"><strong class="text-dark">Order ID &nbsp;:&nbsp; </strong>  <%= orderData._id %></p>
+                  <!-- Add more product information here if needed -->
+                </div>
+                <!-- Add product image and status here if needed -->
+              </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
-<%- include("../layouts/userPartials/footer.ejs") %>
 
+<%- include("../layouts/userPartials/footer.ejs") %>

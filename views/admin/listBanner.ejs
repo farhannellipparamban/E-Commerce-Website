@@ -1,0 +1,72 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Banners</h2>
+            <p>Manage your banners here.</p>
+        </div>
+        <div>
+            <a href="/admin/addBanner" class="btn btn-primary btn-sm rounded">Create New Banner</a>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <!-- <header class="card-header">
+            <div class="row gx-3 align-items-center">
+                <div class="col-lg-4 col-md-6">
+                    <input type="text" placeholder="Search Banners..." class="form-control" />
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <select class="form-select">
+                        <option>All Categories</option>
+                        <option>Electronics</option>
+                        <option>Clothing</option>
+                        <option>Something Else</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <select class="form-select">
+                        <option>Latest Added</option>
+                        <option>Oldest First</option>
+                        <option>Most Viewed</option>
+                    </select>
+                </div>
+            </div>
+        </header> -->
+        <!-- card-header end// -->
+        <div class="card-body">
+            <div class="row gx-4 gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
+                <% if (BannerData && BannerData.length > 0) { %>
+                    <% BannerData.forEach(banner => { %>
+                <div class="col">
+                    <div class="card card-banner">
+                        <a href="#" class="img-wrap">
+                            <img src="/assets/IMAGES/<%= banner.Images %>" alt="<%= banner.bannerTitle %>" />
+                        </a>
+                        <a href="#" class="title text-truncate"><%= banner.bannerTitle %></a>
+                        <div class="info-wrap">
+                            <!-- <a href="" class="title text-truncate"><%= banner.bannerUrl %></a> -->
+                            <p class="description"><%= banner.description %></p>
+                            <div class="button-group">
+                                <a href="/admin/editBanner/?id=<%= banner._id %>" class="btn btn-sm btn-primary rounded">
+                                     Edit
+                                </a>
+                                <a href="/admin/deleteBanner/?id=<%= banner._id %>" class="btn btn-sm btn-danger rounded mx-2 py-2">
+                                    Delete
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+                <% } else { %>
+                <div class="col text-center">
+                    <p class="text-danger">No Banners Found.</p>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include("../layouts/adminPartials/footer.ejs") %>

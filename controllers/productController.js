@@ -2,6 +2,8 @@ const User = require("../models/userModels");
 const admin = require("../models/adminModel");
 const CatDB = require("../models/categoryModel");
 const productdb = require("../models/prodectModel");
+const sharp = require("sharp")
+const path= require('path');
 
 //product page get
 const productload = async (req, res) => {
@@ -30,10 +32,31 @@ const addProductload = async (req, res) => {
 //product adding page post
 const insertProduct = async (req, res) => {
   try {
+    
     const imgarr = [];
-    if (req.files && req.files.length) {
+    // if (req.files && req.files.length) {
+    //   for (let i = 0; i < req.files.length; i++) {
+    //     imgarr.push(req.files[i].filename);
+    //     await sharp("./public/assets/IMAGES" + req.files[i].filename) // added await to ensure image is resized before uploading
+    //     .resize(250, 250)
+    //     .toFile(
+    //       "./public/assets/CropedImages" + req.files[i].filename
+    //     );
+    //   }
+    // }
+    if (req.files && req.files.length > 0) {
       for (let i = 0; i < req.files.length; i++) {
-        imgarr.push(req.files[i].filename);
+        const filePath = path.join(
+          __dirname,
+          "../public/assets/CropedImages",
+          req.files[i].filename
+        );
+        await sharp(req.files[i].path)
+          .resize({ width: 250, height: 250 })
+          .toFile(filePath);
+          imgarr.push(req.files[i].filename);
+
+        //  imageArr.push(req.files[i].filename);
       }
     }
 
@@ -42,8 +65,6 @@ const insertProduct = async (req, res) => {
       price: req.body.price,
       description: req.body.description,
       image: imgarr,
-      // brand: req.body.brand, // Add brand field
-      // gender: req.body.gender, // Add gender field
       category: req.body.category,
       stock: req.body.stock,
       blocked: false,
@@ -64,7 +85,9 @@ const insertProduct = async (req, res) => {
 const editProduct = async (req, res) => {
   try {
     const id = req.query.id;
-    const editData = await productdb.findById({ _id: id });
+    const editData = await productdb
+      .findById({ _id: id })
+      .populate("category.category");
     const data = await CatDB.find({ is_blocked: false });
     res.render("edit_products", { dataedit: editData, Catdata: data });
   } catch (error) {
@@ -79,11 +102,26 @@ const updateProduct = async (req, res) => {
     if (name.trim().length == 0) {
       res.redirect("/admin/edit_products");
     } else {
-      if (req.files.length != 0) {
+      // if (req.files.length != 0) {
         const id = req.query.id;
+      //   for (let i = 0; i < req.files.length; i++) {
+      //     editimage.push(req.files[i].filename);
+      //   }
+      if (req.files && req.files.length > 0) {
         for (let i = 0; i < req.files.length; i++) {
-          editimage.push(req.files[i].filename);
+          const filePath = path.join(
+            __dirname,
+            "../public/assets/CropedImages",
+            req.files[i].filename
+          );
+          await sharp(req.files[i].path)
+            .resize({ width: 250, height: 250 })
+            .toFile(filePath);
+            editimage.push(req.files[i].filename);
+  
+          //  imageArr.push(req.files[i].filename);
         }
+      
         await productdb.findByIdAndUpdate(id, {
           $set: {
             name: req.body.name,
@@ -94,6 +132,7 @@ const updateProduct = async (req, res) => {
             stock: req.body.stock,
           },
         });
+        
         res.redirect("/admin/productsList");
       } else {
         const id = req.query.id;
@@ -174,27 +213,6 @@ const postdelete_image = async (req, res) => {
   }
 };
 
-//  products filtered by brand get
-// const filterBrand = async (req, res) => {
-//   const { brand } = req.params;
-//   try {
-//     const products = await productdb.find({ brand }); // Use Product model instead of 'productdb'
-//     res.json(products);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error fetching products by brand' });
-//   }
-// };
-
-// get products filtered by gender
-// const filterGender = async (req, res) => {
-//   const { gender } = req.params;
-//   try {
-//     const products = await productdb.find({ gender }); // Use Product model instead of 'productdb'
-//     res.json(products);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error fetching products by gender' });
-//   }
-// };
 
 module.exports = {
   productload,
@@ -205,6 +223,5 @@ module.exports = {
   productBlock,
   productUnblock,
   postdelete_image,
-  // filterGender,
-  // filterBrand,
+
 };

@@ -5,25 +5,31 @@ const cartSchema = new mongoose.Schema({
   user: {
     type: ObjectId,
     ref: "User",
-    require: true,
+    required: true,
   },
   product: [
     {
       productId: {
         type: ObjectId,
         ref: "product",
-        require: true,
+        required: true,
+      },
+      price: {
+        type: Number,
+        // required :true
       },
       quantity: {
         type: Number,
         default: 1,
       },
-      price: {
+      total: {
         type: Number,
-        default: 0,
       },
     },
   ],
+  grandTotal: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("cart", cartSchema);

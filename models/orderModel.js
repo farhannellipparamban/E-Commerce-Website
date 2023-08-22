@@ -35,11 +35,23 @@ const orderSchema = new mongoose.Schema(
     subtotal: {
       type: Number,
     },
+    Date: {
+      type: Date,
+    },
+    exprdate: {
+      type: Date,
+    },
     status: {
       type: String,
     },
     paymentId: {
       type: String,
+    },
+    orderWallet: {
+      type: Number,
+    },
+    ordercoupon: {
+      type: Number,
     },
   },
   {

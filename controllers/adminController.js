@@ -4,6 +4,7 @@ const admin = require("../models/adminModel");
 const CatDB = require("../models/categoryModel");
 const order = require("../models/orderModel");
 const productDB = require("../models/prodectModel");
+const Banner = require("../models/bannerModel")
 
 const securePassword = async (password) => {
   try {
@@ -180,7 +181,17 @@ const orderDeliverd = async (req, res) => {
     const orderData = await order.findById({ _id: id });
 
     if (orderData.status === "placed") {
-      await order.updateOne({ _id: id }, { $set: { status: "deliverd" } });
+      await order.updateOne({ _id: id }, { $set: { status: "delivered" } });
+      res.redirect("/admin/orderDetails");
+    }
+    if (orderData.status === "waiting for approval") {
+      await order.updateOne(
+        { _id: id },
+        { $set: { status: "Return Approved" } }
+      );
+
+      const total = orderData.totalAmount + orderData.orderWallet;
+      await User.findByIdAndUpdate(orderData.user, { $inc: { wallet: total } });
       res.redirect("/admin/orderDetails");
     } else {
       res.redirect("/admin/orderDetails");
@@ -206,6 +217,115 @@ const orderView = async (req, res) => {
   }
 };
 
+
+// Banner list
+const listBanner = async(req,res)=>{
+  try {
+    const admin = req.session.admin_id;
+    const BannerData = await Banner.find({});
+    if (admin) {
+      res.render("listBanner",{admin,BannerData})
+
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+} 
+
+//add banner get 
+const addBanner = async(req,res)=>{
+  try {
+    const admin =req.session.admin_id
+    res.render("addBanner",{admin})
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+// add Banner post
+const addBannerPage =async(req,res)=>{
+  try {
+    const Images = req.file.filename;
+    const {bannerTitle,description} = req.body
+
+    const bannerData = new Banner ({
+      bannerTitle,
+      description,
+      Images,
+    })
+    const saveBanner = await bannerData.save()
+    if (saveBanner) {
+      res.redirect("/admin/listBanner")
+    } else {
+      res.redirect("/admin/addBanner")
+    }
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//edit banner page
+const editBanner = async(req,res)=>{
+  try {
+    const admin = req.session.admin_id
+    const id = req.query.id
+    const bannerData = await Banner.findById({_id:id})
+    
+    if (bannerData) {
+      res.render("editBanner",{admin:admin , bannerData:bannerData})
+    } else {
+      res.redirect("/admin/listBnaner")
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//update Banner 
+const updateBanner = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const { description, bannerTitle } = req.body;
+    let bannerData;
+
+    if (req.file) {
+      const Images = req.file.filename;
+      bannerData = await Banner.findByIdAndUpdate(
+        { _id: id },
+        { $set: { bannerTitle, description, Images } }
+      ).exec();
+    } else {
+      bannerData = await Banner.findByIdAndUpdate(
+        { _id: id },
+        { $set: { bannerTitle, description } }
+      ).exec();
+    }
+
+    if (bannerData) {
+      res.redirect("/admin/listBanner");
+    } else {
+      res.render("editBanner");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//delete Banner
+const deleteBanner = async(req,res)=>{
+  try {
+    const id = req.query.id
+    const bannerData = await Banner.findById({_id:id})
+    if(bannerData){
+      await Banner.deleteOne({_id:id})
+      res.redirect("/admin/listBanner")
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 module.exports = {
   loadLogin,
   verifyLogin,
@@ -220,4 +340,10 @@ module.exports = {
   orderCancelstatus,
   orderDeliverd,
   orderView,
+  listBanner,
+  addBanner,
+  addBannerPage,
+  editBanner,
+  updateBanner,
+  deleteBanner,
 };

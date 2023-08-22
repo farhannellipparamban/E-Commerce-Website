@@ -1,250 +1,229 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
-<main>
-  <!-- Hero Area Start-->
-  <div class="slider-area">
-    <div class="single-slider slider-height2 d-flex align-items-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="hero-cap text-center">
-              <h2>Watch Shop</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Hero Area End-->
-  <!-- Latest Products Start -->
-  <section class="popular-items latest-padding">
-    <div class="container">
-      <div class="row product-btn justify-content-between mb-40">
-        <div class="properties__button">
-          <!--Nav Button  -->
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a
-                class="nav-item nav-link active"
-                id="nav-home-tab"
-                data-toggle="tab"
-                href="#nav-home"
-                role="tab"
-                aria-controls="nav-home"
-                aria-selected="true"
-                >NewestArrivals</a
-              >
-              <a
-                class="nav-item nav-link"
-                id="nav-profile-tab"
-                data-toggle="tab"
-                href="#nav-profile"
-                role="tab"
-                aria-controls="nav-profile"
-                aria-selected="false"
-              >
-                Price high to low</a
-              >
-              <a
-                class="nav-item nav-link"
-                id="nav-contact-tab"
-                data-toggle="tab"
-                href="#nav-contact"
-                role="tab"
-                aria-controls="nav-contact"
-                aria-selected="false"
-              >
-                Most populer
-              </a>
-              <!-- <div class="grid-list-view">
-                <section class="filter-section mb-40">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-md-6 col-sm-12 mb-20">
-                            <h6>Filter by Brands</h6>
-                            <select id="brandFilterSelect">
-                                  <option value="">All Brands</option>
-                                  <option value="brand1">Brand 1</option>
-                                  <option value="brand2">Brand 2</option>
-                              </select>
-                          </div>
-                          <div class="col-md-6 col-sm-12 mb-20">
-                            <h6>Filter by Gender</h6>
-                            <select id="genderFilterSelect">
-                                  <option value="">All Genders</option>
-                                  <option value="male">Male</option>
-                                  <option value="female">Female</option>
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-            </div> -->
-            </div>
-          </nav>
-          <!--End Nav Button  -->
-        </div>
-        <!-- Grid and List view -->
-
-        <!-- Select items -->
-        <div class="select-this">
-          <form action="#">
-            <div class="select-itms">
-              <select name="select" id="select1">
-                <option value="">40 per page</option>
-                <option value="">50 per page</option>
-                <option value="">60 per page</option>
-                <option value="">70 per page</option>
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Latest Products Start -->
-      <section class="popular-items">
+  <main>
+    <!-- Hero Area Start-->
+    <div class="slider-area">
+      <div class="single-slider slider-height2 d-flex align-items-center">
         <div class="container">
           <div class="row">
-            <% data.forEach((product)=> { %>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-popular-items mb-50 text-center">
-                <div class="popular-img">
-                  <a href="/product_details?id=<%= product._id %>">
-                    <!-- Notice the "?id=" to pass the product ID -->
-                    <img
-                      src="/assets/IMAGES/<%= product.image[0] %>"
-                      alt="<%= product.name %>"
-                      class="img-fluid"
-                    />
-                  </a>
-
-                  <div class="img-cap">
-                    <button type="submit" onclick="addToCart('<%=product._id%>')" class="btn btn-danger">add to cart</button>
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="/product_details<%= product._id %>">
-                      <%= product.name %>
-                    </a>
-                  </h3>
-                  <span>₹ <%= product.price %></span>
-                </div>
+            <div class="col-xl-12">
+              <div class="hero-cap text-center">
+                <h2>Watch Shop</h2>
               </div>
-            </div>
-            <% }); %>
-          </div>
-        </div>
-      </section>
-      <!-- Latest Products End -->
-    </div>
-  </section>
-  <!-- Latest Products End -->
-  <!--? Shop Method Start-->
-  <div class="shop-method-area">
-    <div class="container">
-      <div class="method-wrapper">
-        <div class="row d-flex justify-content-between">
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-package"></i>
-              <h6>Free Shipping Method</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-unlock"></i>
-              <h6>Secure Payment System</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-reload"></i>
-              <h6>Secure Payment System</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Shop Method End-->
+    <!-- Hero Area End-->
+
+    <!-- Latest Products Start -->
+    <section class="popular-items latest-padding">
+      <div class="container">
+        <hr />
+        <div class="row product-btn justify-content-between mb-40">
+          <div class="properties__button">
+            <!--Nav Button  -->
+
+            <nav>
+              <form action="/shop? %>">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <select class="form-select" name="category" id="selxaect1"
+                    onchange="location = '/shop?category='+value+'&price=<%= price %>&search=<%= search %>'">
+
+                    <option value="All">All</option>
+                    <% if(categoryData.length>0){
+                      for(let i=0;i<categoryData.length;i++){ %>
+                        <option>
+                          <%= categoryData[i].name%>
+                        </option>
+                        <% } }else{ %>
+
+                          <option>No Category Availiable</option>
+                          <% } %>
+                  </select>
+                </div>
+            </nav>
+          </div>
+
+          <div class="grid-list-view"></div>
+          <div class="select-this d-flex">
+            <div class="select-itms">
+              <select name="price" id="select1"
+                onchange="location = '/shop?category=<%= category %>&price='+value+'&search=<%= search %>'">
+                <% if(price=="High" ){%>
+                  <option value="Low">Low to High</option>
+                  <option value="High" selected>High to Low</option>
+                  <%}else {%>
+                    <option value="Low" selected>Low to High</option>
+                    <option value="High">High to Low</option>
+                    <%} %>
+              </select>
+            </div>
+
+
+            <div class="subscribe_form" style="margin-left: 10px">
+              <input type="text" placeholder="Enter" name="search" />
+
+              <button type="submit" class="genric-btn success circle arrow">
+                search
+              </button>
+            </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+
+        <section class="popular-items">
+          <div class="container">
+            <div class="row">
+              <% if (product.length> 0) { %>
+                <% product.forEach((value, index)=> { %>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-popular-items mb-50 text-center">
+                      <div class="popular-img">
+                        <a href="/product_details?id=<%= value._id %>">
+                          <img src="/assets/CropedImages/<%= value.image[0] %>" alt="<%= value.name %>" class="img-fluid" />
+                        </a>
+                        <div class="favorit-items">
+                          <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                            <span class="flaticon-heart" onclick="addToWishlist('<%= value._id %>')"></span></a>
+                        </div>
+                        <div class="img-cap">
+                          <button type="submit" onclick="addToCart('<%=value._id%>')" class="btn btn-danger" id="add-to-cart">
+                            add to cart
+                          </button>
+                        </div>
+                      </div>
+                  
+                      <div class="popular-caption">
+                        <h3>
+                          <a href="/product_details?id=<%= value._id %>">
+                            <%= value.name %>
+                          </a>
+                        </h3>
+                        <span>₹ <%= value.price %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <% }); %>
+                    <% } else { %>
+                      <h3>
+                        <ul class="pagination justify-content-center" style="margin: 20px 0">
+                          <li class="page-item ml-4">
+                            No Product found
+                          </li>
+                        </ul>
+                      </h3>
+                      <% } %>
+
+            </div>
+          </div>
+        </section>
+      </div>
+      <h3>
+
+        <ul class="pagination justify-content-center" style="margin: 20px 0">
+          <% for (let i=1; i <=totalpages; i++) { %>
+            <li class="page-item ml-4">
+              <a class="page-link"
+                href="?page=<%= i %>&category=<%= category %>&price=<%= price %>&search=<%= search %>">
+                <%= i %>
+              </a>
+            </li>
+            <% } %>
+        </ul>
+      </h3>
+      </div>
+    </section>
+
+    <div class="shop-method-area">
+      <div class="container">
+        <div class="method-wrapper">
+          <div class="row d-flex justify-content-between">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-package"></i>
+                <h6>Free Shipping Method</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-unlock"></i>
+                <h6>Secure Payment System</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-reload"></i>
+                <h6>Secure Payment System</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
 
   <script>
-
-    function addToCart(id){
-          console.log(id);
-          $.ajax({
-              url:'/addtocart',
-              method:"post",
-              encoded:true,
-              data:{
-                  id:id,
-              },
-          }).done((data)=>{
-              if (data.success){
-                  Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Product added to cart',
-                  showConfirmButton: false,
-                  timer: 1500
-                  })
-              }
-          })
-
-      }
-
-
-    // Your JavaScript code for handling product filters
-
-    // Function to fetch filtered products based on selected brand and gender
-    function fetchFilteredProducts(brand, gender) {
-      // Make a fetch request to the server to get filtered products
-      fetch(`/products/brand/${brand}`);
-      // Update the fetch request for gender filter
-      fetch(`/products/gender/${gender}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Update the product listing on the page with the filtered products
-          const productList = document.querySelector(
-            ".popular-items .container .row"
-          );
-          productList.innerHTML = ""; // Clear existing products
-
-          data.forEach((product) => {
-            productList.innerHTML += `
-              <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                <div class="single-popular-items mb-50 text-center">
-                  <!-- Your product display code here -->
-                </div>
-              </div>
-            `;
+    function addToCart(id) {
+      console.log(id);
+      $.ajax({
+        url: "/addtocart",
+        method: "post",
+        encoded: true,
+        data: {
+          id: id,
+        },
+      }).done((data) => {
+        if (data.success) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Product added to cart",
+            showConfirmButton: false,
+            timer: 1500,
           });
-        })
-        .catch((error) =>
-          console.error("Error fetching filtered products:", error)
-        );
+        }else {
+          window.location.href = '/login';
+        }
+      });
     }
 
-    // Event listeners for filter selection
-    const brandFilterSelect = document.getElementById("brandFilter");
-    const genderFilterSelect = document.getElementById("genderFilter");
-
-    brandFilterSelect.addEventListener("change", () => {
-      const selectedBrand = brandFilterSelect.value;
-      const selectedGender = genderFilterSelect.value;
-      fetchFilteredProducts(selectedBrand, selectedGender);
-    });
-
-    genderFilterSelect.addEventListener("change", () => {
-      const selectedBrand = brandFilterSelect.value;
-      const selectedGender = genderFilterSelect.value;
-      fetchFilteredProducts(selectedBrand, selectedGender);
-    });
+    function addToWishlist(id) {
+      console.log(id);
+      $.ajax({
+        url: "/addToWishlist",
+        method: "post",
+        encoded: true,
+        data: {
+          Id: id,
+        },
+      }).success((response) => {
+        if (response.success) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Added To Wishlist",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else if (response.check) {
+          Swal.fire({
+            position: "center",
+            icon: 'warning',
+            title: 'Oops...',
+            text: "Already added to Wishlist!!",
+          });
+        } else {
+          // Handle other cases
+        }
+      });
+    }
   </script>
-</main>
 
-<%- include("../layouts/userPartials/footer.ejs") %>
+  <%- include("../layouts/userPartials/footer.ejs") %>

@@ -1,0 +1,40 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Edit Banner</h2>
+            <p>Edit the details of the banner.</p>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="/admin/updateBanner?id=<%= bannerData._id %>" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="bannerTitle" class="form-label">Banner Title</label>
+                    <input type="text" class="form-control" id="bannerTitle" name="bannerTitle" value="<%= bannerData.bannerTitle %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4"><%= bannerData.description %></textarea>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="bannerUrl" class="form-label">Banner URL</label>
+                    <input type="text" class="form-control" id="bannerUrl" name="bannerUrl" value="<%= bannerData.bannerUrl %>" required>
+                </div> -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Banner Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                    <img src="/assets/IMAGES/<%= bannerData.Images %>" alt="<%= bannerData.bannerTitle %>" class="mt-2" style="max-width: 300px;">
+
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="/admin/listBanner" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include("../layouts/adminPartials/footer.ejs") %>

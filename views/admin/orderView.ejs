@@ -1,202 +1,216 @@
 <%- include("../layouts/adminPartials/header.ejs") %>
 
-<style>
-/* Add a background color and set the font family */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
-}
+  <style>
+    /* Add a background color and set the font family */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+    }
 
-/* Center the content vertically */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px; /* Added padding for better spacing */
-}
+    /* Center the content vertically */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      /* Added padding for better spacing */
+    }
 
-/* Add spacing at the top */
-.container.grid {
-  margin-top: 40px;
-}
+    /* Add spacing at the top */
+    .container.grid {
+      margin-top: 40px;
+    }
 
-/* Customer Section Styling */
-.customer-section {
-  background-color: #e4e4e4;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  margin-bottom: 20px;
-  text-align: center; /* Center the content within the customer-section */
-}
+    /* Customer Section Styling */
+    .customer-section {
+      background-color: #e4e4e4;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+      /* Center the content within the customer-section */
+    }
 
-.customer-section h4 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .customer-section h4 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.customer-section p {
-  font-size: 16px;
-  color: #000000;
-}
+    .customer-section p {
+      font-size: 16px;
+      color: #000000;
+    }
 
-/* Center the Update button */
-.customer-section form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* Added for better responsiveness */
-}
+    /* Center the Update button */
+    .customer-section form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      /* Added for better responsiveness */
+    }
 
-.customer-section select {
-  padding: 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  background-color: #edf2f7;
-  color: #0c0c0e;
-  margin: 10px 10px 0; /* Adjusted margin */
-}
+    .customer-section select {
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      background-color: #edf2f7;
+      color: #0c0c0e;
+      margin: 10px 10px 0;
+      /* Adjusted margin */
+    }
 
-.customer-section a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #00b109;
-  color: #ffffff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  margin-left: 400px ; 
-  margin-top: 30px;
-}
+    .customer-section a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00b109;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-left: 400px;
+      margin-top: 30px;
+    }
 
-.customer-section a:hover {
-  background-color: #ffffff;
-}
+    .customer-section a:hover {
+      background-color: #ffffff;
+    }
 
-/* Product Table Styling */
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 20px;
-  text-align: center; /* Center the content within the table cells */
-}
+    /* Product Card Styling */
+    .product-card {
+      background-color: #ffffff;
+      border: 1px solid #cfd5df;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-.product-table th,
-.product-table td {
-  padding: 12px;
-  border: 1px solid #e2e8f0;
-}
+    .product-card .product-image img {
+      width: 100%;
+      height: auto;
+    }
 
-.product-table th {
-  background-color: #edf2f7;
-  font-size: 14px;
-  font-weight: bold;
-  color: #ff0000;
-}
+    .product-card .product-details {
+      padding: 20px;
+    }
 
-.product-table td {
-  font-size: 14px;
-  color: #000000;
-}
+    /* Product Info Card Styling */
+    .product-info {
+      background-color: #ffffff;
+      border: 1px solid #cfd5df;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-.product-table tbody tr:nth-child(even) {
-  background-color: #f8fafc;
-}
+    .product-info p {
+      font-size: 16px;
+      color: #000000;
+      text-align: justify;
+    }
 
-/* Product Info Styling */
-.product-info {
-  background-color: #ffffff;
-  border: 1px solid #cfd5df;
-  border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  margin-bottom: 20px;
-  text-align: center; /* Center the content within the product-info */
-}
+    /* Product Info Styling */
+    .product-info {
+      background-color: #ffffff;
+      border: 1px solid #cfd5df;
+      border-radius: 8px;
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+      /* Center the content within the product-info */
+    }
 
-.product-info h4 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .product-info h4 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.product-info img {
-  width: 200px;
-  height: auto;
-  margin-bottom: 10px;
-}
+    .product-info img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 10px;
+    }
 
-.product-info p {
-  font-size: 16px;
-  color: #000000;
-  text-align: justify;
-}
+    .product-info p {
+      font-size: 16px;
+      color: #000000;
+      text-align: justify;
+    }
+  </style>
 
-</style>
+  <main class="h-full pb-16 overflow-y-auto">
+    <div class="container grid px-6 mx-auto">
+      <div class="customer-section">
+        <h4>Customer Address:</h4>
+        <p>
+          <%= orderData.deliveryDetails %>
+        </p>
 
-<main class="h-full pb-16 overflow-y-auto">
-  <div class="container grid px-6 mx-auto">
-    <div class="customer-section">
-      <h4>Customer Address:</h4>
-      <p><%= orderData.deliveryDetails %></p>
+        <h4>Customer Name: <%= orderData.userName %>
+        </h4>
 
-      <h4>Customer Name: <%= orderData.userName %></h4>
+        <form action="">
+          <div>
+            <h4>Status</h4>
+            <select name="category" class="form-select">
+              <% if(Catdata.length>0){
+                for(let i=0;i<Catdata.length;i++){ %>
+                  <option>
+                    <%= Catdata[i].name%>
+                  </option>
+                  <% } }else{ %>
 
-      <form action="">
-        <div>
-          <h4>Status</h4>
-          <select name="category" class="form-select">
-            <% if(Catdata.length>0){
-              for(let i=0;i<Catdata.length;i++){ %>
-                <option>
-                  <%= Catdata[i].name%>
-                </option>
-                <% } }else{ %>
+                    <option>No Category Availiable</option>
+                    <% } %>
+            </select>
+          </div>
+        </form>
+      </div>
 
-                  <option>No Category Availiable</option>
-                  <% } %>          </select>
+      <% product.forEach((value, index)=> { %>
+
+        <!-- Product Card -->
+        <div class="product-card bg-white overflow-hidden rounded-lg shadow-xs">
+          <div class="product-image">
+            <img src="/assets/IMAGES/<%= value.productId.image[0] %>" alt="Product Image">
+          </div>
+          <div class="product-details p-4">
+            <h4 class="font-bold text-xl">
+              <%= value.productId.name %>
+            </h4>
+            <p><span class="font-semibold">Quantity:</span>
+              <%= value.quantity %>
+            </p>
+            <p><span class="font-semibold">Method:</span>
+              <%= orderData.paymentMethod %>
+            </p>
+            <p><span class="font-semibold">Status:</span>
+              <%= orderData.status %>
+            </p>
+          </div>
         </div>
-        <a href="#" class="btn btn-update">Update</a>
-      </form>
+
+        <!-- Product Info Card -->
+        <div class="product-info bg-white overflow-hidden rounded-lg shadow-xs">
+          <div class="p-4">
+            <h4 class="font-bold text-xl">Product Image</h4>
+            <img src="/assets/CropedImages/<%= value.productId.image[0] %>" alt="Product Image">
+            <p class="mt-4"><span class="font-semibold">Description:</span>
+              <%= value.productId.description %>
+            </p>
+          </div>
+        </div>
+
+        <% }) %>
+
     </div>
+  </main>
 
-    <% product.forEach((value, index) => { %>
-      <div class="w-full overflow-hidden rounded-lg shadow-xs product-table"> <!-- Added product-table class -->
-        <table>
-          <thead>
-            <tr>
-              <th class="px-4 py-3">SL%</th>
-              <th class="px-4 py-3">Order ID</th>
-              <th class="px-4 py-3">Product Name</th>
-              <th class="px-4 py-3">Quantity</th>
-              <th class="px-4 py-3">Method</th>
-              <th class="px-4 py-3">Status</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            <tr class="text-gray-700 dark:text-gray-400">
-              <td class="px-4 py-3"><%= index + 1 %></td>
-              <td class="px-4 py-3"><%= value._id %></td>
-              <td class="px-4 py-3"><%= value.productId.name %></td>
-              <td class="px-4 py-3"><%= value.quantity %></td>
-              <td class="px-4 py-3"><%= orderData.paymentMethod %></td>
-              <td class="px-4 py-3"><%= orderData.status %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="product-info">
-        <h4>Product Image</h4>
-        <img src="/assets/IMAGES/<%= value.productId.image[0] %>" alt="Product Image">
-        <p>Description <span style="font-size: large;">:</span> <%= value.productId.description %></p>
-      </div>
-    <% }) %>
-
-  </div>
-</main>
-
-<%- include("../layouts/adminPartials/footer.ejs") %>
+  <%- include("../layouts/adminPartials/footer.ejs") %>

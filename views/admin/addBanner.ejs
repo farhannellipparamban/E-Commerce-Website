@@ -1,0 +1,33 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Add New Banner</h2>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="/admin/addBanner" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Banner Title</label>
+                    <input type="text" class="form-control" id="title" name="bannerTitle" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description"  rows="4"></textarea>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="title" class="form-label">Banner Url</label>
+                    <input type="text" class="form-control" id="bannerUrl" name="bannerUrl" required>
+                </div> -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Banner Image</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Banner</button>
+            </form>
+        </div>
+    </div>
+</section>
+<%- include("../layouts/adminPartials/footer.ejs") %>

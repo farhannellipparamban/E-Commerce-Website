@@ -6,7 +6,7 @@
     <title>WATCH PALACE</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="manifest" href="" />
     <link
       rel="shortcut icon"
       type="image/x-icon"
@@ -152,49 +152,41 @@
     </main>
 
     <!-- scriot Tag -->
+
     <script>
       function fromData() {
-        // var email = document.getElementsByName("email")[0];
-        // var password = document.getElementsByName("password")[0];
-        // // Check if email is empty
-        // var isvalid = true;
-        // if (email.trim() === "") {
-        //     alert("Please enter your email.");
-
-        //     isvalid =  false;
-        // }
-        // // Check if password is empty
-        // if (password.trim() === "") {
-        //     alert("Please enter your password.");
-        //     isvalid =  false;
-        // }
-        // -----------------------------------------------------------
         let formDt = $("#loginForm").serialize();
         $.ajax({
           url: "/login",
           data: formDt,
           method: "post",
           success: (response) => {
-            if (response) {
-              location.href = "/";
-            } else if (response.IncPassword === true) {
-              alert("incorrect Password!");
+            if (response.error) {
+              // window.location.replace("/"); // Use 'window.location.replace()' for redirect without page refresh
+            if (response.error === 'Incorrect password') {
+              alert("Incorrect Password!");
               location.href = "/login";
-            } else if (response.IsBlock === true) {
+            } else if (response.error === 'Your account is blocked') {
               alert("Your Account is Blocked!");
               location.href = "/login";
-            } else if (response.invEmail === true) {
-              alert("invalid Email or Password!");
+            } else if (response.error === 'Invalid email or password') {
+              alert("Invalid Email or Password!");
               location.href = "/login";
             } else {
               alert("Try Again!!!");
             }
-          },
+          }else{
+            window.location.replace("/");
+          }
+        },
+          error: (error) => {
+            alert("An error occurred, please try again!");
+            console.log(error);
+          }
         });
-
-        return isvalid;
       }
     </script>
+    
 
     <%- include("../layouts/userPartials/footer.ejs") %>
   </body>

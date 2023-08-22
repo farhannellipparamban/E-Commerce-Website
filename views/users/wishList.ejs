@@ -5,97 +5,270 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Wishlist</title>
-    <!-- Add your CSS styles here or link to an external CSS file -->
+    <link rel="stylesheet" href="path-to-your-styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
     <style>
-      /* Add your custom styles here */
+      /* Your existing CSS styles */
+
+      /* Additional styling for enhanced appearance */
+
       body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
         margin: 0;
         padding: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #f8f9fa; /* Light gray background */
+        color: #333;
       }
 
       .wishlist-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+        background-color: #ffffff; /* White background */
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        overflow-x: auto;
+        margin-top: 30px;
       }
 
-      .wishlist-item {
-        display: flex;
-        margin-bottom: 20px;
+      .wishlist-title {
+        background-color: #ff0000;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        margin: 0;
+        font-size: 28px;
+      }
+      .text-dark {
+        font-size: medium;
+        font-weight: bold;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+      }
+      .wishlist-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .wishlist-table th,
+      .wishlist-table td {
+        padding: 20px;
+        text-align: left;
         border-bottom: 1px solid #ccc;
+        vertical-align: middle; /* Align content vertically */
       }
 
-      .wishlist-item img {
-        width: 100px;
-        height: 100px;
-        margin-right: 20px;
-      }
-
-      .wishlist-item-info {
-        flex: 1;
+      .wishlist-table th {
+        background-color: #f0f0f0; /* Light gray header */
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
       .wishlist-item-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 5px;
+        color: #000; /* Set product name color to black */
       }
 
-      .wishlist-item-price {
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 10px;
+      .wishlist-item:hover {
+        background-color: #f5f5f5; /* Light background on hover */
       }
 
-      .wishlist-item-actions {
-        display: flex;
-        align-items: center;
+      .wishlist-item-image img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
       }
 
-      .wishlist-item-actions a {
+      .wishlist-item-image img:hover {
+        transform: scale(1.08);
+      }
+
+      .stock-in {
+        color: #00b62a; /* Green for "In Stock" */
+      }
+
+      .stock-out {
+        color: #ff0000; /* Red for "Out of Stock" */
+      }
+
+      .remove-button {
         display: inline-block;
-        padding: 8px 12px;
-        background-color: #333;
+        padding: 10px 30px;
+        background-color: #ff0000;
         color: #fff;
         text-decoration: none;
-        margin-right: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
       }
 
-      .wishlist-item-actions a:hover {
-        background-color: #555;
+      .add-to-cart-button:hover,
+      .remove-button:hover {
+        background-color: #686868;
+      }
+
+      .add-to-cart-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #008cff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      /* Style for the empty wishlist message */
+      .empty-wishlist-message {
+        text-align: center;
+        padding: 200px;
+      }
+
+      .empty-wishlist-message h1 {
+        font-size: 28px;
+        color: #ff0000;
+        margin-bottom: 15px;
+      }
+
+      .empty-wishlist-message p {
+        font-size: 18px;
+        color: #000000;
+      }
+
+      /* Style for the call-to-action section */
+      .call-to-action-6 {
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .call-to-action-6 h1 {
+        font-size: 32px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      .call-to-action-6 p {
+        font-size: 18px;
+        color: #fff;
+        margin-bottom: 40px;
+      }
+
+      .call-to-action-6 .btn-wrapper {
+        margin-top: 20px;
+      }
+
+      .call-to-action-6 .btn {
+        padding: 15px 40px;
+        font-size: 18px;
+        border-radius: 5px;
+        background-color: #008cff;
+        color: #fff;
+        transition: background-color 0.3s ease;
+      }
+
+      .call-to-action-6 .btn:hover {
+        background-color: #0069d9;
       }
     </style>
-  </head>
 
-  <body>
-    <div class="wishlist-container">
-      <h1>My Wishlist</h1>
-      <div class="wishlist-item">
-        <img src="path/to/wishlist-item-1.jpg" alt="Wishlist Item 1" />
-        <div class="wishlist-item-info">
-          <div class="wishlist-item-title">Product Name 1</div>
-          <div class="wishlist-item-price">Price: ₹100</div>
-          <div class="wishlist-item-actions">
-            <a href="/cart">Add to Cart</a>
-            <a href="#">Remove</a>
+    <% if (!products || products.length === 0) { %>
+    <!-- WISHLIST AREA START -->
+    <div class="liton__wishlist-area mb-105">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="empty-wishlist-message text-center">
+              <h1>Your Wishlist is Empty</h1>
+              <p>
+                Explore our collection and start adding products to your
+                wishlist.
+              </p>
+              <a class="btn btn-effect-3 btn-white" href="/shop"
+                >Explore Products <i class="icon-next"></i
+              ></a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="wishlist-item">
-        <img src="path/to/wishlist-item-2.jpg" alt="Wishlist Item 2" />
-        <div class="wishlist-item-info">
-          <div class="wishlist-item-title">Product Name 2</div>
-          <div class="wishlist-item-price">Price: ₹80</div>
-          <div class="wishlist-item-actions">
-            <a href="/cart">Add to Cart</a>
-            <a href="#">Remove</a>
-          </div>
-        </div>
-      </div>
-      <!-- Add more wishlist items as needed -->
     </div>
+    <!-- WISHLIST AREA END -->
+    <% } else { %>
+    <!-- Display the wishlist table here -->
+
+    <div class="wishlist-container">
+      <h1 class="wishlist-title">My Wishlist</h1>
+      <table class="wishlist-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(product => { %>
+          <tr class="wishlist-item animate__animated animate__fadeIn">
+            <td class="wishlist-item-image">
+              <% if (product && product.productId && product.productId.image &&
+              product.productId.image.length > 0) { %>
+              <img
+                src="/assets/CropedImages/<%= product.productId.image[0] %>"
+                alt="<%= product.productId.name %>"
+              />
+              <% } %>
+            </td>
+            <td class="wishlist-item-info">
+              <h3 class="wishlist-item-title">
+                <a
+                  class="text-dark"
+                  href="/product_details?id=<%= product._id %>"
+                  ><%= product.productId.name %></a
+                >
+              </h3>
+            </td>
+            <td class="wishlist-item-price">₹<%= product.productId.price %></td>
+            <td>
+              <% if (product.productId.stock > 0) { %>
+              <span class="stock-in">In Stock</span>
+              <% } else { %>
+              <span class="stock-out">Out of stock</span>
+              <% } %>
+            </td>
+            <td class="wishlist-item-actions">
+              <a
+                class="add-to-cart-button"
+                href="/addFromWish?id=<%= product.productId.id %>"
+                >Add to Cart</a
+              >
+              <a
+                class="remove-button"
+                href="/removeWishlist?id=<%= product.productId.id %>"
+                >Remove</a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <% } %>
+    </div>
+
+    <div class="ltn__utilize-overlay"></div>
+
+    <%- include("../layouts/userPartials/footer.ejs") %>
   </body>
 </html>
-<%- include("../layouts/userPartials/footer.ejs") %>

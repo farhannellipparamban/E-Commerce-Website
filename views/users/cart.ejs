@@ -1,70 +1,72 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
   <style>
-    /* Add your custom styles here */
-    .cart_area {
-      padding: 30px 0;
-    }
-
-    .cart_area table {
+    .table-responsive {
       width: 100%;
-      border-collapse: collapse;
+      /* Set width to 100% to make it span the full width */
+      overflow-x: auto;
+
     }
 
-    .cart_area th,
-    .cart_area td {
-      padding: 10px;
+    /* Add your custom styles here */
+    .cart_area th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 15px;
       text-align: center;
     }
 
-    .cart_area th {
-      background-color: #f2f2f2;
+    /* Style the table rows */
+    .cart_area td {
+      padding: 15px;
+      text-align: center;
+      vertical-align: middle;
     }
 
+    /* Style the product images */
     .cart_area img {
-      max-width: 80px;
+      max-width: 100px;
+      max-height: 100px;
     }
 
-    .product_count {
+    /* Style the quantity controls */
+    .quantity-controls {
       display: flex;
       align-items: center;
-      justify-content: center;
-
     }
 
-    .genric-btn {
-      padding: 8px 15px;
-      font-size: 14px;
-      text-transform: uppercase;
+    .quantity-controls button {
+      padding: 7px 10px;
+      border: none;
+      background-color: #000000;
+      font-size: 12px;
       cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-      border: 2px solid transparent;
-    }
-
-    .genric-btn.primary-border {
-      color: #007bff;
-      margin: 5px;
-    }
-
-    .genric-btn.primary-border:hover {
-      background-color: #007bff;
+      transition: background-color 0.2s;
       color: #fff;
     }
 
-    .genric-btn.danger-border {
-      color: #dc3545;
+    .quantity-controls button:hover {
+      background-color: #616161;
     }
 
-    .genric-btn.dark-border {
-      border-color: black;
-    }
-
-    .genric-btn.danger-border:hover {
+    /* Style the "Remove" button */
+    .genric-btn.danger-border.small {
+      padding: 5px 10px;
+      font-size: 12px;
       background-color: #dc3545;
       color: #fff;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+      cursor: pointer;
     }
 
+    .genric-btn.danger-border.small:hover {
+      background-color: #c82333;
+    }
+
+    /* Style the Subtotal and Proceed buttons */
     .checkout_btn_inner {
       margin-top: 30px;
       display: flex;
@@ -74,17 +76,16 @@
 
     .checkout_btn_1,
     .checkout_btn_2 {
-      padding: 12px 30px;
-      font-size: 16px;
+      padding: 10px 25px;
+      font-size: 14px;
       text-transform: uppercase;
       border-radius: 50px;
       transition: background-color 0.3s;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .checkout_btn_1 {
-      /* background-color: #007bff; */
-      border: none;
       border: 2px solid #007bff;
       color: #007bff;
       background-color: transparent;
@@ -104,6 +105,40 @@
     .checkout_btn_2:hover {
       background-color: #007bff;
       color: #fff;
+    }
+
+    .quantity {
+      flex-direction: column;
+      display: flex;
+      padding-top: 60px;
+      /* align-items: center; */
+    }
+
+    .input-number {
+      width: 50px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-controls button {
+      padding: 7px 10px;
+      border: none;
+      background-color: #000000;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .quantity-controls button:hover {
+      background-color: #616161;
     }
   </style>
 
@@ -128,12 +163,14 @@
         <div class="cart_inner">
           <div class="table-responsive">
             <% if(typeof products !=="undefined" ){ %>
-              <table class="table">
+              <table class="table" id="prices">
                 <thead>
+
                   <tr>
                     <th scope="col">Product</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Total Amount</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -143,7 +180,8 @@
                       <td>
                         <div class="media">
                           <div class="d-flex">
-                            <img src="/assets/IMAGES/<%= value.productId.image[0]%>" alt="" />
+
+                            <img src="/assets/CropedImages/<%= value.productId.image[0]%>" alt="" />
                           </div>
                           <div class="media-body">
                             <p>
@@ -152,12 +190,13 @@
                           </div>
                         </div>
                       </td>
-                      <td class="product_count" colspan="2" style="display: flex">
+                      <!-- ... -->
+                      <!-- <td class="product_count" colspan="2" style="display: flex">
                         <button type="button" class="genric-btn primary-border small"
                           onclick="changeQuantity('<%= value.productId._id %>', -1)">
                           -
                         </button>
-                        <span id="<%= value.productId._id %>" name="count"
+                        <span id="quantity-<%= value.productId._id %>"
                           class="genric-btn dark-border small quantity input-number">
                           <%= value.quantity %>
                         </span>
@@ -165,29 +204,50 @@
                           onclick="changeQuantity('<%= value.productId._id %>', 1)">
                           +
                         </button>
+                      </td> -->
+                      <td class="product_count" colspan="2" style="display: flex">
+                        <div class="quantity">
+                          <div class="quantity-controls">
+                            <button class="quantity-decrease"
+                              onclick="changeQuantity('<%= value.productId._id %>', -1)">
+                              -
+                            </button>
+                            <input class="input-number" type="number" value="<%= value.quantity %>" min="1" max="10" />
+                            <button class="quantity-increase" onclick="changeQuantity('<%= value.productId._id %>', 1)">
+                              +
+                            </button>
+                          </div>
+                        </div>
                       </td>
+
+                      <!-- ... -->
+
                       <td>
-                        <h5 id="price">
-                          <%=value.productId.price%>
+                        <h5>₹ <%= value.productId.price %>
                         </h5>
                       </td>
                       <td>
-                        <a href="/deleteCart?id=<%= value.productId._id%>"
+                        <h5>₹ <%= value.total %>
+                        </h5>
+                      </td>
+
+                      <td>
+                        <a href="/deleteCart?id=<%= value.productId._id %>"
                           class="genric-btn danger-border small">Remove</a>
                       </td>
                     </tr>
-                    <%})%>
+                    <% }) %>
                       <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>
-                          <h5>Subtotal</h5>
+                          <h5 class="text-dark"><strong>Subtotal</strong></h5>
                         </td>
                         <td>
-                          <h5 id="total">
-                            <%=Total%>
+                          <h5 id="total" class="text-danger">
+                            <strong>₹ <%= Total %></strong>
                           </h5>
                         </td>
                       </tr>
@@ -201,33 +261,33 @@
                         <td></td>
                         <td>
                           <!-- <div class="shipping_box">
-                            <ul class="list">
-                              <li>
-                                Flat Rate: ₹5.00<input type="radio"
-                                  aria-label="Radio button for following text input" />
-                              </li>
-                              <li>
-                                Free Shipping<input type="radio" aria-label="Radio button for following text input" />
-                              </li>
-                              <li>
-                                Flat Rate: ₹10.00<input type="radio"
-                                  aria-label="Radio button for following text input" />
-                              </li>
-                              <li class="active">
-                                Local Delivery: ₹2.00<input type="radio"
-                                  aria-label="Radio button for following text input" />
-                              </li>
-                            </ul>
-                          </div> -->
+                              <ul class="list">
+                                <li>
+                                  Flat Rate: ₹5.00<input type="radio"
+                                    aria-label="Radio button for following text input" />
+                                </li>
+                                <li>
+                                  Free Shipping<input type="radio" aria-label="Radio button for following text input" />
+                                </li>
+                                <li>
+                                  Flat Rate: ₹10.00<input type="radio"
+                                    aria-label="Radio button for following text input" />
+                                </li>
+                                <li class="active">
+                                  Local Delivery: ₹2.00<input type="radio"
+                                    aria-label="Radio button for following text input" />
+                                </li>
+                              </ul>
+                            </div> -->
                         </td>
                       </tr>
                 </tbody>
               </table>
               <div class="checkout_btn_inner">
                 <a class="genric-btn checkout_btn_2" href="./shop">Continue Shopping</a>
-                <a class="genric-btn checkout_btn_1" href="/checkout">Proceed to checkout</a> 
+                <a class="genric-btn checkout_btn_1" href="/checkout">Proceed to checkout</a>
               </div>
-              <% }else{ %>
+              <% } else { %>
                 <h1>Your Cart is empty</h1>
                 <div class="checkout_btn_inner">
                   <a class="genric-btn checkout_btn_2" href="./shop">Go To Shop</a>
@@ -241,28 +301,42 @@
   </main>
 
   <script>
-    function changeQuantity(proId, count) {
-      let quantity = parseInt(document.getElementById(proId).innerHTML);
-      count = parseInt(count);
-      quantity = parseInt(quantity);
+    function changeQuantity(productId, count) {
       $.ajax({
-        url: "/cartqntincrease",
-        data: {
-          product: proId,
-          count: count,
-          quantity: quantity,
-        },
+        url: "/changes",
         method: "post",
+        data: {
+          productId,
+          count: count,
+        },
         success: (response) => {
-          if (response.removeProduct) {
-            alert("Product removed from cart");
-            location.reload();
+          if (response.success) {
+            const quantitySpan = $("#quantity-" + productId);
+            quantitySpan.text(response.newQuantity); // Update the quantity displayed on the page
+            $("#total").load("/cart #total");
+            $("#prices").load("/cart #prices");
+
           } else {
-            document.getElementById(proId).innerHTML = quantity + count;
+            Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: response.message,
+              timer: 2000,
+            });
           }
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Error",
+            icon: "error",
+            text: error.message,
+            timer: 1500,
+          });
         },
       });
     }
   </script>
+
+  <!-- ... -->
 
   <%- include("../layouts/userPartials/footer.ejs") %>

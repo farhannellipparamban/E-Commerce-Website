@@ -1,4 +1,36 @@
 <%- include("../layouts/userPartials/header.ejs") %>
+<style>
+  /* Add your custom styles here */
+  .container {
+    margin-top: 50px;
+  }
+
+  .contact_form {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    border: 1px solid #7e6a6a;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #1be44d;
+  }
+
+
+</style>
 
 <br /><br /><br />
 
@@ -92,8 +124,10 @@
       />
     </div>
 
-    <BUtton type="submit" class="btn_1">SUBMIT</BUtton>
-  </form>
+    <div class="col-md-12 py-4 form-group text-center">
+      <button type="submit" class="btn btn_danger py-4 px-5">SUBMIT</button>
+    </div>
+    </form>
 </div>
 
 <%- include("../layouts/userPartials/footer.ejs") %>

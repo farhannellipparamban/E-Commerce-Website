@@ -4,7 +4,10 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const user_address = require("../models/addressModel");
 const order = require("../models/orderModel");
+const CatDB = require("../models/categoryModel");
 const randomstring = require("randomstring");
+const coupon = require("../models/couponModel");
+const Banner = require("../models/bannerModel")
 
 const dotenv = require("dotenv");
 
@@ -174,23 +177,23 @@ const verifyLogin = async (req, res) => {
     const { email, password } = req.body;
     const userData = await User.findOne({ email: email });
     if (userData) {
-      if (userData.is_blocked === false) {
+      if (!userData.is_blocked) {
         const passwordMatch = await bcrypt.compare(password, userData.password);
         if (passwordMatch) {
           req.session.user_id = userData._id;
-          // res.redirect("/");
-          res.json({ status: true });
+          return res.json({});
         } else {
-          res.json({ IncPassword: true });
+          return res.json({ error: "Incorrect password" });
         }
       } else {
-        res.json({ IsBlock: true });
+        return res.json({ error: "Your account is blocked" });
       }
     } else {
-      res.json({ invEmail: true });
+      return res.json({ error: "Invalid email or password" });
     }
   } catch (error) {
     console.log(error.message);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -317,9 +320,10 @@ const forgetSendEmail = async (req, res) => {
 //home get
 const loadHome = async (req, res) => {
   try {
+    const BannerData = await Banner.find()
     const loadlogIn = req.session.user_id;
     const products = await productdb.find({ is_blocked: false });
-    res.render("home", { loadlogIn, data: products });
+    res.render("home", { loadlogIn, data: products ,bannerData:BannerData});
   } catch (error) {
     console.log(error.message);
   }
@@ -338,9 +342,76 @@ const userLogout = async (req, res) => {
 //shop get
 const loadShoping = async (req, res) => {
   try {
+    let page = req.query.page || 1;
+    const limit = 6;
+    const skip = (page - 1) * limit;
+
+    let search = req.query.search || "";
+
+    let category = req.query.category || "All";
+
+    let cat = [];
+    const categoryData = await CatDB.find();
+    if (categoryData) {
+      for (let i = 0; i < categoryData.length; i++) {
+        cat[i] = categoryData[i].name;
+      }
+    }
+
+    category == "All"
+      ? (category = [...cat])
+      : (category = req.query.category.split(","));
+
+    let sort;
+    let price = req.query.price || "Low";
+    price == "Low" ? (sort = 1) : (sort = -1);
+    const productData = await productdb.aggregate([
+      {
+        $match: {
+          name: { $regex: "^" + search, $options: "i" },
+          category: { $in: [...category] },
+        },
+      },
+      { $sort: { price: sort } },
+      { $skip: skip },
+      { $limit: limit },
+    ]);
+
+    const productCount = (
+      await productdb
+        .find({ name: { $regex: "^" + search, $options: "i" } })
+        .where("category")
+        .in([...category])
+    ).length;
+
+    const totalpages = Math.ceil(productCount / limit);
+    const userd = await User.findOne({ _id: req.session.user_id });
     const loadlogIn = req.session.user_id;
-    const products = await productdb.find({ is_blocked: false });
-    res.render("shop", { loadlogIn, data: products });
+    if (req.session.user_id) {
+      res.render("shop", {
+        loadlogIn,
+        product: productData,
+        // user: userd.name,
+        totalpages,
+        page,
+        categoryData,
+        price,
+        category,
+        search,
+      });
+    } else {
+      res.render("shop", {
+        loadlogIn,
+        product: productData,
+        // user: userd.name,
+        totalpages,
+        page,
+        categoryData,
+        price,
+        category,
+        search,
+      });
+    }
   } catch (error) {
     console.log(error.message);
   }
@@ -387,14 +458,26 @@ const myAcco = async (req, res) => {
     });
     const userData = await User.findOne({ _id: req.session.user_id });
     const orders = await order.find({ user: req.session.user_id });
+    const coupon1 = await coupon.find();
 
-    res.render("myacco", {
-      loadlogIn,
-      user: userData.name,
-      userData: userData,
-      userAddress: userAddress,
-      orders: orders,
-    });
+    if (userAddress && coupon1) {
+      res.render("myacco", {
+        loadlogIn,
+        user: userData.name,
+        userData: userData,
+        userAddress: userAddress,
+        orders: orders,
+        coupon1,
+      });
+    } else {
+      res.render("myacco", {
+        loadlogIn,
+        user: userData.name,
+        userAddress: userAddress,
+        orders: orders,
+        userData: userData,
+      });
+    }
   } catch (error) {
     console.log(error.message);
   }
@@ -438,27 +521,26 @@ const profilesubmit = async (req, res) => {
   }
 };
 
-//wishlist get
-const loadWish = async (req, res) => {
+//wallet
+const walletAmount = async (req, res) => {
   try {
-    const loadlogIn = req.session.user_id;
-    res.render("wishList", { loadlogIn });
+    const user = req.session.user_id;
+    const wallet = req.body.wallet;
+    const grandTotal = req.body.grandTotal;
+    const subTotal = req.body.subTotal;
+    const userd = await User.findOne({ _id: user });
+    const totalwallet = userd.wallet;
+
+    if (userd.wallet >= wallet) {
+      const grandTotal = subTotal - wallet;
+      res.json({ success: true, grandTotal, wallet, totalwallet });
+    } else {
+      res.json({ limit: true });
+    }
   } catch (error) {
     console.log(error.message);
   }
 };
-
-//confirmation get
-
-// const loadConfirmation =async(req,res)=>{
-//     try{
-//       const loadlogIn=req.session.user_id;
-//         res.render("confirmation",{loadlogIn})
-//     }
-//     catch(error){
-//         console.log(error.message );
-//     }
-// }
 
 const error404 = async (req, res) => {
   try {
@@ -475,8 +557,6 @@ module.exports = {
   loadAbout,
   loadContact,
   loadLogin,
-  loadWish,
-  // loadConfirmation,
   productDetails,
   otpVerify,
   otpValidation,
@@ -490,5 +570,6 @@ module.exports = {
   userLogout,
   myAcco,
   profilesubmit,
+  walletAmount,
   error404,
 };

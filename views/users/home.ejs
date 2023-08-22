@@ -1,261 +1,221 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
-<main>
-  <!-- Slider Area Start -->
-  <div class="slider-area" style="position: relative; z-index: 1;">
-    <div class="owl-carousel owl-theme">
-      <!-- Single Slider -->
-      <div
-        class="single-slider slider-height d-flex align-items-center slide-bg"
-        style="background-image: url('/assets/img/gallery/header-bg.png')"
-      >
-        <div class="container">
-          <div class="row justify-content-between align-items-center">
-            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-              <div class="hero__caption">
-                <h1
-                  data-animation="fadeInLeft"
-                  data-delay=".4s"
-                  data-duration="2000ms"
-                  style="color: #b8b6b6; font-size: 70px"
-                >
-                  Discover Your Perfect Timepiece
-                </h1>
-                <p
-                  data-animation="fadeInLeft"
-                  data-delay=".7s"
-                  data-duration="2000ms"
-                  style="color: #ffffff"
-                >
-                  Explore our exquisite collection of premium watches. Timeless
-                  elegance meets modern design.
-                </p>
-                <!-- Hero-btn -->
-                <div
-                  class="hero__btn"
-                  data-animation="fadeInLeft"
-                  data-delay=".8s"
-                  data-duration="2000ms"
-                >
-                  <a
-                    href="/shop"
-                    class="btn hero_btn"
-                    style="background-color: #ff0000; color: #ffffff"
-                    >Shop Now</a
-                  >
+  <main>
+    <!-- Slider Area Start -->
+    <div class="slider-area" style="position: relative; z-index: 1;">
+      <div class="owl-carousel owl-theme">
+        <!-- Single Slider -->
+        <% if (bannerData && bannerData.length > 0) { %>
+          <% bannerData.forEach(banner => { %>
+        <div class="single-slider slider-height d-flex align-items-center slide-bg"
+          style="background-image: url('/assets/IMAGES/<%= banner.Images[0] %>')">
+          <div class="container">
+            <div class="row justify-content-between align-items-center">
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="hero__caption">
+                  <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms"
+                    style="color: #b8b6b6; font-size: 70px">
+                    <!-- Discover Your Perfect Timepiece -->
+                    <%= banner.bannerTitle %>
+                  </h1>
+                  <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms" style="color: #ffffff">
+                    <!-- Explore our exquisite collection of premium watches. Timeless
+                    elegance meets modern design. -->
+                    <%= banner.description %> 
+                  </p>
+                  <!-- Hero-btn -->
+                  <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                    <a href="/shop" class="btn hero_btn" style="background-color: #ff0000; color: #ffffff">Shop Now</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Single Slider -->
-      <div
-        class="single-slider slider-height d-flex align-items-center slide-bg"
-        style="background-image: url('/assets/img/gallery/store-bg.png')"
-      >
-        <div class="container">
-          <div class="row justify-content-end align-items-center">
-            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-              <div class="hero__caption text-right">
-                <h1
-                  data-animation="fadeInRight"
-                  data-delay=".4s"
-                  data-duration="2000ms"
-                  style="color: #b8b6b6; font-size: 70px"
-                >
-                  Timeless Elegance
-                  <br />
-                  Modern Design
-                </h1>
-                <p
-                  data-animation="fadeInRight"
-                  data-delay=".7s"
-                  data-duration="2000ms"
-                  style="color: #ffffff; font-size: 20px; line-height: 1.5"
-                >
-                  Discover our premium collection of luxury watches that blend
-                  timeless elegance with modern sophistication. Each timepiece
-                  is a testament to craftsmanship and style.
-                </p>
-                <!-- Hero-btn -->
-                <div
-                  class="hero__btn"
-                  data-animation="fadeInRight"
-                  data-delay=".8s"
-                  data-duration="2000ms"
-                >
-                  <a
-                    href="/shop"
-                    class="btn hero_btn"
-                    style="background-color: #ff0000; color: #ffffff"
-                    >Explore Now</a
-                  >
+        <% }) %>
+        <% } else { %>
+            <tr>
+                <td class="text-danger" colspan="7">No Banner found.</td>
+            </tr>
+        <% } %>
+        <!-- Single Slider -->
+        <!-- <div class="single-slider slider-height d-flex align-items-center slide-bg"
+          style="background-image: url('/assets/img/gallery/store-bg.png')">
+          <div class="container">
+            <div class="row justify-content-end align-items-center">
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="hero__caption text-right">
+                  <h1 data-animation="fadeInRight" data-delay=".4s" data-duration="2000ms"
+                    style="color: #b8b6b6; font-size: 70px">
+                    Timeless Elegance
+                    <br />
+                    Modern Design
+                  </h1>
+                  <p data-animation="fadeInRight" data-delay=".7s" data-duration="2000ms"
+                    style="color: #ffffff; font-size: 20px; line-height: 1.5">
+                    Discover our premium collection of luxury watches that blend
+                    timeless elegance with modern sophistication. Each timepiece
+                    is a testament to craftsmanship and style.
+                  </p>
+                 Hero-btn -->
+                  <!-- <div class="hero__btn" data-animation="fadeInRight" data-delay=".8s" data-duration="2000ms">
+                    <a href="/shop" class="btn hero_btn" style="background-color: #ff0000; color: #ffffff">Explore
+                      Now</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-  </div>
-  <!-- slider Area End -->
+    <!-- slider Area End -->
 
-  <!-- ? New Product Start -->
-  <section class="new-product-area section-padding30">
-    <div class="container">
-      <!-- Section tittle -->
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="section-tittle mb-70">
-            <h2>New Arrivals</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-          <div class="single-new-pro mb-30 text-center">
-            <div class="product-img">
-              <img src="assets/img/gallery/new_product1.png" alt="" />
+    <!-- ? New Product Start -->
+    <section class="new-product-area section-padding30">
+      <div class="container">
+        <!-- Section tittle -->
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="section-tittle mb-70">
+              <h2>New Arrivals</h2>
             </div>
-            <!-- <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div> -->
           </div>
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-          <div class="single-new-pro mb-30 text-center">
-            <div class="product-img">
-              <img src="assets/img/gallery/new_product2.png" alt="" />
-            </div>
-            <!-- <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div> -->
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-          <div class="single-new-pro mb-30 text-center">
-            <div class="product-img">
-              <img src="assets/img/gallery/new_product3.png" alt="" />
-            </div>
-            <!-- <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--  New Product End -->
-  <!--? Gallery Area Start -->
-  <div class="gallery-area">
-    <div class="container-fluid p-0 fix">
-      <div class="row">
-        <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
-          <div class="single-gallery mb-30">
-            <div
-              class="gallery-img big-img"
-              style="background-image: url(assets/img/gallery/gallery1.png)"
-            ></div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-          <div class="single-gallery mb-30">
-            <div
-              class="gallery-img big-img"
-              style="background-image: url(assets/img/gallery/gallery2.png)"
-            ></div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-md-12">
-          <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-              <div class="single-gallery mb-30">
-                <div
-                  class="gallery-img small-img"
-                  style="background-image: url(assets/img/gallery/gallery3.png)"
-                ></div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-new-pro mb-30 text-center">
+              <div class="product-img">
+                <img src="assets/img/gallery/new_product1.png" alt="" />
               </div>
+              <!-- <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div> -->
             </div>
-            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-              <div class="single-gallery mb-30">
-                <div
-                  class="gallery-img small-img"
-                  style="background-image: url(/assets/img/gallery/homebanner.avif)"
-                ></div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-new-pro mb-30 text-center">
+              <div class="product-img">
+                <img src="assets/img/gallery/new_product2.png" alt="" />
+              </div>
+              <!-- <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div> -->
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-new-pro mb-30 text-center">
+              <div class="product-img">
+                <img src="assets/img/gallery/new_product3.png" alt="" />
+              </div>
+              <!-- <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  New Product End -->
+    <!--? Gallery Area Start -->
+    <div class="gallery-area">
+      <div class="container-fluid p-0 fix">
+        <div class="row">
+          <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-gallery mb-30">
+              <div class="gallery-img big-img" style="background-image: url(assets/img/gallery/gallery1.png)"></div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-gallery mb-30">
+              <div class="gallery-img big-img" style="background-image: url(assets/img/gallery/gallery2.png)"></div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                <div class="single-gallery mb-30">
+                  <div class="gallery-img small-img" style="background-image: url(assets/img/gallery/gallery3.png)">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                <div class="single-gallery mb-30">
+                  <div class="gallery-img small-img" style="background-image: url(/assets/img/gallery/homebanner.avif)">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Gallery Area End -->
-  <!--? Popular Items Start -->
-  <div class="popular-items section-padding30">
-    <div class="container">
-      <!-- Section tittle -->
-      <div class="row justify-content-center">
-        <div class="col-xl-7 col-lg-8 col-md-10">
-          <div class="section-tittle mb-70 text-center">
-            <h2>Popular Items</h2>
-            <p>
-              Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-              gravida.
-            </p>
+    <!-- Gallery Area End -->
+    <!--? Popular Items Start -->
+    <div class="popular-items section-padding30">
+      <div class="container">
+        <!-- Section tittle -->
+        <div class="row justify-content-center">
+          <div class="col-xl-7 col-lg-8 col-md-10">
+            <div class="section-tittle mb-70 text-center">
+              <h2>Popular Items</h2>
+              <p>
+                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
+                gravida.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <section class="new-product-area">
-        <div class="container">
-          <!-- Section tittle -->
-          <div class="row">
-            <div class="col-xl-12">
-              <!-- <div class="section-tittle mb-70">
+        <section class="new-product-area">
+          <div class="container">
+            <!-- Section tittle -->
+            <div class="row">
+              <div class="col-xl-12">
+                <!-- <div class="section-tittle mb-70">
                 <h2>New Arrivals</h2>
               </div> -->
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <% data.forEach((product, index) => { %>
-              <% if (index < 9) { %>
+            <div class="row">
+              <% data.forEach((product, index)=> { %>
+                <% if (index < 9) { %>
                   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                     <div class="single-new-pro mb-30 text-center">
                       <div class="product-img" multiple>
-                        <img
-                          src="/assets/IMAGES/<%= product.image %>"
-                          alt="<%= product.name %>"
-                        />
+                        <img src="/assets/CropedImages/<%= product.image[0]  %>" alt="<%= product.name %>" />
                       </div>
                       <div class="product-caption">
                         <h3>
-                          <a href="/product_details/<%= product._id %>"><%= product.name %></a>
+                          <a href="/product_details?id=<%= product._id %>">
+                            <%= product.name %>
+                          </a>
                         </h3>
                         <span>₹ <%= product.price %></span>
                       </div>
                     </div>
                   </div>
-                <% } %>
-              <% }); %>
+                  <% } %>
+                    <% }); %>
+            </div>
           </div>
-        </div>
-      </section>
-      
-      <!-- Button -->
-      <div class="row justify-content-center">
-        <div class="room-btn pt-70">
-          <a href="/shop" class="btn view-btn1">View More Products</a>
+        </section>
+
+        <!-- Button -->
+        <div class="row justify-content-center">
+          <div class="room-btn pt-70">
+            <a href="/shop" class="btn view-btn1">View More Products</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Popular Items End -->
-  <!--? Video Area Start -->
-  <div class="video-area">
+    <hr>
+    <!-- Popular Items End -->
+    <!--? Video Area Start -->
+    <!-- <div class="video-area">
     <div class="container-fluid">
       <div class="row align-items-center">
         <div class="col-lg-12">
@@ -269,131 +229,132 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- Arrow -->
-      <div class="thumb-content-box">
+      </div> -->
+    <!-- Arrow -->
+    <!-- <div class="thumb-content-box">
         <div class="thumb-content">
           <h3>Next Video</h3>
           <a href="#"> <i class="flaticon-arrow"></i></a>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Video Area End -->
-  <!--? Watch Choice  Start-->
-  <div class="watch-area section-padding30">
-    <div class="container">
-      <% let displayedProducts = 0; %>
-      <div class="row">
-        <% data.forEach((product) => { %> <% if (displayedProducts < 3) { %> <%
-        if (displayedProducts % 2 === 0) { %>
-        <div class="row align-items-center justify-content-between">
-          <div class="col-lg-6 col-md-6 col-sm-10">
-            <div class="choice-watch-img mb-40">
-              <img
-                src="/assets/IMAGES/<%= product.image %>"
-                alt="<%= product.name %>"
-              />
-            </div>
+  </div> -->
+    <!-- Video Area End -->
+    <!--? Watch Choice  Start-->
+    <div class="watch-area section-padding30">
+      <div class="container">
+        <% let displayedProducts=0; %>
+          <div class="row">
+            <% data.forEach((product)=> { %> <% if (displayedProducts < 3) { %>
+                <% if (displayedProducts % 2===0) { %>
+                  <div class="row align-items-center justify-content-between">
+                    <div class="col-lg-6 col-md-6 col-sm-10">
+                      <div class="choice-watch-img mb-40">
+                        <img src="/assets/CropedImages/<%= product.image %>" alt="<%= product.name %>" />
+                      </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6">
+                      <div class="watch-details mb-40">
+                        <h2 class="text-primary">Watch of Choice</h2>
+                        <h3>
+                          <%= product.name %>
+                        </h3>
+                        <p>
+                          <%= product.description%> <br />
+                            <%= product.categorydescription %>
+                        </p>
+                        <a href="/shop" class="btn">Show Watches</a>
+                      </div>
+                    </div>
+                  </div>
+                  <% } else { %>
+                    <div class="row align-items-center justify-content-between">
+                      <div class="col-lg-5 col-md-6">
+                        <div class="watch-details mb-40">
+                          <h2 class="text-primary">Watch of Choice</h2>
+                          <h3>
+                            <%= product.name %>
+                          </h3>
+                          <p>
+                            <%= product.description%> <br />
+                              <%= product.categorydescription %>
+                          </p>
+                          <a href="/shop" class="btn">Show Watches</a>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-10">
+                        <div class="choice-watch-img mb-40">
+                          <img src="/assets/CropedImages/<%= product.image %>" alt="<%= product.name %>" />
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+                      <% displayedProducts++; %>
+                        <% } %>
+                          <% }); %>
           </div>
-          <div class="col-lg-5 col-md-6">
-            <div class="watch-details mb-40">
-              <h2 class="text-primary">Watch of Choice</h2>
-              <h3><%= product.name %></h3>
-              <p>
-                <%= product.description%> <br /><%= product.categorydescription
-                %>
-              </p>
-              <a href="/shop" class="btn">Show Watches</a>
-            </div>
-          </div>
-        </div>
-        <% } else { %>
-        <div class="row align-items-center justify-content-between">
-          <div class="col-lg-5 col-md-6">
-            <div class="watch-details mb-40">
-              <h2 class="text-primary">Watch of Choice</h2>
-              <h3><%= product.name %></h3>
-              <p>
-                <%= product.description%> <br /><%= product.categorydescription
-                %>
-              </p>
-              <a href="/shop" class="btn">Show Watches</a>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-10">
-            <div class="choice-watch-img mb-40">
-              <img
-                src="/assets/IMAGES/<%= product.image %>"
-                alt="<%= product.name %>"
-              />
-            </div>
-          </div>
-        </div>
-        <% } %> <% displayedProducts++; %> <% } %> <% }); %>
       </div>
     </div>
-  </div>
 
-  <!-- Watch Choice  End-->
-  <!--? Shop Method Start-->
-  <div class="shop-method-area">
-    <div class="container">
-      <div class="method-wrapper">
-        <div class="row d-flex justify-content-between">
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-package"></i>
-              <h6>Free Shipping Method</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+    <!-- Watch Choice  End-->
+    <!--? Shop Method Start-->
+    <div class="shop-method-area">
+      <div class="container">
+        <div class="method-wrapper">
+          <div class="row d-flex justify-content-between">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-package"></i>
+                <h6>Free Shipping Method</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-unlock"></i>
-              <h6>Secure Payment System</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-unlock"></i>
+                <h6>Secure Payment System</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="single-method mb-40">
-              <i class="ti-reload"></i>
-              <h6>Secure Payment System</h6>
-              <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="single-method mb-40">
+                <i class="ti-reload"></i>
+                <h6>Secure Payment System</h6>
+                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Shop Method End-->
-</main>
+    <!-- Shop Method End-->
+  </main>
 
-<script>
-  $(document).ready(function () {
-    $(".owl-carousel").owlCarousel({
-      loop: true,
-      margin: 0,
-      nav: false,
-      dots: true,
-      autoplay: true,
-      autoplayTimeout: 5000,
-      responsive: {
-        0: {
-          items: 1,
+  <script>
+    $(document).ready(function () {
+      $(".owl-carousel").owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: false,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 1,
+          },
+          991: {
+            items: 1,
+          },
+          1200: {
+            items: 1,
+          },
         },
-        768: {
-          items: 1,
-        },
-        991: {
-          items: 1,
-        },
-        1200: {
-          items: 1,
-        },
-      },
+      });
     });
-  });
-</script>
+  </script>
 
-<%- include("../layouts/userPartials/footer.ejs") %>
+  <%- include("../layouts/userPartials/footer.ejs") %>

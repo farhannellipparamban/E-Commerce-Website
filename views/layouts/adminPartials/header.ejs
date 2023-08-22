@@ -15,7 +15,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="/Admin/imgs/theme/favicon.svg" />
   <!-- Template CSS -->
   <!-- Add this line within the <head> tag -->
-<link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 
   <link href="/Admin/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -56,7 +56,20 @@
             <a href="addProduct">Add product</a>
             <!-- <a href="page-products-grid.html">Product grid</a>
                         <a href="page-products-grid-2.html">Product grid 2</a> -->
-            <a href="productCategory">Categories</a>
+            <!-- <a href="productCategory">Categories</a> -->
+          </div>
+        </li>
+        <li class="menu-item has-submenu">
+          <a class="menu-link" href="#">
+            <i class="icon material-icons md-category"></i>
+            <span class="text">Categories</span>
+          </a>
+          <div class="submenu">
+            <a href="/admin/productCategory">Category List</a>
+            <!-- <a href="addProduct">Add product</a> -->
+            <!-- <a href="page-products-grid.html">Product grid</a>
+                        <a href="page-products-grid-2.html">Product grid 2</a> -->
+            <!-- <a href="productCategory">Categories</a> -->
           </div>
         </li>
         <li class="menu-item has-submenu">
@@ -68,7 +81,7 @@
             <a href="orderDetails">Order detail</a>
             <!-- <a href="orderView">View Orders </a> -->
             <!-- <a href="page-orders-2.html">Order list 2</a> -->
-                        
+
           </div>
         </li>
         <li class="menu-item has-submenu">
@@ -83,26 +96,37 @@
                         <a href="page-seller-detail.html">Seller profile</a> -->
           </div>
         </li>
-        <!-- <li class="menu-item has-submenu ">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="addProduct">Add product</a>
-                        <a href="page-form-product-2.html" >Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a>
+        <li class="menu-item has-submenu">
+          <a class="menu-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-gift-fill mx-1" style="color: darkgray;" viewBox="0 0 16 16">
+              <path
+                d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z" />
+            </svg>
+            <span class="text mx-2">Coupons</span>
+          </a>
+          <div class="submenu">
+                        <a href="/admin/coupon">Coupon List</a>
+                        <!-- <a href="page-form-product-2.html" >Add product 2</a> -->
+                        <!-- <a href="page-form-product-3.html">Add product 3</a> -->
+                        <!-- <a href="page-form-product-4.html">Add product 4</a> -->
                     </div>
-                </li> -->
-        <!-- <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="#">Transaction 1</a>
-                        <a href="#">Transaction 2</a> -->
-        <!-- </div>
-                </li> -->
+        </li>
+        <li class="menu-item has-submenu">
+          <a class="menu-link" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              fill="currentColor" class="bi bi-images mx-1" style="color: darkgray;" viewBox="0 0 16 16">
+              <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+              <path
+                d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
+            </svg>
+
+            <span class="text mx-2">Banner</span>
+          </a>
+          <div class="submenu">
+            <a href="/admin/listBanner">Banner List</a>
+            <!-- <a href="#">Transaction 2</a> -->
+          </div>
+        </li>
         <!-- <li class="menu-item has-submenu">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
                         <span class="text">Account</span>
@@ -168,7 +192,8 @@
         </form>
       </div>
       <div class="col-nav">
-        <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+        <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+            class="material-icons md-apps"></i> </button>
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link btn-icon" href="#">

@@ -1,0 +1,186 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+<style>
+  /* Add your custom styles here */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  button {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-left: 120px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #a2a1a3;
+  }
+  
+</style>
+
+
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container px-6 mx-auto grid">
+      <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Edit Coupons
+      </h2>
+  
+      <form action="" method="post">
+        <div
+        class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+      >
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Name</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter Coupon Name"
+            id="code"
+            name="code"
+            type="text"
+            value="<%= couponData.code%>"
+            required
+          />
+          
+        </label>
+        <% if(typeof message !== 'undefined'){ %>
+          <p id="para" style="color: red;font-family: Georgia, 'Times New Roman', Times, serif;"><%=message%></p>
+        
+          <% } %>
+
+        <label class="block mt-4 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">
+            Discount Type
+          </span>
+          <select
+            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+            name="discountType"
+            id="discountType"
+          >
+           <option>Fixed</option>
+           <option>Percentage Type</option>
+          </select>
+        </label>
+
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Discount Amount</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter the discount amount"
+            id="amount"
+            name="amount"
+            type="number"
+            value="<%= couponData.discountAmount%>"
+            required
+          />
+
+        <label class="block text-sm py-4">
+          <span class="text-gray-700 dark:text-gray-400">Expiry Date</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            id="date"
+            name="date"
+            type="date"
+            value="<%= couponData.expiryDate%>"
+            required
+          />
+          
+        </label>
+
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Min Cart Amount</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter the Cart amount"
+            id="cartAmount"
+            name="cartAmount"
+            type="number"
+            value="<%= couponData.maxCartAmount%>"
+            required
+          />
+          
+        </label>
+
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Max Discount Amount</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter the Discount Amount"
+            id="discountAmount"
+            name="discountAmount"
+            type="number"
+            value="<%= couponData.maxDiscountAmount%>"
+            required
+          />
+          
+        </label>
+
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Max Coupons</span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter the count of coupons"
+            id="couponCount"
+            name="couponCount"
+            type="number"
+            value="<%= couponData.maxUsers%>"
+            required
+          />
+       
+        </label>
+        <button
+        type="submit"
+        class="block w-50 px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+      >
+        submit
+      </button>
+
+        <!-- <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-red-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            type="submit"
+            onclick="show()"
+            value="Submit"
+          /> -->
+        <%
+        if(typeof message != 'undefined'){
+          %>
+          <p id="para" style="color: red;font-family: Georgia, 'Times New Roman', Times, serif;"><%=message%></p>
+          <%
+        }
+        %>
+      </div>
+      </form>   
+    </div>
+  </main>
+  
+
+
+  <%- include("../layouts/adminPartials/footer.ejs") %>

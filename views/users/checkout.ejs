@@ -1,5 +1,150 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
+  <style>
+    /* Your existing styles */
+
+    /* Additional styles for checkout page */
+    .checkout_area {
+      padding: 50px 0;
+    }
+
+    .order_box {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .coupon_box,
+    .wallet_box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .coupon_box h2,
+    .wallet_box h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .coupon_input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .coupon_button,
+    .wallet_button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .billing_details {
+      padding-top: 20px;
+    }
+
+    .billing_details h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    /* Rest of your styles */
+    /* Customize modal styles */
+
+
+
+/* Style modal header background color and text color */
+.modal-header {
+  background-color: #ff0000;
+  color: white;
+}
+/* Style coupon codes with a subtle shadow and border */
+.coupon-code {
+  padding: 10px 16px;
+  margin-bottom: 15px;
+  background-color: #f8f8f8;
+  color: #000000;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.coupon-code:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Center-align coupon codes in their container */
+.coupons-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+
+}
+
+/* Style the "No Coupon Available" text */
+.no-coupon {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: #ca0000;
+}
+
+/* Adjust the close button style */
+.btn-close {
+  color: #000000;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+  color:rgb(255, 255, 255);
+}
+
+/* Style the modal footer */
+.modal-footer {
+  border-top: 1px solid #dfd9d9;
+  padding: 10px;
+}
+
+/* Style the "Close" button */
+.modal-footer .btn-secondary {
+  background-color: #ff0000;
+  border-color: #000000;
+  color: #fffafa;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #8d8a8a;
+}
+
+/* Style the "Apply Coupon" button */
+.modal-footer .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn{
+  border-radius: 30px;
+  background-color: #ff0000;
+}
+  </style>
+
   <main>
     <!-- Hero Area Start-->
     <div class="slider-area ">
@@ -16,27 +161,72 @@
       </div>
     </div>
     <!--================Checkout Area =================-->
+    
     <section class="checkout_area section_padding">
       <div class="container">
         <div class="order_box col-lg-4">
-
+      <!-- Button trigger modal -->
+      <button type="button" class="btn py-4 mb-5 circle arrow" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Available Coupons
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Available Coupons</h1>
+              <div type="button" class="btn-close" data-bs-dismiss="modal" aria-label="x-icon"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg></div>
+            </div>
+            <div class="modal-body">
+              <div class="coupons-list">
+                <% if (coupons && coupons.length > 0) { %>
+                  <% coupons.forEach(coupon => { %>
+                    <span class="coupon-code"><%= coupon.code %></span>
+                  <% }) %>
+                <% } else { %>
+                  <span class="no-coupon">No Coupon Available!</span>
+                <% } %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary py-4" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Apply Coupon</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
           <h2>Coupon</h2>
-
-          <label for="coupon"></label>
+          <!-- <label for="coupon"></label>
           <input type="text" name="code" id="code" placeholder="Enter Coupon code" required>
-          <button class=" genric-btn success circle arrow" onclick="applycoupon($('#code').val())">apply</button>
+          <button class=" genric-btn success circle arrow" onclick="applycoupon($('#code').val())">apply</button> -->
+          <form id="coupon-form">
+            <div class="cart-coupon">
+              <input type="text" id="code" name="cart-coupon" placeholder="Coupon code">
+              <button type="submit" class="genric-btn success circle arrow">Apply Coupon</button>
+            </div>
+          </form>
           <br>
           <br>
-          <h2> wallet</h2>
-          <h6 id="walletbalance">
+          <h5 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-2" aria-expanded="true">
+            Available Wallet Money.
+          </h5>
+          <p style="font-size: larger;">Wallet : ₹
+            <span id="walletbalance" class="text-danger" style="font-weight: 500;font-size: larger;"> <%= userd.wallet %></span>
+          </p>
+          <!-- <h2> wallet</h2>
+          <h6 id="walletbalance" class="text-success">
             <%=userd.wallet%>
-          </h6>
+          </h6> -->
 
 
 
-          <label for="wal"></label>
-          <input type="text" name="wal" id="wal" placeholder="Enter Wallet Amount" required>
-          <button class=" genric-btn success circle arrow" onclick="walamount($('#wal').val())">Add</button>
+          <label for="wallet"></label>
+          <input type="text" name="wallet" id="wallet" placeholder="Enter Wallet Amount" required>
+          <button class="genric-btn success circle arrow" onclick="walamount($('#wallet').val())">Add</button>
 
 
         </div>
@@ -46,9 +236,7 @@
           <div class="row">
             <div class="col-lg-8">
               <h3>Billing Address</h3>
-
               <hr>
-
               <!-- <a class="btn_3" href="./user_profile">ADD ADDRESS</a> -->
 
               <a class="btn_3" href="/addAddresscheck">ADD ADDRESS</a> <br><br>
@@ -75,8 +263,8 @@
                             Address:&nbsp; <%=value.address%><br>
                               Phone: &nbsp; <%= value.mobile%><br>
                                 Email: &nbsp; <%=value.email%><br>
-                                City: &nbsp; <%=value.city%><br>
-                                  PIN: &nbsp; <%= value.pin%><br>
+                                  City: &nbsp; <%=value.city%><br>
+                                    PIN: &nbsp; <%= value.pin%><br>
 
 
                       </label>
@@ -146,7 +334,7 @@
 
                     <a>grandTotal
                       <span id="total1">
-                        <%=grandTotal%>
+                        <%=Total%>
                       </span>
                     </a>
 
@@ -156,11 +344,11 @@
                 <div>
 
                   <input type="radio" name="Payment" value="COD" required>
-                  <label for="Payement">COD</label>
+                  <label for="Payement">Cash On Delivery</label>
                 </div>
                 <div>
                   <input type="radio" name="Payment" value="online" required>
-                  <label for="Payement">Online</label>
+                  <label for="Payement">Online Payment</label>
                 </div>
                 <button class="btn_3" type="submit">Place order</button>
                 </form>
@@ -175,14 +363,10 @@
         </div>
       </div>
     </section>
-    <!--================End Checkout Area =================-->
   </main>
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-  <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
-
+  <!--================End Checkout Area =================-->
+  
 
   <script>
     $("#checkout").submit((e) => {
@@ -195,10 +379,6 @@
       let address = $("input[name=address]:checked").val();
       let payment = $("input[name=Payment]:checked").val();
 
-
-      console.log(amount);
-      console.log(address)
-      console.log(payment)
       e.preventDefault();
       $.ajax({
         url: "/checkout",
@@ -215,48 +395,68 @@
           if (response.codsuccess) {
             location.href = "/orderplaced";
           } else {
-            razorpayPayment(response.order);
+            razorpayPayment(response.orders);
           }
         }
       })
     })
 
-    // function razorpayPayment(order) {
+    function razorpayPayment(order) {
+      var options = {
+        "key": "rzp_test_X5XhJ53T3zS8E9",   // Enter the Key ID generated from the Dashboard
+        "amount": order.amount,             // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Clocksy Watches",       //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id,               //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
+          verifyPayment(response, order); // Call the verifyPayment function
+        },
+        "prefill": {                        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+          "name": "Gaurav Kumar",         //your customer's name
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000"         //Provide the customer's phone number for better conversion rates 
+        },
+        "notes": {
+          "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+          "color": "#FF0000"
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
 
-    //   var options = {
-    //     "key": "rzp_test_QK6YRj6TBJfBBw", // Enter the Key ID generated from the Dashboard
-    //     "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    //     "currency": "INR",
-    //     "name": "TZ watches", //your business name
-    //     "description": "Test Transaction",
-    //     "image": "https://example.com/your_logo",
-    //     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //     "handler": function (response) {
 
-    //       verifyPayment(response, order);
-    //     },
-    //     "prefill": {
-    //       "name": "Gaurav Kumar", //your customer's name
-    //       "email": "gaurav.kumar@example.com",
-    //       "contact": "9000090000"
-    //     },
-    //     "notes": {
-    //       "address": "Razorpay Corporate Office"
-    //     },
-    //     "theme": {
-    //       "color": "#3399cc"
-    //     }
-    //   };
-    //   var rzp1 = new Razorpay(options);
-    //   rzp1.open();
-    // }
-
+    function verifyPayment(payment, order) {
+      $.ajax({
+        url: '/verifyPayment',
+        method: 'post',
+        data: {
+          payment,
+          order,
+        },
+        success: (response) => {
+          if (response.success) {
+            window.location.href = '/orderplaced';
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: "Payment Failed"
+            })
+          }
+        }
+      })
+    }
 
     // function verifyPayment(payment, order) {
     //   const amount = document.getElementById("total1").innerHTML;
     //   // const amount2 = document.getElementById("gt2").innerHTML;
     //   $.ajax({
-    //     url: "/verifyPayment",
+    //     url: "/verifyOnlinePayment",
     //     method: "post",
     //     data: {
     //       payment,
@@ -265,93 +465,73 @@
     //     },
     //     success: (response) => {
     //       if (response.success) {
-    //         location.href = '/order-placed';
+    //         location.href = '/orderplaced';
     //       } else {
     //         alert('payment failed');
-    //         location.href = '/home';
+    //         location.href = '/';
 
     //       }
     //     }
     //   })
     // }
 
-
-
-
-
   </script>
 
 
-  <!-- <script>
-    function deleteaddress(id) {
-      
-          $.ajax({
-            url: "/deleteaddress",
-            data: {
-              id: id,
-            },
-            method: "post",
-            success: (response) => {
-              if ((response.status)) {
-               alert("item deleted")
-              } else{ 
-                alert("not deleted!")
-              }
-            },
-          });
-        }
-     
-  </script> -->
-
-  <!-- <script>
-    function applycoupon(code) {
-      const amount = document.getElementById('total1').innerHTML;
+  <script>
+    // Apply coupon
+    $("#coupon-form").submit((e) => {
+      e.preventDefault();
+      const code = $("#code").val();
+      const amount = $("#total1").text();
+      console.log(amount);
       $.ajax({
         url: "/applyCoupon",
+        method: "post",
         data: {
           code: code,
           amount: amount
         },
-        method: "post",
+        
         success: (response) => {
           if (response.user) {
             Swal.fire({
-              icon: 'error',
+              icon: 'warning',
               title: 'Oops...',
-              text: 'This coupon already used!'
+              text: 'Oops! This user has already used this coupon'
             })
           } else if (response.limit) {
             Swal.fire({
-              icon: 'error',
+              icon: 'warning',
               title: 'Oops...',
-              text: 'coupon limit exceeded!'
+              text: "Oops! Coupon limit exceeded"
             })
           } else if (response.status) {
             Swal.fire({
-              icon: 'error',
+              icon: 'warning',
               title: 'Oops...',
-              text: 'coupon limit exceeded!'
+              text: "Oops! This coupon is not in use"
             })
           } else if (response.cartAmount) {
             Swal.fire({
-              icon: 'error',
+              icon: 'warning',
               title: 'Oops...',
-              text: 'You cant use the coupon...Buy more'
+              text: "Oops! You can't use the coupon... Buy more"
             })
           } else if (response.date) {
             Swal.fire({
-              icon: 'error',
+              icon: 'warning',
               title: 'Oops...',
-              text: 'date expired!!!'
+              text: 'Oops! Coupon date expired'
             })
+
           } else if (response.amountOkey) {
-            document.getElementById('coupon').innerHTML = response.disAmount
-            document.getElementById('total1').innerHTML = response.disTotal
-            console.log("done");
+            document.getElementById('coupon').innerText = response.disAmount;
+            document.getElementById('total1').innerText = response.disTotal;
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Discount redeemed',
+              title: 'Coupon Added',
               showConfirmButton: false,
               timer: 1500
             })
@@ -359,38 +539,34 @@
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Invalid Coupon!!!'
+              text: 'Oops! Invalid coupon'
             })
           }
         }
-      })
-    }
+      });
+    });
 
   </script>
 
   <script>
-    function walamount(wal) {
+    function walamount(wallet) {
 
-      const stotlal = document.getElementById('total2').innerHTML
-      const gtotal = document.getElementById('total1').innerHTML
-      //const wal = document.getElementById('wal').innerHTML
-      console.log(wal);
+      const subTotal = document.getElementById('total2').innerHTML
+      const grandTotal = document.getElementById('total1').innerHTML
 
       $.ajax({
-        url: "/walamount",
+        url: "/wallet",
         data: {
-          wal: wal,
-          gtotal: gtotal,
-          stotlal: stotlal
+          wallet: wallet,
+          grandTotal: grandTotal,
+          subTotal: subTotal
         },
         method: 'post',
 
         success: (response) => {
-          console.log('hi2');
 
           if (response.limit) {
 
-            console.log("coupon limit exceeded");
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -398,9 +574,9 @@
             })
 
           } else {
-            document.getElementById('wallet').innerHTML = response.wal
-            document.getElementById('total1').innerHTML = response.grandtotal
-            document.getElementById('walletbalance').innerHTML = response.twallet - response.wal
+            document.getElementById('wallet').innerHTML = response.wallet
+            document.getElementById('total1').innerHTML = response.grandTotal
+            document.getElementById('walletbalance').innerHTML = response.totalwallet - response.wallet
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -414,5 +590,5 @@
 
       })
     }
-  </script> -->
-<%- include("../layouts/userPartials/footer.ejs") %>
+  </script>
+  <%- include("../layouts/userPartials/footer.ejs") %>

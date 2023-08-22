@@ -1,0 +1,82 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+<style>
+  /* Sample CSS styles, customize as needed */
+.action-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #5e5e5e; /* Change to your desired hover color */
+}
+
+.edit-button {
+  background-color: #00c230;
+  color: white;
+}
+
+.delete-button {
+  background-color: #ff0800;
+  color: white;
+}
+
+</style>
+<main class="h-full pb-16 overflow-y-auto">
+  <div class="container grid px-6 mx-auto">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      <a href="./addcoupon">
+        <button class="btn btn-danger">Add Coupon</button>
+      </a>
+    </h2>
+
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+      <div class="w-full overflow-x-auto">
+        <table class="w-full whitespace-no-wrap">
+          <thead>
+            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+              <th class="px-4 py-3">No</th>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">Amount</th>
+              <th class="px-4 py-3">User Count</th>
+              <th class="px-4 py-3">Discount Type</th>
+              <th class="px-4 py-3">Expiry Date</th>
+              <th class="px-4 py-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <% coupons.reverse().forEach((value, index) => { %>
+            <tr class="text-gray-700 dark:text-gray-400">
+              <td class="px-4 py-3"><%= index + 1 %></td>
+              <td class="px-4 py-3"><%= value.code %></td>
+              <td class="px-4 py-3"><%= value.discountAmount %></td>
+              <td class="px-4 py-3"><%= value.maxUsers %></td>
+              <td class="px-4 py-3"><%= value.discountType %></td>
+              <td class="px-4 py-3"><%= value.expiryDate.toISOString().substring(0, 10) %></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center space-x-4 text-sm">
+                  <a href="/admin/editcoupon?id=<%= value._id %>">
+                    <button class="action-button edit-button" aria-label="Edit">
+                      Edit
+                    </button>
+                  </a>
+                  <a href="/admin/deletecoupon?id=<%= value._id %>">
+                    <button class="action-button delete-button" aria-label="Delete">
+                      Delete
+                    </button>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include("../layouts/adminPartials/footer.ejs") %>
