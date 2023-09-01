@@ -5,18 +5,19 @@ const CatDb = require("../models/categoryModel");
 const user_address = require("../models/addressModel");
 
 //addAddress get
-const addressLoad = async (req, res) => {
+const addressLoad = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userd = await User.findOne({ _id: req.session.user_id });
     res.render("addAddress", { loadlogIn, user: userd.name });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //address verification post
-const verifyAddress = async (req, res) => {
+const verifyAddress = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const user = req.session.user_id;
@@ -67,11 +68,12 @@ const verifyAddress = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //delete Adress get
-const deleteaddress = async (req, res) => {
+const deleteaddress = async (req, res,next) => {
   try {
     const id = req.query.id;
     await user_address.updateOne(
@@ -82,10 +84,11 @@ const deleteaddress = async (req, res) => {
     // res.json({ remove: true });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const deleteaddressCheckout = async (req, res) => {
+const deleteaddressCheckout = async (req, res,next) => {
   try {
     const id = req.query.id;
     await user_address.updateOne(
@@ -96,11 +99,12 @@ const deleteaddressCheckout = async (req, res) => {
     // res.json({ remove: true });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //edit Address get
-const editAddress = async (req, res) => {
+const editAddress = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const id = req.query.id;
@@ -112,11 +116,12 @@ const editAddress = async (req, res) => {
     res.render("editAddress", { loadlogIn, user: userd.name, value, index });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //edit Address post
-const updateAddress = async (req, res) => {
+const updateAddress = async (req, res,next) => {
   try {
     const index = req.body.index;
     const fname = req.body.fname;
@@ -163,11 +168,12 @@ const updateAddress = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //address checkout
-const verifyAddresscheck = async (req, res) => {
+const verifyAddresscheck = async (req, res,next) => {
   try {
     const user = req.session.user_id;
 
@@ -218,11 +224,12 @@ const verifyAddresscheck = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //edit post checkout
-const posteditaddresscheck = async (req, res) => {
+const posteditaddresscheck = async (req, res,next) => {
   try {
     const index = req.body.index;
     const fname = req.body.fname;
@@ -269,6 +276,7 @@ const posteditaddresscheck = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

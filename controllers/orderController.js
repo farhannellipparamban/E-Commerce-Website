@@ -13,7 +13,7 @@ var instance = new Razorpay({
 });
 
 // placetheorder
-const placeTheOrder = async (req, res) => {
+const placeTheOrder = async (req, res,next) => {
   try {
     const userDetails = await User.findOne({ _id: req.session.user_id });
     const cartData = await cart.findOne({ user: userDetails._id });
@@ -40,7 +40,7 @@ const placeTheOrder = async (req, res) => {
     const grandTotal = subtotal - userDetails.wallet;
     const wallet = req.body.wallet;
 
-    const status = payment === "COD" ? "placed" : "pending";
+    const status = payment === "COD" || payment=="wallet" ? "placed" : "pending";
 
     // Deduct the ordered quantity from the product stock
     // for (const cartProduct of cartData.product) {
@@ -66,6 +66,17 @@ const placeTheOrder = async (req, res) => {
     });
 
     const saveOrder = await newOrder.save();
+    if(payment == "wallet"){
+    
+      await User.findByIdAndUpdate({_id:req.session.user_id},{$inc:{wallet:-Total1},$push: {
+        walletHistory: {
+          date: new Date(),
+          amount:-Total1,
+          description: `Buy product with wallet`,
+        },
+      },})
+  
+     }
 
     if (status == "placed") {
       // const wallet = subtotal - Total1 - couponamt;
@@ -88,16 +99,13 @@ const placeTheOrder = async (req, res) => {
       res.json({ orders });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Error occurred while placing the order",
-    });
+    console.log(error.message);
+    next(error)
   }
 };
 
 // verify Payment
-const verifyPayment = async (req, res) => {
+const verifyPayment = async (req, res,next) => {
   try {
     const details = req.body;
     const crypto = require("crypto");
@@ -124,11 +132,12 @@ const verifyPayment = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //order placing
-const orderPlaced = async (req, res) => {
+const orderPlaced = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userd = await User.findOne({ _id: req.session.user_id });
@@ -139,11 +148,12 @@ const orderPlaced = async (req, res) => {
     res.render("orderSuccess", { loadlogIn, user: userd.name, orderData });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //orderList
-const orderlistLoad = async (req, res) => {
+const orderlistLoad = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userd = await User.findOne({ _id: req.session.user_id });
@@ -151,11 +161,12 @@ const orderlistLoad = async (req, res) => {
     res.render("orderList", { loadlogIn, user: userd.name, orders });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //show order
-const showorderLoad = async (req, res) => {
+const showorderLoad = async (req, res,next) => {
   try {
     const userd = await User.findOne({ _id: req.session.user_id });
     const id = req.query.id;
@@ -172,11 +183,12 @@ const showorderLoad = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //order canceling
-const canceluserOrder = async (req, res) => {
+const canceluserOrder = async (req, res,next) => {
   try {
     const id = req.body.id;
     const orderData = await order.findById({ _id: id });
@@ -195,17 +207,25 @@ const canceluserOrder = async (req, res) => {
       } else {
         await User.findByIdAndUpdate(orderData.user, {
           $inc: { wallet: total },
+          $push: {
+            walletHistory: {
+              date: new Date(),
+              amount: total,
+              description: `Refunded for Order cancel`,
+            },
+          },
         });
       }
       res.json({ remove: true });
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //return user order
-const returnOrder = async (req, res) => {
+const returnOrder = async (req, res,next) => {
   try {
     const userd = await User.findOne({ _id: req.session.user_id });
     const id = req.body.id;
@@ -221,6 +241,7 @@ const returnOrder = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

@@ -4,7 +4,8 @@ const admin = require("../models/adminModel");
 const CatDB = require("../models/categoryModel");
 const order = require("../models/orderModel");
 const productDB = require("../models/prodectModel");
-const Banner = require("../models/bannerModel")
+const Banner = require("../models/bannerModel");
+const dashboardHelper = require("../helpers/dashboardHelper");
 
 const securePassword = async (password) => {
   try {
@@ -49,9 +50,107 @@ const verifyLogin = async (req, res) => {
 //dashboard get
 const loadDashboard = async (req, res) => {
   try {
+    const userCount = await User.count();
+    const products = await productDB.count();
     const categoryData = await CatDB.find({ blocked: false });
+    const categoryCount = await CatDB.count();
+    const ordersCount = await order.count();
+    const orders = await order.find({});
 
-    res.render("dashboard", { Catdata: categoryData });
+    const today = new Date();
+    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(today.getDate()-7);
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(today.getDate()-30);
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear()-1);
+    // const currentMonthStartDate = new Date(currentYear, currentMonth, 1, 0, 0, 0);
+
+    const dailyOrders = orders.filter(order => order.Date >= startOfToday);
+        const weeklyOrders = orders.filter(order => order.Date >= oneWeekAgo);
+        const MonthlyOrders = orders.filter(order => order.Date >= oneMonthAgo);
+        const yearlyOrders = orders.filter(order => order.Date >= oneYearAgo);
+
+
+        const dailySalesData = dailyOrders.map(order => order.totalAmount);
+        const weeklySalesData = weeklyOrders.map(order => order.totalAmount);
+        const monthlySalesData = MonthlyOrders.map(order => order.totalAmount);
+        const yearlySalesData = yearlyOrders.map(order => order.totalAmount);
+
+
+        const totalDailyEarnings = dailyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
+        const totalWeeklyEarnings = weeklyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
+        const totalMonthlyEarnings = MonthlyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
+        const totalYearlyEarnings =  yearlyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
+
+
+        const totalEarnings = orders.reduce((sum, order) => sum + order.totalAmount, 0)
+      //---------
+    const promises = [
+      dashboardHelper.totalRevenue(),
+      dashboardHelper.paymentMethod(),
+      // dashboardHelper.monthlyEarning(currentMonthStartDate, now),
+
+    ];
+      //---------
+    const results = await Promise.all(promises);
+    const totalRevenue = results[0];
+    const paymentMethod = results[1]
+    // const monthlyEarning = results[2];
+    let codPayAmount,onlinePayment,walletPayAmount;
+        if (paymentMethod[0]._id === 'COD'){
+            codPayAmount = paymentMethod[0].amount;
+        } else if (paymentMethod[0]._id === 'online'){
+          onlinePayment = paymentMethod[0].amount;
+        } else if(paymentMethod[0]._id === "wallet"){
+          walletPayAmount = paymentMethod[0].amount
+      }
+
+        if (paymentMethod[1]._id === 'COD') {
+            codPayAmount = paymentMethod[1].amount;
+        } else if (paymentMethod[1]._id === 'online') {
+          onlinePayment = paymentMethod[1].amount;
+        }else if(paymentMethod[1]._id === "wallet"){
+          walletPayAmount = paymentMethod[1].amount
+      } 
+
+        if (paymentMethod[2]._id === 'COD') {
+            codPayAmount = paymentMethod[2].amount;
+        } else if (paymentMethod[2]._id === 'online') {
+          onlinePayment = paymentMethod[2].amount;
+        }else if(paymentMethod[2]._id === "wallet"){
+          walletPayAmount = paymentMethod[2].amount
+      } 
+
+     //---------
+    //  const codPayAmount = paymentMethod && paymentMethod.length > 0 ? paymentMethod[0].totalAmount : 0
+    //  const onlinePayment = paymentMethod && paymentMethod.length > 0 ? paymentMethod[1].totalAmount : 0
+    //---------     
+    res.render("dashboard", {
+      admin:req.session.admin_id,
+      userCount: userCount,
+      Catdata: categoryData,
+      categoryCount: categoryCount,
+      productCount: products,
+      ordersCount: ordersCount,
+      totalRevenue: totalRevenue,
+      codPayAmount: codPayAmount,
+      onlinePayment: onlinePayment,
+      walletPayAmount:walletPayAmount,
+      totalEarnings,
+      totalDailyEarnings,
+      totalWeeklyEarnings,
+      totalMonthlyEarnings,
+      totalYearlyEarnings,
+      dailySalesData,
+      weeklySalesData,
+      monthlySalesData,
+      yearlySalesData
+
+
+
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -70,6 +169,7 @@ const logout = async (req, res) => {
 //user listing get
 const userList = async (req, res) => {
   try {
+    
     const userData = await User.find({ is_admin: 0 });
 
     res.render("userList", { user: userData });
@@ -217,73 +317,69 @@ const orderView = async (req, res) => {
   }
 };
 
-
 // Banner list
-const listBanner = async(req,res)=>{
+const listBanner = async (req, res) => {
   try {
     const admin = req.session.admin_id;
     const BannerData = await Banner.find({});
-    console.log(BannerData);
     if (admin) {
-      res.render("listBanner",{admin,BannerData})
-
+      res.render("listBanner", { admin, BannerData });
     }
   } catch (error) {
     console.log(error.message);
   }
-} 
+};
 
-//add banner get 
-const addBanner = async(req,res)=>{
+//add banner get
+const addBanner = async (req, res) => {
   try {
-    const admin =req.session.admin_id
-    res.render("addBanner",{admin})
+    const admin = req.session.admin_id;
+    res.render("addBanner", { admin });
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
 // add Banner post
-const addBannerPage =async(req,res)=>{
+const addBannerPage = async (req, res) => {
   try {
-    const {bannerTitle,description} = req.body
+    const { bannerTitle, description } = req.body;
     const Images = req.file.filename;
 
-    const bannerData = new Banner ({
+    const bannerData = new Banner({
       bannerTitle,
       description,
       Images,
-    })
-    const saveBanner = await bannerData.save()
+    });
+    const saveBanner = await bannerData.save();
     if (saveBanner) {
-      res.redirect("/admin/listBanner")
+      res.redirect("/admin/listBanner");
     } else {
-      res.redirect("/admin/addBanner")
+      res.redirect("/admin/addBanner");
     }
-
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
 //edit banner page
-const editBanner = async(req,res)=>{
+const editBanner = async (req, res) => {
   try {
-    const admin = req.session.admin_id
-    const id = req.query.id
-    const bannerData = await Banner.findById({_id:id})
-    
+    const admin = req.session.admin_id;
+    const id = req.query.id;
+    const bannerData = await Banner.findById({ _id: id });
+
     if (bannerData) {
-      res.render("editBanner",{admin:admin , bannerData:bannerData})
+      res.render("editBanner", { admin: admin, bannerData: bannerData });
     } else {
-      res.redirect("/admin/listBnaner")
+      res.redirect("/admin/listBnaner");
     }
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
-//update Banner 
+//update Banner
 const updateBanner = async (req, res) => {
   try {
     const id = req.query.id;
@@ -314,19 +410,129 @@ const updateBanner = async (req, res) => {
 };
 
 //delete Banner
-const deleteBanner = async(req,res)=>{
+const deleteBanner = async (req, res) => {
   try {
-    const id = req.query.id
-    const bannerData = await Banner.findById({_id:id})
-    if(bannerData){
-      await Banner.deleteOne({_id:id})
-      res.redirect("/admin/listBanner")
+    const id = req.query.id;
+    const bannerData = await Banner.findById({ _id: id });
+    if (bannerData) {
+      await Banner.deleteOne({ _id: id });
+      res.redirect("/admin/listBanner");
     }
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
+//Sales Report
+const SalesReport = async (req, res) => {
+  try {
+    const { seeAll, sortData, sortOrder } = req.query;
+    // let page = Number(req.query.page);
+    // if (isNaN(page) || page < 1) {
+    //   page = 1;
+    // }
+
+    const sort = {};
+    if (sortData) {
+      sort[sortData] = sortOrder === "Ascending" ? 1 : -1;
+    } else {
+      sort.date = -1; // Default sorting by date in descending order
+    }
+
+    const orders = await order.find({}).populate('user').sort(sort);
+    res.render("salesReport", {
+      orders: orders,
+      sortData: sortData,
+      sortOrder: sortOrder,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
+const datewiseSalesRp = async(req,res)=>{
+  try {
+    const { seeAll, sortData, sortOrder } = req.query;
+
+    const sort = {};
+    if (sortData) {
+      sort[sortData] = sortOrder === "Ascending" ? 1 : -1;
+    } else {
+      sort.date = -1; // Default sorting by date in descending order
+    }
+
+    let fromDate = req.body.fromDate ? new Date(req.body.fromDate) : null;
+    fromDate.setHours(0, 0, 0, 0);
+    let toDate = req.body.toDate ? new Date(req.body.toDate) : null;
+    toDate.setHours(23, 59, 59, 999);
+
+    const currentDate = new Date();
+
+    if (fromDate && toDate) {
+      if (toDate < fromDate) {
+        const temp = fromDate;
+        fromDate = toDate;
+        toDate = temp;
+      }
+    } else if (fromDate) {
+      toDate = currentDate;
+    } else if (toDate) {
+      fromDate = currentDate;
+    }
+
+   var matchStage = {
+      
+    status: "delivered" 
+  };
+
+  const totalAmount = await order.aggregate([  {
+    $match: {
+
+    
+      Date: { $gte: fromDate, $lte: toDate },
+    },
+  },
+    { $unwind: '$product' },
+    { $match: matchStage }, // This is where you would put your additional matching criteria if needed
+    {
+      $group: {
+        _id: null,
+        total: { $sum: '$totalAmount' }
+      }
+    }
+  ]);
+  
+
+  const totalSold = await order.aggregate([
+    {
+      $match: {
+
+      
+        Date: { $gte: fromDate, $lte: toDate },
+      },
+    },
+    { $unwind: '$product' },
+    { $match: matchStage },
+    { $group: { _id: null, total: { $sum: '$product.quantity' } } },
+    { $project: { total: 1, _id: 0 } },
+  ]);
+
+ 
+  const orders = await order.find({ Date: { $gte: fromDate, $lte: toDate }, status: "delivered"  }).populate('product.productId').populate('user').sort(sort)
+
+  res.render('salesReport', {
+    totalAmount,
+    totalSold,
+    orders,
+    sortData: sortData,
+    sortOrder: sortOrder,
+  })
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 module.exports = {
   loadLogin,
   verifyLogin,
@@ -347,4 +553,6 @@ module.exports = {
   editBanner,
   updateBanner,
   deleteBanner,
+  SalesReport,
+  datewiseSalesRp,
 };

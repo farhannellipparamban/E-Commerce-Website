@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Types.ObjectId,
+      ref:"User"
     },
     userName: {
       type: String,

@@ -78,19 +78,23 @@
 								
 								  <form class="row contact_form" action="/register" method="post" novalidate="novalidate" onsubmit="return validateForm()">
                                     <div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="name" name="name" value="" placeholder="Username">
+										<input type="text" class="form-control" id="name" name="name" value="" placeholder="Username" required>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="email" class="form-control" id="email" name="email" value="" placeholder="Email Address">
+                                        <input type="email" class="form-control" id="email" name="email" value="" placeholder="Email Address" required>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="text" class="form-control" id="number" name="mob" value="" placeholder="Mobile Number">
+                                        <input type="text" class="form-control" id="number" name="mob" placeholder="Mobile Number"
+                                            required 
+                                            pattern="[0-9]{10}" 
+                                            > 
+                                    </div>
+                                    
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password" required>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password">
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-										<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="" placeholder="Confirm Password">
+										<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="" placeholder="Confirm Password" required>
 
                                     </div>
                                     <div class="col-md-12 form-group">

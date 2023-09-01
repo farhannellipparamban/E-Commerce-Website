@@ -90,7 +90,7 @@ const otpVerify = async (req, res) => {
 };
 
 //otpValidation post
-const otpValidation = async (req, res) => {
+const otpValidation = async (req, res,next) => {
   try {
     const otpinput = req.body.otp;
     const email = req.body.email;
@@ -109,20 +109,22 @@ const otpValidation = async (req, res) => {
     } else res.redirect("/otp");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //register page load get
-const loadRegister = async (req, res) => {
+const loadRegister = async (req, res,next) => {
   try {
     res.render("registration");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //register page insert user post
-const verifyUser = async (req, res) => {
+const verifyUser = async (req, res,next) => {
   try {
     const spassword = await securePassword(req.body.password);
     const email = req.body.email;
@@ -159,20 +161,22 @@ const verifyUser = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //login page get
-const loadLogin = async (req, res) => {
+const loadLogin = async (req, res,next) => {
   try {
     res.render("login");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // Verify Login Post
-const verifyLogin = async (req, res) => {
+const verifyLogin = async (req, res,next) => {
   try {
     const { email, password } = req.body;
     const userData = await User.findOne({ email: email });
@@ -193,12 +197,12 @@ const verifyLogin = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ error: "Server error" });
+    next(error)
   }
 };
 
 //verifyuser email get
-const verifyFromLogin = async (req, res) => {
+const verifyFromLogin = async (req, res,next) => {
   try {
     const email = req.query.email;
     email2 = email;
@@ -208,6 +212,7 @@ const verifyFromLogin = async (req, res) => {
     res.render("otp_verification");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
@@ -248,7 +253,7 @@ const resetsendVerifymail = async (name, email, token) => {
 };
 
 //reset password get
-const resetPassword = async (req, res) => {
+const resetPassword = async (req, res,next) => {
   try {
     const token = req.query.token;
     const userData = await User.findOne({ token: token });
@@ -259,11 +264,12 @@ const resetPassword = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //reset password post
-const resetpassVerify = async (req, res) => {
+const resetpassVerify = async (req, res,next) => {
   try {
     const password = req.body.password;
     const email = req.body.email;
@@ -276,21 +282,23 @@ const resetpassVerify = async (req, res) => {
     res.redirect("/");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //forget password get
 
-const forgetLoad = async (req, res) => {
+const forgetLoad = async (req, res,next) => {
   try {
     res.render("forgetPassword");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //forget post
-const forgetSendEmail = async (req, res) => {
+const forgetSendEmail = async (req, res,next) => {
   try {
     const email = req.body.email;
     const userData = await User.findOne({ email: email });
@@ -314,33 +322,37 @@ const forgetSendEmail = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //home get
-const loadHome = async (req, res) => {
+const loadHome = async (req, res,next) => {
   try {
+   
     const BannerData = await Banner.find()
     const loadlogIn = req.session.user_id;
     const products = await productdb.find({ is_blocked: false });
     res.render("home", { loadlogIn, data: products ,bannerData:BannerData});
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //logout get
-const userLogout = async (req, res) => {
+const userLogout = async (req, res,next) => {
   try {
     req.session.destroy();
     res.redirect("/login");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //shop get
-const loadShoping = async (req, res) => {
+const loadShoping = async (req, res,next) => {
   try {
     let page = req.query.page || 1;
     const limit = 6;
@@ -414,43 +426,69 @@ const loadShoping = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //single product details get
-const productDetails = async (req, res) => {
+const productDetails = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const productId = req.query.id;
-    const product = await productdb.findById(productId);
+    const product = await productdb.findById({_id:productId}).populate("review.user")
+
     res.render("product_details", { loadlogIn, data: product });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
+//review 
+const review =async(req,res,next)=>{
+  try {
+    const id = req.body.id
+    const {review,rating} = req.body
+    const newReview = {
+      user : req.session.user_id,
+      review:review,
+      rating:rating
+    }
+    await productdb.findByIdAndUpdate(
+      {_id:id},
+      {$push:{review:newReview}}
+    );
+    res.redirect(`/product_details?id=${id}`)
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
+}
+
 //about get
-const loadAbout = async (req, res) => {
+const loadAbout = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     res.render("about", { loadlogIn });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //contact get
-const loadContact = async (req, res) => {
+const loadContact = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     res.render("contact", { loadlogIn });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // myAcco get route
-const myAcco = async (req, res) => {
+const myAcco = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userAddress = await user_address.findOne({
@@ -480,11 +518,12 @@ const myAcco = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // //profile post
-const profilesubmit = async (req, res) => {
+const profilesubmit = async (req, res,next) => {
   try {
     const name = req.body.name;
     const email = req.body.email;
@@ -518,11 +557,25 @@ const profilesubmit = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-//wallet
-const walletAmount = async (req, res) => {
+//Wallet History
+const walletHistory = async(req,res,next)=>{
+  try {
+    const loadlogIn = req.session.user_id
+    const user_id = req.session.user_id;
+    const user = await User.findOne({_id:user_id})
+    res.render("walletHistory", { wallet: user.walletHistory, loadlogIn });
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
+}
+
+//wallet post
+const walletAmount = async (req, res,next) => {
   try {
     const user = req.session.user_id;
     const wallet = req.body.wallet;
@@ -539,16 +592,10 @@ const walletAmount = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const error404 = async (req, res) => {
-  try {
-    res.render("404");
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 
 module.exports = {
   loadRegister,
@@ -558,6 +605,7 @@ module.exports = {
   loadContact,
   loadLogin,
   productDetails,
+  review,
   otpVerify,
   otpValidation,
   verifyUser,
@@ -570,6 +618,6 @@ module.exports = {
   userLogout,
   myAcco,
   profilesubmit,
+  walletHistory,
   walletAmount,
-  error404,
 };

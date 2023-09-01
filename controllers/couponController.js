@@ -1,26 +1,28 @@
 const coupon = require("../models/couponModel");
 
 //coupon page load
-const loadCoupon = async (req, res) => {
+const loadCoupon = async (req, res,next) => {
   try {
     const coupons = await coupon.find({});
     res.render("couponList", { coupons });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //Add coupon Load
-const addCoupon = async (req, res) => {
+const addCoupon = async (req, res,next) => {
   try {
     res.render("addCoupon");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //add coupon post
-const Addcouponpost = async (req, res) => {
+const Addcouponpost = async (req, res,next) => {
   try {
     const code = req.body.code;
     couponCode = await coupon.findOne({ code: code });
@@ -45,11 +47,12 @@ const Addcouponpost = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // Apply coupon user
-const applyCoupon = async (req, res) => {
+const applyCoupon = async (req, res,next) => {
   try {
     const code = req.body.code;
     const amount = Number(req.body.amount);
@@ -109,23 +112,24 @@ const applyCoupon = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     console.error("Error occurred while loading apply coupon page:", error);
-    res.status(500).send("Error occurred while loading apply coupon page.");
-  }
+    next(error)
+    }
 };
 
 //edit coupon
-const editCoupon = async (req, res) => {
+const editCoupon = async (req, res,next) => {
   try {
     const id = req.query.id;
     const couponData = await coupon.findOne({ _id: id });
     res.render("editCoupon", { couponData });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //edit coupon post
-const updateCoupon = async (req, res) => {
+const updateCoupon = async (req, res,next) => {
   try {
     const couponId = req.query.id;
     const coupons = await coupon.findByIdAndUpdate(
@@ -144,17 +148,19 @@ const updateCoupon = async (req, res) => {
     res.redirect("/admin/coupon");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //delete coupon
-const deleteCoupon = async (req, res) => {
+const deleteCoupon = async (req, res,next) => {
   try {
     const id = req.query.id;
     await coupon.deleteOne({ _id: id });
     res.redirect("/admin/coupon");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

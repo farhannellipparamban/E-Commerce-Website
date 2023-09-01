@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {ObjectId} = require("mongodb")
 
 const productSchema = new mongoose.Schema(
   {
@@ -30,15 +31,20 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    // brand: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   gender: {
-    //     type: String,
-    //     required: true,
-    //     enum: ['male', 'female', 'unisex'],
-    //   },
+    review : [
+      {
+        user : {
+          type:ObjectId,
+          ref:"User"
+        },
+        review:{
+           type:String,
+         },
+        rating:{
+          type:Number
+        },
+      },
+    ],
   },
   {
     timestamps: true,

@@ -4,27 +4,29 @@ const CatDB = require("../models/categoryModel");
 const productdb = require("../models/prodectModel");
 
 //category list get
-const categoryLoad = async (req, res) => {
+const categoryLoad = async (req, res,next) => {
   try {
     const categryDetails = await CatDB.find();
 
     res.render("productCategory", { catData: categryDetails });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //add category page get
-const add_categoryLoad = async (req, res) => {
+const add_categoryLoad = async (req, res,next) => {
   try {
     res.render("add_category");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // add category page post
-const insert_category = async (req, res) => {
+const insert_category = async (req, res,next) => {
   try {
     const name = req.body.name;
 
@@ -51,11 +53,12 @@ const insert_category = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // edit category page get
-const edit_catLoad = async (req, res) => {
+const edit_catLoad = async (req, res,next) => {
   try {
     const id = req.query.id;
     const name = req.body.name;
@@ -67,23 +70,23 @@ const edit_catLoad = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //edit category page updation post
-const updatecategory = async (req, res) => {
+const updatecategory = async (req, res,next) => {
   try {
     const id = req.body.id;
     const data = await CatDB.findById({ _id: id });
     const name = req.body.name;
 
-    if (name.trim().length == 0) {
-      res.redirect("/admin/productCategory");
+    if (name.trim().length === 0) {
+      res.redirect("/admin/edit_category");
     } else {
       const alredy = await CatDB.findOne({
         name: { $regex: name, $options: "i" },
       });
-      console.log(alredy);
 
       if (alredy) {
         res.render("edit_category", {
@@ -101,11 +104,12 @@ const updatecategory = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //category blocking get
-const catBlock = async (req, res) => {
+const catBlock = async (req, res,next) => {
   try {
     const id = req.query.id;
     const catData = await CatDB.findOne({ _id: id });
@@ -120,11 +124,12 @@ const catBlock = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // category unblocking get
-const catUnblock = async (req, res) => {
+const catUnblock = async (req, res,next) => {
   try {
     const id = req.query.id;
     const catData = await CatDB.findOne({ _id: id });
@@ -139,6 +144,7 @@ const catUnblock = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 //--------------------------------------------------------------
 
 //Load WishList page
-const loadWishList = async (req, res) => {
+const loadWishList = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userName = await User.findOne({ _id: req.session.user_id });
@@ -30,16 +30,18 @@ const loadWishList = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //Add To WishList
-const addTowishList = async (req, res) => {
+const addTowishList = async (req, res,next) => {
   try {
     const proId = req.body.Id;
     const user = await User.findOne({ _id: req.session.user_id });
     const productData = await productDB.findOne({ _id: proId });
     const WishListData = await WishList.findOne({ user: req.session.user_id });
+    if(user){
 
     if (WishListData) {
       const checkWishlist = await WishListData.products.findIndex(
@@ -57,7 +59,7 @@ const addTowishList = async (req, res) => {
     } else {
       const wishList = new WishList({
         user: req.session.user_id,
-        userName: user.name,
+        userName: user,
         products: [
           {
             productId: productData._id,
@@ -69,13 +71,17 @@ const addTowishList = async (req, res) => {
         res.json({ success: true });
       }
     }
+  }else{
+    res.redirect("/login")
+  }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //remove from wishlist
-const removeWishlist = async (req, res) => {
+const removeWishlist = async (req, res,next) => {
   try {
     const id = req.query.id;
     await WishList.updateOne(
@@ -85,11 +91,12 @@ const removeWishlist = async (req, res) => {
     res.redirect("/wishList");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // wish product add to cart
-const addFromWish = async (req, res) => {
+const addFromWish = async (req, res,next) => {
   try {
     const productId = req.query.id;
     const userData = await User.findOne({ _id: req.session.user_id });
@@ -156,6 +163,7 @@ const addFromWish = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

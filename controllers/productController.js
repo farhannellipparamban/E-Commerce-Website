@@ -6,18 +6,19 @@ const sharp = require("sharp")
 const path= require('path');
 
 //product page get
-const productload = async (req, res) => {
+const productload = async (req, res,next) => {
   try {
     const data = await productdb.find();
 
     res.render("productsList", { data });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //add product page get
-const addProductload = async (req, res) => {
+const addProductload = async (req, res,next) => {
   try {
     // const id=req.body.id
 
@@ -26,24 +27,16 @@ const addProductload = async (req, res) => {
     res.render("addProduct", { Catdata: categoryData });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //product adding page post
-const insertProduct = async (req, res) => {
+const insertProduct = async (req, res,next) => {
   try {
     
     const imgarr = [];
-    // if (req.files && req.files.length) {
-    //   for (let i = 0; i < req.files.length; i++) {
-    //     imgarr.push(req.files[i].filename);
-    //     await sharp("./public/assets/IMAGES" + req.files[i].filename) // added await to ensure image is resized before uploading
-    //     .resize(250, 250)
-    //     .toFile(
-    //       "./public/assets/CropedImages" + req.files[i].filename
-    //     );
-    //   }
-    // }
+
     if (req.files && req.files.length > 0) {
       for (let i = 0; i < req.files.length; i++) {
         const filePath = path.join(
@@ -56,7 +49,6 @@ const insertProduct = async (req, res) => {
           .toFile(filePath);
           imgarr.push(req.files[i].filename);
 
-        //  imageArr.push(req.files[i].filename);
       }
     }
 
@@ -78,11 +70,12 @@ const insertProduct = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 // product editing page get
-const editProduct = async (req, res) => {
+const editProduct = async (req, res,next) => {
   try {
     const id = req.query.id;
     const editData = await productdb
@@ -92,10 +85,11 @@ const editProduct = async (req, res) => {
     res.render("edit_products", { dataedit: editData, Catdata: data });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 //product editing page post
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res,next) => {
   try {
     const editimage = [];
     const name = req.body.name;
@@ -151,11 +145,12 @@ const updateProduct = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //product blocking get
-const productBlock = async (req, res) => {
+const productBlock = async (req, res,next) => {
   try {
     const id = req.query.id;
     const productData = await productdb.findOne({ _id: id });
@@ -170,11 +165,12 @@ const productBlock = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //product unblocking get
-const productUnblock = async (req, res) => {
+const productUnblock = async (req, res,next) => {
   try {
     const id = req.query.id;
     const productData = await productdb.findOne({ _id: id });
@@ -189,11 +185,12 @@ const productUnblock = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //remove single image from edit_product post
-const postdelete_image = async (req, res) => {
+const postdelete_image = async (req, res,next) => {
   try {
     const position = req.body.position;
     const id = req.body.id;
@@ -210,6 +207,7 @@ const postdelete_image = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

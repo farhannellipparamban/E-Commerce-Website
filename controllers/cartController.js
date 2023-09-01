@@ -9,7 +9,7 @@ const { log } = require("console");
 require("dotenv").config();
 
 // cart get
-const loadCart = async (req, res) => {
+const loadCart = async (req, res, next) => {
   try {
     const loadlogIn = req.session.user_id;
     const userd = await User.findOne({ _id: req.session.user_id });
@@ -62,10 +62,11 @@ const loadCart = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const addtoCart = async (req, res) => {
+const addtoCart = async (req, res,next) => {
   try {
     const userid = req.session.user_id;
     const quantity = 1; // Change this to the desired initial quantity
@@ -143,15 +144,12 @@ const addtoCart = async (req, res) => {
   }
   } catch (err) {
     console.log(err.message);
-    res.status(500).json({
-      success: false,
-      message: "Error occurred while updating quantity",
-    });
+    next(err)
   }
 };
 
 //quantity changing
-const changes = async (req, res) => {
+const changes = async (req, res,next) => {
   try {
     const count = req.body.count;
     const productId = req.body.productId;
@@ -211,15 +209,12 @@ const changes = async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(500).json({
-      success: false,
-      message: "Error occurred while updating quantity",
-    });
+    next(err)
   }
 };
 
 //total product price
-const totalproductPrice = async (req, res) => {
+const totalproductPrice = async (req, res,next) => {
   try {
     const userd = await User.findOne({ _id: req.session.user_id });
 
@@ -242,15 +237,12 @@ const totalproductPrice = async (req, res) => {
     res.json({ success: true, Total: total });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({
-      success: false,
-      message: "Error occurred while calculating total",
-    });
+    next(error)
   }
 };
 
 //delete item from the cart
-const deletecartitem = async (req, res) => {
+const deletecartitem = async (req, res,next) => {
   try {
     const id = req.query.id;
     const userid = req.session.user_id;
@@ -272,11 +264,12 @@ const deletecartitem = async (req, res) => {
     res.redirect("/cart");
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
 //product checkout
-const productCheckout = async (req, res) => {
+const productCheckout = async (req, res,next) => {
   try {
     const loadlogIn = req.session.user_id;
     const coupons = await coupon.find();
@@ -343,6 +336,7 @@ const productCheckout = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 

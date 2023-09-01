@@ -1,0 +1,411 @@
+<%- include("../layouts/adminPartials/header.ejs") %>
+
+
+    <style>
+        /* Add styles to the Sales Report page header */
+     /* Header Styling */
+.content-title {
+    color: #000000;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn-light {
+    background-color: #1da345d3;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.btn-light:hover{
+    background-color: #01f868;
+}
+/* Table Styling */
+.table {
+    background-color: #ffffff;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: #b6bbb4; /* Header background color */
+    color: #000000; /* Header text color */
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid #ddd;
+}
+
+.table td {
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:hover {
+    background-color: #f5f5f5; /* Hover background color */
+}
+
+/* Status Column Styling */
+.table td.status {
+    font-weight: bold;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.table td.status.pending {
+    background-color: #ffc107; /* Yellow for pending status */
+}
+
+.table td.status.completed {
+    background-color: #00ff3c; /* Green for completed status */
+}
+
+.table td.status.cancelled {
+    background-color: #ff0019; /* Red for cancelled status */
+}
+
+/* Form Element Styling */
+.form-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: #4bc46f;
+    color: #6d6666;
+    font-size: 18px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Additional Styling */
+.row.gx-3.align-items-center {
+    align-items: center;
+}
+
+/* Add more styles as needed */
+
+    </style>
+
+
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Sales Report</h2>
+            </div>
+            <div>
+                <button href="#" class="btn btn-light rounded font-md" onclick="generateExcel()">Excel</button>
+                <button class="btn btn-light rounded font-md" onclick="generatePDF()">PDF Download</button>
+            </div>
+        </div>
+        <header class="card-header">
+            <div class="row gx-3 align-items-center">
+                <div class="col-lg-6 col-md-6 mt-4">
+                    <form action="/admin/salesReport">
+                        <div class="row gx-3">
+                            <div class="col-lg-4 col-md-4">
+                                <select class="form-select py-2" name="sortData">
+                                    <option value="date" <%=sortData==='date' ? 'selected' : '' %>>Date</option>
+                                    <option value="totalAmount" <%=sortData==='totalAmount' ? 'selected' : '' %>>Amount
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-lg-4 col-md-4">
+                                <select class="form-select" name="sortOrder">
+                                    <option <%=sortOrder==='Ascending' ? 'selected' : '' %>>Ascending</option>
+                                    <option <%=sortOrder==='Descending' ? 'selected' : '' %>>Descending</option>
+                                </select>
+                            </div> -->
+                     
+                            <div class="col-md-4">
+                                <button class="btn btn-primary">Sort</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <form action="/admin/salesReport"  method="post" id="salesReportForm">
+                        <div class="row gx-3">
+                            <div class="col-md-4">
+                                <label for="from-date" class="form-label">From Date:</label>
+                                <input type="date" class="form-control" id="from-date" name="fromDate" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="to-date" class="form-label">To Date:</label>
+                                <input type="date" class="form-control" id="to-date" name="toDate" required>
+                            </div>
+                            <div class="col-md-4 mt-4">
+                                <button class="btn btn-primary" type="submit">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- card-header end// -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order #ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Payment Method</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (orders && orders.length > 0) { %>
+                        <% orders.forEach(order=> { %>
+                            <tr>
+                                <td>
+                                    <%=order._id %>
+                                </td>
+                                <td><b><%= order.user.name %></b></td>
+
+                                <td>
+                                    <%=order.Date.toLocaleDateString('en-US', { year: 'numeric' ,month: 'short' , day: '2-digit' }).replace(/\//g,'-') %>
+                                </td>
+                                <td>₹ <%= order.totalAmount.toFixed(2) %></td>
+                            </td>
+                                <td>
+                                    <%=order.paymentMethod %>
+                                </td>
+                                <td>
+                                    <%=order.status %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td class="text-danger" colspan="7"><b>No orders found...</b></td>
+                                </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <!-- table-responsive //end -->
+        </div>
+        <!-- card-body end// -->
+        </div>
+        <!-- card end// -->
+        <!-- <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div> -->
+    </section>
+
+    <script>
+
+        // date validation
+
+        const salesReportForm = document.getElementById('salesReportForm');
+        // const fromDateInput = document.getElementById('fromDate');
+        // const toDateInput = document.getElementById('toDate');
+
+        // salesReportForm.addEventListener('submit', (event) => {
+        //     const fromDate = new Date(fromDateInput.value);
+        //     const toDate = new Date(toDateInput.value);
+        //     const today = new Date();
+
+        //     if (fromDate > today) {
+        //         event.preventDefault();
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             title: 'Oops...',
+        //             text: 'From date cannot be greater than today date!',
+        //         })
+        //         return;
+        //     }
+        //     if (toDate > today) {
+        //         event.preventDefault();
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             title: 'Oops...',
+        //             text: 'To date cannot be greater than today date!',
+        //         })
+        //         return;
+        //     }
+        //     if (fromDate > toDate) {
+        //         event.preventDefault();
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Oops...',
+        //             text: 'From date cannot be greater than To date.',
+        //         })
+        //         toastr.error('');
+        //         return;
+        //     }
+        // })
+
+        // pdf 
+        function generatePDF() {
+  const orders = document.querySelectorAll('.table tbody tr');
+
+  const orderRows = [];
+  orders.forEach((order) => {
+    const orderId = order.cells[0].innerText;
+    const name = order.cells[1].innerText; // Changed "Name" to "name"
+    const date = order.cells[2].innerText;
+    const total = order.cells[3].innerText;
+    const paymentMethod = order.cells[4].innerText;
+    const status = order.cells[5].innerText;
+
+    orderRows.push([orderId, name, date, total, paymentMethod, status]);
+  });
+
+  const pdfFormat = {
+    content: [
+      {
+        text: 'SALES REPORT',
+        style: 'header',
+      },
+      {
+        table: {
+          headerRows: 1,
+          widths: [100, 70, 80, 80, 70, 90], // Adjusted the widths here
+
+          body: [
+            // Header row
+            [
+              { text: 'Order ID', style: 'tableHeader' },
+              { text: 'Name', style: 'tableHeader' },
+              { text: 'Date', style: 'tableHeader' },
+              { text: 'Total', style: 'tableHeader' },
+              { text: 'Payment Method', style: 'tableHeader' },
+              { text: 'Status', style: 'tableHeader' },
+            ],
+            ...orderRows, // Data rows
+          ],
+        },
+        layout: {
+          fillColor: '#ccc2c2', // Background color of the table
+          hLineWidth: () => 0.5, // Horizontal line width
+          vLineWidth: () => 0.5, // Vertical line width
+        },
+        style: 'tableStyle', // Apply custom style
+      },
+    ],
+    styles: {
+      header: {
+        fontSize: 30,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 0, 0, 20],
+        color: '#ff0000', // Header text color
+      },
+      tableStyle: {
+        fontSize: 12,
+        margin: [0, 10, 0, 0],
+        color: '#333', // Text color
+      },
+      tableHeader: {
+        bold: true,
+        fontSize: 13,
+        color: 'white', // Header text color
+        fillColor: '#CFB53B', // Header background color
+        alignment: 'center',
+      },
+    },
+  };
+
+  pdfMake.createPdf(pdfFormat).print();
+}
+
+
+
+
+function generateExcel() {
+    const orders = document.querySelectorAll('.table tbody tr');
+
+    const orderData = [];
+    orders.forEach(order => {
+        const orderId = order.cells[0].innerText;
+        const Name = order.cells[1].innerText;
+        const date = order.cells[2].innerText;
+        const total = order.cells[3].innerText;
+        const paymentMethod = order.cells[4].innerText;
+        const status = order.cells[5].innerText;
+
+        orderData.push([orderId,Name, date, total, paymentMethod, status]);
+    });
+
+    const headerStyle = {
+        font: { bold: true, color: { rgb: "FFFFFF" } },
+        fill: { fgColor: { rgb: "2F75B5" } },
+        alignment: { horizontal: "center" }
+    };
+
+    const cellStyle = {
+        alignment: { horizontal: "left" }
+    };
+
+    const header = ['OrderId',"Name", 'Date', 'Total', 'Payment Method', 'Status'];
+    const data = [header, ...orderData];
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    
+    // Apply header style
+    XLSX.utils.format_cell(ws['A1'], headerStyle);
+    XLSX.utils.format_cell(ws['B1'], headerStyle);
+    XLSX.utils.format_cell(ws['C1'], headerStyle);
+    XLSX.utils.format_cell(ws['D1'], headerStyle);
+    XLSX.utils.format_cell(ws['E1'], headerStyle);
+    XLSX.utils.format_cell(ws['F1'], headerStyle);
+
+    // Apply cell styles
+    data.forEach((row, rowIndex) => {
+        if (rowIndex > 0) {
+            row.forEach((cell, columnIndex) => {
+                XLSX.utils.format_cell(ws[XLSX.utils.encode_cell({ r: rowIndex, c: columnIndex })], cellStyle);
+            });
+        }
+    });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sales Report');
+
+    // Generating filename based on the current date and time
+    const filename = 'Sales_Report_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.xlsx';
+
+    // Convert the workbook to a binary Excel file and trigger the download
+    XLSX.writeFile(wb, filename);
+}
+
+    </script>
+
+    <%- include("../layouts/adminPartials/footer.ejs") %>

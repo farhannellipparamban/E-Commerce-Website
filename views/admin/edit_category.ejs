@@ -61,10 +61,11 @@
   }
 
   .error-message {
-    font-size: 14px;
-    color: #f56565;
-    margin-top: 4px;
+    font-size: 16px;
+    color: #f60000;
+    text-align: center;
   }
+
 </style>
 
 <div class="container">
@@ -81,6 +82,9 @@
         value="<%= data.name %>"
         required
       />
+      <% if (typeof message !=='undefined' ) { %>
+        <span class="error-message"> <%= message %> </span>
+        <% } %>
       <span class="error-message" id="name-error"></span>
     </div>
     <input type="hidden" name="id" value="<%= data._id %>" />
@@ -89,6 +93,7 @@
       <input type="submit" value="Save" class="btn btn-primary" />
     </div>
   </form>
+  
   <% } else { %>
   <p>Category not found.</p>
   <% } %>

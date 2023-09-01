@@ -220,7 +220,7 @@ td.action-cell a span.btn-primary + span {
                 <th class="px-4 py-3">SL</th>
                 <th class="px-4 py-3">Order Id</th>
                 <th class="px-4 py-3">Price</th>
-                <!-- <th class="px-5 py-3">View</th> -->
+                <th class="px-5 py-3">paymentMethod</th>
                 <th class="px-5 py-3">Status</th>
                 <th class="px-5 py-3">Order Actions</th>
               </tr>
@@ -239,6 +239,9 @@ td.action-cell a span.btn-primary + span {
                     </td>
                     <td class="px-4 py-3 price">
                       ₹ <%= orderData[i].totalAmount %>
+                    </td>
+                    <td class="px-5 py-4 price">
+                       <%= orderData[i].paymentMethod %>
                     </td>
 
                     <td class="px-5 py-3 status-cell">

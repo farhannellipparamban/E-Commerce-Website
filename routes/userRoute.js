@@ -3,6 +3,7 @@ const user_route = express();
 const session = require("express-session");
 const config = require("../config/config");
 const userAuth = require("../middlware/userAuth");
+const errorHandler = require("../middlware/errorHandler")
 const path = require("path");
 
 user_route.use(
@@ -50,6 +51,7 @@ user_route.get("/shop", userController.loadShoping);
 
 //product details
 user_route.get("/product_details", userController.productDetails);
+user_route.post("/review",userAuth.isLogin,userController.review)
 
 //about
 user_route.get("/about", userController.loadAbout);
@@ -94,6 +96,7 @@ user_route.post(
 user_route.post("/returnOrder", userAuth.isLogin, orderController.returnOrder);
 
 //wallet
+user_route.get("/walletHistory",userController.walletHistory)
 user_route.post("/wallet", userController.walletAmount);
 
 // wishlist
@@ -136,5 +139,6 @@ user_route.get(
 user_route.post("/addAddresscheck", addressController.verifyAddresscheck);
 user_route.get("/editAddresscheck", addressController.editAddress);
 user_route.post("/editAddresscheck", addressController.posteditaddresscheck);
+
 
 module.exports = user_route;

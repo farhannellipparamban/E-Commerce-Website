@@ -19,9 +19,13 @@
 
   <link href="/Admin/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  
 </head>
 
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <div class="screen-overlay"></div>
   <aside class="navbar-aside" id="offcanvas_aside">
     <div class="aside-top">
@@ -46,86 +50,86 @@
             <span class="text">Dashboard</span>
           </a>
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#">
+        <li class="menu-item">
+          <a class="menu-link" href="productsList">
             <i class="icon material-icons md-shopping_bag"></i>
             <span class="text">Products</span>
           </a>
-          <div class="submenu">
+          <!-- <div class="submenu">
             <a href="productsList">Product List</a>
-            <a href="addProduct">Add product</a>
+            <a href="addProduct">Add product</a> -->
             <!-- <a href="page-products-grid.html">Product grid</a>
                         <a href="page-products-grid-2.html">Product grid 2</a> -->
             <!-- <a href="productCategory">Categories</a> -->
-          </div>
+          <!-- </div> -->
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#">
+        <li class="menu-item">
+          <a class="menu-link" href="/admin/productCategory">
             <i class="icon material-icons md-category"></i>
             <span class="text">Categories</span>
           </a>
-          <div class="submenu">
-            <a href="/admin/productCategory">Category List</a>
+          <!-- <div class="submenu">
+            <a href="/admin/productCategory">Category List</a> -->
             <!-- <a href="addProduct">Add product</a> -->
             <!-- <a href="page-products-grid.html">Product grid</a>
                         <a href="page-products-grid-2.html">Product grid 2</a> -->
             <!-- <a href="productCategory">Categories</a> -->
-          </div>
+          <!-- </div> -->
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#">
+        <li class="menu-item">
+          <a class="menu-link" href="orderDetails">
             <i class="icon material-icons md-shopping_cart"></i>
-            <span class="text">Orders</span>
+            <span class="text">Orders Detail</span>
           </a>
-          <div class="submenu">
-            <a href="orderDetails">Order detail</a>
+          <!-- <div class="submenu">
+            <a href="orderDetails">Order detail</a> -->
             <!-- <a href="orderView">View Orders </a> -->
             <!-- <a href="page-orders-2.html">Order list 2</a> -->
 
-          </div>
+          <!-- </div> -->
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#">
+        <li class="menu-item">
+          <a class="menu-link" href="/admin/userList">
             <i class="icon material-icons md-store"></i>
-            <span class="text">Users</span>
+            <span class="text">Users Managment</span>
           </a>
-          <div class="submenu">
-            <a href="/admin/userList">Users Managment</a>
+          <!-- <div class="submenu">
+            <a href="/admin/userList">Users Managment</a> -->
             <!-- <a href="/admin/">User login</a> -->
             <!-- <a href="page-sellers-cards.html">Sellers cards</a>
                         <a href="page-seller-detail.html">Seller profile</a> -->
-          </div>
+          <!-- </div> -->
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#">
+        <li class="menu-item">
+          <a class="menu-link" href="/admin/coupon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-gift-fill mx-1" style="color: darkgray;" viewBox="0 0 16 16">
               <path
                 d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z" />
             </svg>
-            <span class="text mx-2">Coupons</span>
+            <span class="text mx-2">Coupon List</span>
           </a>
-          <div class="submenu">
-                        <a href="/admin/coupon">Coupon List</a>
+          <!-- <div class="submenu">
+                        <a href="/admin/coupon">Coupon List</a> -->
                         <!-- <a href="page-form-product-2.html" >Add product 2</a> -->
                         <!-- <a href="page-form-product-3.html">Add product 3</a> -->
                         <!-- <a href="page-form-product-4.html">Add product 4</a> -->
-                    </div>
+                    <!-- </div> -->
         </li>
-        <li class="menu-item has-submenu">
-          <a class="menu-link" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+        <li class="menu-item">
+          <a class="menu-link" href="/admin/listBanner"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
               fill="currentColor" class="bi bi-images mx-1" style="color: darkgray;" viewBox="0 0 16 16">
               <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
               <path
                 d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
             </svg>
 
-            <span class="text mx-2">Banner</span>
+            <span class="text mx-2">Banner List</span>
           </a>
-          <div class="submenu">
-            <a href="/admin/listBanner">Banner List</a>
+          <!-- <div class="submenu">
+            <a href="/admin/listBanner">Banner List</a> -->
             <!-- <a href="#">Transaction 2</a> -->
-          </div>
+          <!-- </div> -->
         </li>
         <!-- <li class="menu-item has-submenu">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
@@ -137,12 +141,19 @@
                         <a href="#">Error 404</a> -->
         <!-- </div>
                 </li> -->
+                <li class="menu-item">
+                  <a class="menu-link" href="/admin/salesReport">
+                      <i class="icon material-icons md-insert_chart"></i>
+                      <span class="text">Sales Report</span>
+                  </a>
+              </li>
+              
         <!-- <li class="menu-item">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-comment"></i>
                         <span class="text">Reviews</span>
                     </a>
-                </li>
-                <li class="menu-item">
+                </li> -->
+                <!-- <li class="menu-item">
                     <a class="menu-link" href="#"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Brands</span> </a>
                 </li>
@@ -177,60 +188,46 @@
     <header class="main-header navbar">
       <div class="col-search">
         <form class="searchform">
-          <div class="input-group">
-            <input list="search_terms" type="text" class="form-control" placeholder="Search term" />
-            <button class="btn btn-light bg" type="button">
-              <i class="material-icons md-search"></i>
-            </button>
-          </div>
-          <datalist id="search_terms">
+<!-- Add the search input field and button to your userList.ejs view -->
+<div class="input-group">
+  <input list="search_terms" type="text" class="form-control" placeholder="Search term" name="search" />
+  <button class="btn btn-light bg" type="submit">
+    <i class="material-icons md-search"></i>
+  </button>
+</div>
+
+          <!-- <datalist id="search_terms">
             <option value="Products"></option>
             <option value="New orders"></option>
             <option value="Apple watches"></option>
             <option value="Ahmed Hassan"></option>
-          </datalist>
+          </datalist> -->
         </form>
       </div>
       <div class="col-nav">
         <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
             class="material-icons md-apps"></i> </button>
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link btn-icon" href="#">
-              <i class="material-icons md-notifications animation-shake"></i>
-              <span class="badge rounded-pill">3</span>
-            </a>
-          </li>
+<!--           
           <li class="nav-item">
             <a class="nav-link btn-icon darkmode" href="#">
               <i class="material-icons md-nights_stay"></i>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
-          </li>
-          <li class="dropdown dropstart nav-item">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i
-                class="material-icons md-public"></i></a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
-              <a class="dropdown-item text-brand" href="#"><img src="/Admin/imgs/theme/flag-us.png"
-                  alt="English" />English</a>
-              <a class="dropdown-item" href="#"><img src="/Admin/imgs/theme/flag-fr.png" alt="Français" />Français</a>
-              <a class="dropdown-item" href="#"><img src="/Admin/imgs/theme/flag-jp.png" alt="Français" />日本語</a>
-              <a class="dropdown-item" href="#"><img src="/Admin/imgs/theme/flag-cn.png" alt="Français" />中国人</a>
-            </div>
-          </li>
+          </li> -->
 
           <div class="btn-group dropstart nav-item">
             <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
               <img class="img-xs rounded-circle" src="/Admin/imgs/people/avatar-2.png" alt="User" /></a>
 
             <ul class="dropdown-menu">
-              <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
-                Profile</a>
+              <!-- <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Help Center</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item text-danger" href="/admin/logout"><i
-                  class="material-icons md-exit_to_app"></i>Logout</a>
+                  class="material-icons md-exit_to_app"></i>Logout</a> -->
+                    <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+         
             </ul>
           </div>
         </ul>

@@ -143,6 +143,60 @@
   border-radius: 30px;
   background-color: #ff0000;
 }
+.coupons-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.coupon {
+    background-color: #f9f9f9;
+    border: 1px solid #c5c3c3;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+}
+
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coupon-code {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.coupon-type {
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.percentage-off {
+    background-color: #1ac70a; /* Green for percentage-off */
+    color: white;
+}
+
+.fixed-off {
+    background-color: #ff0000; /* Blue for fixed-off */
+    color: white;
+}
+
+.coupon-details {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.no-coupon {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f00; /* Red for no coupons */
+}
+
   </style>
 
   <main>
@@ -172,7 +226,7 @@
       
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Add 'modal-lg' class for large width -->
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Available Coupons</h1>
@@ -183,13 +237,30 @@
             <div class="modal-body">
               <div class="coupons-list">
                 <% if (coupons && coupons.length > 0) { %>
-                  <% coupons.forEach(coupon => { %>
-                    <span class="coupon-code"><%= coupon.code %></span>
-                  <% }) %>
+                    <% coupons.forEach(coupon => { %>
+                        <div class="coupon">
+                            <div class="coupon-header">
+                                <span class="coupon-code"><%= coupon.code %></span>
+                                <span class="coupon-type <%= coupon.discountType === 'Percentage Type' ? 'percentage-off' : 'fixed-off' %>">
+                                    <% if (coupon.discountType === 'Percentage Type') { %>
+                                        <%= coupon.discountAmount %>% Off
+                                    <% } else { %>
+                                        <%= coupon.discountAmount %> Off
+                                    <% } %>
+                                </span>
+                            </div>
+                            <div class="coupon-details">
+                                <p>Expires: <%= coupon.expiryDate.toISOString().substring(0, 10) %></p>
+                                <p>Balance: <%= coupon.maxUsers %> uses</p>
+                            </div>
+                        </div>
+                    <% }) %>
                 <% } else { %>
-                  <span class="no-coupon">No Coupon Available!</span>
+                    <span class="no-coupon">No Coupon Available!</span>
                 <% } %>
-              </div>
+            </div>
+            
+            
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary py-4" data-bs-dismiss="modal">Close</button>
@@ -308,18 +379,18 @@
                   </li>
 
                   <li>
-                    <div class="switch-wrap d-flex justify-content-between">
+                    <!-- <div class="switch-wrap d-flex justify-content-between">
                       <input type="hidden" name="wallet" id="" value="<%= userd.wallet%>"> <a>Wallet</a>
                       <h6 id="wallet">
 
-                      </h6>
+                      </h6> -->
 
                       <!-- <div class="form-check">
                         <label class="form-check-label ">
                           <input type="checkbox" class="form-check-input" value="" id="" >
                         </label>
                       </div> -->
-                    </div>
+                    <!-- </div> -->
 
                   </li>
                   <li>
@@ -345,6 +416,12 @@
 
                   <input type="radio" name="Payment" value="COD" required>
                   <label for="Payement">Cash On Delivery</label>
+                </div>
+                
+                <div>
+                  
+                  <input type="radio" name="Payment" value="wallet" required>
+                  <label for="Payement">Wallet</label>
                 </div>
                 <div>
                   <input type="radio" name="Payment" value="online" required>
@@ -392,7 +469,15 @@
           coupon: coupon1
         },
         success: (response) => {
-          if (response.codsuccess) {
+          if (response.success===false) {
+            Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: response.message, // Use response.message instead of success.message
+              timer: 2000,
+            });
+          }
+         else if (response.codsuccess) {
             location.href = "/orderplaced";
           } else {
             razorpayPayment(response.orders);

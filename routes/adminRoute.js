@@ -155,5 +155,8 @@ admin_route.get("/editBanner",adminAuth.isLogin,adminController.editBanner)
 admin_route.post("/updateBanner",upload.upload.single('image'),adminController.updateBanner)
 admin_route.get("/deleteBanner",adminAuth.isLogin,adminController.deleteBanner)
 
+//Sales Report
+admin_route.get("/SalesReport",adminAuth.isLogin,adminController.SalesReport)
+admin_route.post("/salesReport",adminController.datewiseSalesRp)
 
 module.exports = admin_route;

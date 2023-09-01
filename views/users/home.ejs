@@ -8,16 +8,16 @@
         <% if (bannerData && bannerData.length > 0) { %>
           <% bannerData.forEach(banner => { %>
         <div class="single-slider slider-height d-flex align-items-center slide-bg"
-          style="background-image: url('/assets/IMAGES/<%= banner.Images[0] %>')">
+          style="background-image: url('/assets/IMAGES/<%= banner.Images %>')">
           <div class="container">
             <div class="row justify-content-between align-items-center">
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                 <div class="hero__caption">
-                  <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms"
+                  <a href="/shop"><h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms"
                     style="color: #b8b6b6; font-size: 70px">
                     <!-- Discover Your Perfect Timepiece -->
-                    <%= banner.bannerTitle %>
-                  </h1>
+                  <%= banner.bannerTitle %> 
+                  </h1></a>
                   <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms" style="color: #ffffff">
                     <!-- Explore our exquisite collection of premium watches. Timeless
                     elegance meets modern design. -->
@@ -181,13 +181,16 @@
               </div>
             </div>
             <div class="row">
+              
               <% data.forEach((product, index)=> { %>
                 <% if (index < 9) { %>
                   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                     <div class="single-new-pro mb-30 text-center">
                       <div class="product-img" multiple>
+                        <a href="/product_details?id=<%= product._id %>">
                         <img src="/assets/CropedImages/<%= product.image[0]  %>" alt="<%= product.name %>" />
-                      </div>
+                      </a>
+                    </div>
                       <div class="product-caption">
                         <h3>
                           <a href="/product_details?id=<%= product._id %>">
@@ -198,8 +201,10 @@
                       </div>
                     </div>
                   </div>
+               
                   <% } %>
                     <% }); %>
+                   
             </div>
           </div>
         </section>
@@ -250,8 +255,10 @@
                   <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6 col-md-6 col-sm-10">
                       <div class="choice-watch-img mb-40">
-                        <img src="/assets/CropedImages/<%= product.image %>" alt="<%= product.name %>" />
-                      </div>
+                        <a href="/product_details?id=<%= product._id %>">
+                          <img src="/assets/CropedImages/<%= product.image[0]  %>" alt="<%= product.name %>" />
+                        </a>
+                        </div>
                     </div>
                     <div class="col-lg-5 col-md-6">
                       <div class="watch-details mb-40">
@@ -284,7 +291,7 @@
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-10">
                         <div class="choice-watch-img mb-40">
-                          <img src="/assets/CropedImages/<%= product.image %>" alt="<%= product.name %>" />
+                          <img src="/assets/CropedImages/<%= product.image[0] %>" alt="<%= product.name %>" />
                         </div>
                       </div>
                     </div>
