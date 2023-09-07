@@ -3,8 +3,15 @@ const coupon = require("../models/couponModel");
 //coupon page load
 const loadCoupon = async (req, res,next) => {
   try {
-    const coupons = await coupon.find({});
-    res.render("couponList", { coupons });
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 8;
+
+    const coupons = await coupon.find({}).sort({_id:-1}).limit(8).skip(skip);
+
+    totalCoupons = await coupon.countDocuments({});
+    totalPages = Math.ceil(totalCoupons / 8)
+
+    res.render("couponList", { coupons,totalPages:totalPages,currentPage:page });
   } catch (error) {
     console.log(error.message);
     next(error)

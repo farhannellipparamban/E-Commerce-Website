@@ -23,7 +23,40 @@
   background-color: #ff0800;
   color: white;
 }
+ /* Styling for Pagination */
+ .pagination {
+    margin-top: 20px;
+  }
 
+  .pagination .page-item {
+    display: inline-block;
+    margin: 0 4px;
+  }
+
+  .pagination .page-link {
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .pagination .page-link:hover {
+    background-color: #f0f0f0;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+
+  .pagination .page-item.disabled .page-link {
+    color: #ccc;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: not-allowed;
+  }
 </style>
 <main class="h-full pb-16 overflow-y-auto">
   <div class="container grid px-6 mx-auto">
@@ -77,6 +110,47 @@
       </div>
     </div>
   </div>
+ 
+  <!-- Pagination links/buttons with styling -->
+  <nav aria-label="Order List Pagination">
+    <ul class="pagination justify-content-center">
+      <% if (currentPage> 1) { %>
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="/admin/coupon?page=<%= currentPage - 1 %>"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&laquo;</span>
+      </li>
+      <% } %> <% for (let page=1; page <=totalPages; page++) { %>
+      <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+        <a class="page-link" href="/admin/coupon?page=<%= page %>">
+          <%= page %>
+        </a>
+      </li>
+      <% } %> <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="/admin/coupon?page=<%= currentPage + 1 %>"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&raquo;</span>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
 </main>
 
 <%- include("../layouts/adminPartials/footer.ejs") %>

@@ -50,6 +50,10 @@ const verifyLogin = async (req, res) => {
 //dashboard get
 const loadDashboard = async (req, res) => {
   try {
+
+
+//=========================
+
     const userCount = await User.count();
     const products = await productDB.count();
     const categoryData = await CatDB.find({ blocked: false });
@@ -58,86 +62,104 @@ const loadDashboard = async (req, res) => {
     const orders = await order.find({});
 
     const today = new Date();
-    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const startOfToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
     const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(today.getDate()-7);
+    oneWeekAgo.setDate(today.getDate() - 7);
     const oneMonthAgo = new Date();
-    oneMonthAgo.setDate(today.getDate()-30);
+    oneMonthAgo.setDate(today.getDate() - 30);
     const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(today.getFullYear()-1);
+    oneYearAgo.setFullYear(today.getFullYear() - 1);
     // const currentMonthStartDate = new Date(currentYear, currentMonth, 1, 0, 0, 0);
 
-    const dailyOrders = orders.filter(order => order.Date >= startOfToday);
-        const weeklyOrders = orders.filter(order => order.Date >= oneWeekAgo);
-        const MonthlyOrders = orders.filter(order => order.Date >= oneMonthAgo);
-        const yearlyOrders = orders.filter(order => order.Date >= oneYearAgo);
+    const dailyOrders = orders.filter((order) => order.Date >= startOfToday);
+    const weeklyOrders = orders.filter((order) => order.Date >= oneWeekAgo);
+    const MonthlyOrders = orders.filter((order) => order.Date >= oneMonthAgo);
+    const yearlyOrders = orders.filter((order) => order.Date >= oneYearAgo);
 
+    const dailySalesData = dailyOrders.map((order) => order.totalAmount);
+    const weeklySalesData = weeklyOrders.map((order) => order.totalAmount);
+    const monthlySalesData = MonthlyOrders.map((order) => order.totalAmount);
+    const yearlySalesData = yearlyOrders.map((order) => order.totalAmount);
 
-        const dailySalesData = dailyOrders.map(order => order.totalAmount);
-        const weeklySalesData = weeklyOrders.map(order => order.totalAmount);
-        const monthlySalesData = MonthlyOrders.map(order => order.totalAmount);
-        const yearlySalesData = yearlyOrders.map(order => order.totalAmount);
+    const totalDailyEarnings = dailyOrders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
+    const totalWeeklyEarnings = weeklyOrders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
+    const totalMonthlyEarnings = MonthlyOrders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
+    const totalYearlyEarnings = yearlyOrders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
 
-
-        const totalDailyEarnings = dailyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
-        const totalWeeklyEarnings = weeklyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
-        const totalMonthlyEarnings = MonthlyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
-        const totalYearlyEarnings =  yearlyOrders.reduce((sum, order)=> sum + order.totalAmount, 0)
-
-
-        const totalEarnings = orders.reduce((sum, order) => sum + order.totalAmount, 0)
-      //---------
+    const totalEarnings = orders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
+    //---------
     const promises = [
       dashboardHelper.totalRevenue(),
       dashboardHelper.paymentMethod(),
-      // dashboardHelper.monthlyEarning(currentMonthStartDate, now),
-
+      dashboardHelper.categorySales(),
     ];
-      //---------
+    //---------
     const results = await Promise.all(promises);
     const totalRevenue = results[0];
-    const paymentMethod = results[1]
-    // const monthlyEarning = results[2];
-    let codPayAmount,onlinePayment,walletPayAmount;
-        if (paymentMethod[0]._id === 'COD'){
-            codPayAmount = paymentMethod[0].amount;
-        } else if (paymentMethod[0]._id === 'online'){
-          onlinePayment = paymentMethod[0].amount;
-        } else if(paymentMethod[0]._id === "wallet"){
-          walletPayAmount = paymentMethod[0].amount
-      }
+    const paymentMethod = results[1];
+    const categorySales = results[2];
 
-        if (paymentMethod[1]._id === 'COD') {
-            codPayAmount = paymentMethod[1].amount;
-        } else if (paymentMethod[1]._id === 'online') {
-          onlinePayment = paymentMethod[1].amount;
-        }else if(paymentMethod[1]._id === "wallet"){
-          walletPayAmount = paymentMethod[1].amount
-      } 
 
-        if (paymentMethod[2]._id === 'COD') {
-            codPayAmount = paymentMethod[2].amount;
-        } else if (paymentMethod[2]._id === 'online') {
-          onlinePayment = paymentMethod[2].amount;
-        }else if(paymentMethod[2]._id === "wallet"){
-          walletPayAmount = paymentMethod[2].amount
-      } 
+    //----------------
+    let codPayAmount, onlinePayment, walletPayAmount;
+    if (paymentMethod[0]._id === "COD") {
+      codPayAmount = paymentMethod[0].amount;
+    } else if (paymentMethod[0]._id === "online") {
+      onlinePayment = paymentMethod[0].amount;
+    } else if (paymentMethod[0]._id === "wallet") {
+      walletPayAmount = paymentMethod[0].amount;
+    }
 
-     //---------
-    //  const codPayAmount = paymentMethod && paymentMethod.length > 0 ? paymentMethod[0].totalAmount : 0
-    //  const onlinePayment = paymentMethod && paymentMethod.length > 0 ? paymentMethod[1].totalAmount : 0
-    //---------     
+    if (paymentMethod[1]._id === "COD") {
+      codPayAmount = paymentMethod[1].amount;
+    } else if (paymentMethod[1]._id === "online") {
+      onlinePayment = paymentMethod[1].amount;
+    } else if (paymentMethod[1]._id === "wallet") {
+      walletPayAmount = paymentMethod[1].amount;
+    }
+
+    if (paymentMethod[2]._id === "COD") {
+      codPayAmount = paymentMethod[2].amount;
+    } else if (paymentMethod[2]._id === "online") {
+      onlinePayment = paymentMethod[2].amount;
+    } else if (paymentMethod[2]._id === "wallet") {
+      walletPayAmount = paymentMethod[2].amount;
+    }
+
+    //---------
+ 
+    //---------
     res.render("dashboard", {
-      admin:req.session.admin_id,
+      admin: req.session.admin_id,
       userCount: userCount,
       Catdata: categoryData,
       categoryCount: categoryCount,
       productCount: products,
       ordersCount: ordersCount,
       totalRevenue: totalRevenue,
+      categorySales : categorySales, 
       codPayAmount: codPayAmount,
       onlinePayment: onlinePayment,
-      walletPayAmount:walletPayAmount,
+      walletPayAmount: walletPayAmount,
       totalEarnings,
       totalDailyEarnings,
       totalWeeklyEarnings,
@@ -146,10 +168,7 @@ const loadDashboard = async (req, res) => {
       dailySalesData,
       weeklySalesData,
       monthlySalesData,
-      yearlySalesData
-
-
-
+      yearlySalesData,
     });
   } catch (error) {
     console.log(error.message);
@@ -169,10 +188,20 @@ const logout = async (req, res) => {
 //user listing get
 const userList = async (req, res) => {
   try {
-    
-    const userData = await User.find({ is_admin: 0 });
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 8;
 
-    res.render("userList", { user: userData });
+    const userData = await User.find({ is_admin: 0 })
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(8);
+    const totalUsers = await User.countDocuments({});
+    const totalPages = Math.ceil(totalUsers / 8);
+    res.render("userList", {
+      user: userData,
+      totalPages: totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -234,8 +263,19 @@ const unblockUser = async (req, res) => {
 //orderDetails listing get
 const orderDetails = async (req, res) => {
   try {
-    const orderData = await order.find();
-    res.render("orderDetails", { orderData });
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 8;
+
+    const orderData = await order.find().sort({ _id: -1 }).skip(skip).limit(8);
+
+    const totalOrders = await order.countDocuments({});
+    const totalPages = Math.ceil(totalOrders / 8);
+
+    res.render("orderDetails", {
+      orderData,
+      currentPage: page,
+      totalPages: totalPages,
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -427,10 +467,8 @@ const deleteBanner = async (req, res) => {
 const SalesReport = async (req, res) => {
   try {
     const { seeAll, sortData, sortOrder } = req.query;
-    // let page = Number(req.query.page);
-    // if (isNaN(page) || page < 1) {
-    //   page = 1;
-    // }
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 10;
 
     const sort = {};
     if (sortData) {
@@ -439,21 +477,33 @@ const SalesReport = async (req, res) => {
       sort.date = -1; // Default sorting by date in descending order
     }
 
-    const orders = await order.find({}).populate('user').sort(sort);
+    const orders = await order
+      .find({})
+      .populate("user")
+      .sort(sort)
+      .skip(skip)
+      .limit(10);
+
+    const totalOrders = await order.countDocuments({});
+    const totalPages = Math.ceil(totalOrders / 10);
+
     res.render("salesReport", {
       orders: orders,
       sortData: sortData,
       sortOrder: sortOrder,
+      totalPages: totalPages,
+      currentPage: page,
     });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-
-const datewiseSalesRp = async(req,res)=>{
+const datewiseSalesRp = async (req, res) => {
   try {
     const { seeAll, sortData, sortOrder } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 10;
 
     const sort = {};
     if (sortData) {
@@ -481,58 +531,62 @@ const datewiseSalesRp = async(req,res)=>{
       fromDate = currentDate;
     }
 
-   var matchStage = {
-      
-    status: "delivered" 
-  };
+    var matchStage = {
+      status: "delivered",
+    };
 
-  const totalAmount = await order.aggregate([  {
-    $match: {
-
-    
-      Date: { $gte: fromDate, $lte: toDate },
-    },
-  },
-    { $unwind: '$product' },
-    { $match: matchStage }, // This is where you would put your additional matching criteria if needed
-    {
-      $group: {
-        _id: null,
-        total: { $sum: '$totalAmount' }
-      }
-    }
-  ]);
-  
-
-  const totalSold = await order.aggregate([
-    {
-      $match: {
-
-      
-        Date: { $gte: fromDate, $lte: toDate },
+    const totalAmount = await order.aggregate([
+      {
+        $match: {
+          Date: { $gte: fromDate, $lte: toDate },
+        },
       },
-    },
-    { $unwind: '$product' },
-    { $match: matchStage },
-    { $group: { _id: null, total: { $sum: '$product.quantity' } } },
-    { $project: { total: 1, _id: 0 } },
-  ]);
+      { $unwind: "$product" },
+      { $match: matchStage }, // This is where you would put your additional matching criteria if needed
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$totalAmount" },
+        },
+      },
+    ]);
 
- 
-  const orders = await order.find({ Date: { $gte: fromDate, $lte: toDate }, status: "delivered"  }).populate('product.productId').populate('user').sort(sort)
+    const totalSold = await order.aggregate([
+      {
+        $match: {
+          Date: { $gte: fromDate, $lte: toDate },
+        },
+      },
+      { $unwind: "$product" },
+      { $match: matchStage },
+      { $group: { _id: null, total: { $sum: "$product.quantity" } } },
+      { $project: { total: 1, _id: 0 } },
+    ]);
 
-  res.render('salesReport', {
-    totalAmount,
-    totalSold,
-    orders,
-    sortData: sortData,
-    sortOrder: sortOrder,
-  })
+    const orders = await order
+      .find({ Date: { $gte: fromDate, $lte: toDate }, status: "delivered" })
+      .populate("product.productId")
+      .populate("user")
+      .sort(sort)
+      .skip(skip)
+      .limit(10);
 
+    const totalOrders = await order.countDocuments({});
+    const totalPages = Math.ceil(totalOrders / 10);
+    res.render("salesReport", {
+      totalAmount,
+      totalSold,
+      orders,
+      sortData: sortData,
+      sortOrder: sortOrder,
+      totalPages: totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     console.log(error.message);
   }
-}
+};
+
 module.exports = {
   loadLogin,
   verifyLogin,

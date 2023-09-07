@@ -1,8 +1,7 @@
-<%- include("../layouts/userPartials/header.ejs") %>    
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<%- include("../layouts/userPartials/header.ejs") %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-<style>
-    
+    <style>
         /* Style the anchor tag */
         a.text-decoration-none {
             color: black;
@@ -114,6 +113,7 @@
             transition: background-color 0.3s ease-in-out;
             padding: 20px;
         }
+
         .btn-danger {
             background-color: #081a22;
             border-color: #3e7df1;
@@ -124,7 +124,7 @@
         .btn-primary:hover {
             background-color: #ff0000;
             border-color: #ff0000;
-            
+
         }
 
         .card-body p {
@@ -134,31 +134,32 @@
         .card-body p.mb-0 {
             color: #777;
         }
+
         .btn-primary.btn-sm {
-        background-color: #ff0000;
-        border-color: #ff0000;
-        transition: background-color 0.3s ease-in-out;
-    }
+            background-color: #ff0000;
+            border-color: #ff0000;
+            transition: background-color 0.3s ease-in-out;
+        }
 
-    .btn-primary.btn-sm:hover {
-        background-color: #ff0000;
-        border-color: #ff0000;
-        
-    }
+        .btn-primary.btn-sm:hover {
+            background-color: #ff0000;
+            border-color: #ff0000;
 
-    /* Style the Order Details table */
-    .table-sm td,
-    .table-sm th {
-        font-size: 14px;
-        color: #000;
-    }
+        }
+
+        /* Style the Order Details table */
+        .table-sm td,
+        .table-sm th {
+            font-size: 14px;
+            color: #000;
+        }
     </style>
     <title>User Profile</title>
 
 
 
     <section style="background-color: white">
-      <div class="container py-5">
+        <div class="container py-5">
             <div class="row pt-5">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text pt-5">
@@ -189,7 +190,7 @@
                                         <i class="fas fa-map-marked-alt"></i>Manage Address
                                     </a>
                                 </li>
-                                
+
                                 <li class="list-group-item">
                                     <a href="/walletHistory" class="text-decoration-none"><i class="fas fa-wallet"></i>
                                         Wallet History</a>
@@ -204,7 +205,7 @@
                 </div>
 
                 <div class="col-lg-8">
-                  <div class="card mb-4" id="userDetails">
+                    <div class="card mb-4" id="userDetails">
                         <div class="card-body">
                             <h3 class="card-title">User Profile</h3>
                             <hr />
@@ -256,21 +257,25 @@
                                     <p class="mb-0 mt-2">Actions:</p>
                                 </div>
                                 <div class="col-sm-9">
-                                  <!-- <a href="/resetPassword?token=<%= userData._id %>" class="btn btn-primary btn-sm mr-2">
+                                    <!-- <a href="/resetPassword?token=<%= userData._id %>" class="btn btn-primary btn-sm mr-2">
                                       <i class="fas fa-key"></i> Change Password
                                   </a> -->
-                                      <a href="/addAddress" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus"></i>  Add Address
-                                      </a>
-                              </div>
-                              <div class="wallet my-4" style="padding: 1.7rem; border-radius:
+                                    <a href="/addAddress" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus"></i> Add Address
+                                    </a>
+                                </div>
+                                <div class="wallet my-4" style="padding: 1.7rem; border-radius:
                                     0.25rem; color: #ffffff;">
-                                    <h2 ><i class="fas fa-wallet" style="color: #fd0404;"></i> My Wallet</h2>
-                                    <p class="" style="font-weight: 900; font-weight: 500;font-size: larger;"><i class="fas fa-rupee-sign"></i> Balance: <b  style="font-weight: 900; font-weight: 500;font-size: larger; color: #ff0000;"><%= userData.wallet%>.00</b> 
+                                    <h2><i class="fas fa-wallet" style="color: #fd0404;"></i> My Wallet</h2>
+                                    <p class="" style="font-weight: 900; font-weight: 500;font-size: larger;"><i
+                                            class="fas fa-rupee-sign"></i> Balance: <b
+                                            style="font-weight: 900; font-weight: 500;font-size: larger; color: #ff0000;">
+                                            <%= userData.wallet%>.00
+                                        </b>
                                     </p>
                                     <!-- Add more elements or information about the wallet here -->
                                 </div>
-                              
+
                             </div>
                         </div>
                     </div>
@@ -302,110 +307,164 @@
                     </div>
                     <!-- ... address... -->
                     <div class="card mb-4" id="addressDetails" style="display: none">
-                      <div class="card-body">
-                          <h5 class="card-title">Address Details</h5>
-                          <div class="d-flex justify-content-end">
-                              <a href="/addAddress" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Address</a>
-                          </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Address Details</h5>
+                            <div class="d-flex justify-content-end">
+                                <a href="/addAddress" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New
+                                    Address</a>
+                            </div>
 
-                          <% if (userAddress && userAddress.address.length > 0) { %>
-                              <% userAddress.address.forEach((address, index) => { %>
-                                  <hr />
-                                  <div class="row">
-                                      <div class="col-sm-3">
-                                          <p class="mb-0">Address <%= index + 1 %>:</p>
-                                      </div>
-                                      <div class="col-sm-9">
-                                          Name: <%= address.fname %> <%= address.sname %> <br>
-                                          Address: <%= address.address %><br>
-                                          Phone: <%= address.mobile %><br>
-                                          Email: <%= address.email %><br>
-                                          City: <%= address.city %><br>
-                                          PIN: <%= address.pin %><br>
-                                          <br>
-                                      </div>
-                                  </div>
-                                  <div class="row mt-3">
-                                      <div class="col-sm-9 offset-sm-3">
-                                          <a class="genric-btn danger-border circle arrow" href="/editAddress?id=<%= address._id %>&index=<%= index %>">Edit</a>
-                                          <a class="genric-btn danger-border circle arrow" href="/deleteAddress?id=<%= address._id %>&index=<%= index %>">Delete</a>
-                                      </div>
-                                  </div>
-                                  <hr />
-                              <% }) %>
-                          <% } else { %>
-                              <p>No address found.</p>
-                          <% } %>
+                            <% if (userAddress && userAddress.address.length> 0) { %>
+                                <% userAddress.address.forEach((address, index)=> { %>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Address <%= index + 1 %>:</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            Name: <%= address.fname %>
+                                                <%= address.sname %> <br>
+                                                    Address: <%= address.address %><br>
+                                                        Phone: <%= address.mobile %><br>
+                                                            Email: <%= address.email %><br>
+                                                                City: <%= address.city %><br>
+                                                                    PIN: <%= address.pin %><br>
+                                                                        <br>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-sm-9 offset-sm-3">
+                                            <a class="genric-btn danger-border circle arrow"
+                                                href="/editAddress?id=<%= address._id %>&index=<%= index %>">Edit</a>
+                                            <a class="genric-btn danger-border circle arrow"
+                                                href="/deleteAddress?id=<%= address._id %>&index=<%= index %>">Delete</a>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <% }) %>
+                                        <% } else { %>
+                                            <p>No address found.</p>
+                                            <% } %>
 
-                      </div>
+                        </div>
                     </div>
                     <!-- ... ... -->
                     <div class="card mb-4" id="orderDetails" style="display: none">
-                      <div class="card-body">
-                          <h5 class="card-title">Order Details</h5>
-                          <hr />
-                          <div class="shopping_cart_table">
-                              <div class="table-responsive">
-                                <table class="table table-sm">
-                                  <thead>
-                                      <tr>
-                                          <th>Order ID</th>
-                                          <th>Payment method</th>
-                                          <th>Total</th>
-                                          <th>Order Status</th>
-                                          <th>Actions</th> 
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <% if (orders && orders.length > 0) {
-                                          orders.forEach((order) => { %>
-                                              <tr class="cart-item">
-                                                  <td><%= order._id %></td>
-                                                  <td><%= order.paymentMethod %></td>
-                                                  <td>₹<%= order.totalAmount %></td>
-                                                  <% if (order.status === 'placed') { %>
-                                                      <td class="text-success">Order Placed</td>
-                                                  <% } %>
-                                                  <% if (order.status === 'pending') { %>
-                                                      <td class="text-warning">Order Pending</td>
-                                                  <% } %>
-                                                  <% if (order.status === 'delivered') { %>
-                                                      <td class="text-info">Order Delivered</td>
-                                                  <% } %>
-                                                  <% if (order.status === 'Return Approved') { %>
-                                                      <td class="text-secondary">Order Returned</td>
-                                                  <% } %>
-                                                  <% if (order.status === 'waiting for approval') { %>
-                                                      <td class="text-dark">order Waiting for Approval</td>
-                                                  <% } %>
-                                                  <% if (order.status === 'canceled') { %>
-                                                      <td class="text-danger">Order Cancelled</td>
-                                                  <% } %>
-                                                  <td>
-                                                      <a class="genric-btn info-border circle arrow" href="/ordershow?id=<%= order._id %>">View Order</a>
-                                                      <br>
-                                                      <br>
-                                                      <% if (order.status !== 'canceled') { %>
-                                                        <a onclick="cancelOrder('<%= order._id %>')" type="button" class="genric-btn danger-border circle arrow">cancel</a>
-                                                      <% } %>
-                                                  </td>
-                                              </tr>
-                                          <% }); %>
-                                      <% } else { %>
-                                          <tr>
-                                              <td colspan="5" class="text-danger">No products found</td>
-                                          </tr>
-                                      <% } %>
-                                  </tbody>
-                              </table>
-                              
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
+                        <div class="card-body">
+                            <h5 class="card-title">Order Details</h5>
+                            <hr />
+                            <div class="shopping_cart_table">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Payment method</th>
+                                                <th>Total</th>
+                                                <th>Order Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (orders && orders.length> 0) {
+                                                orders.forEach((order) => { %>
+                                                <tr class="cart-item">
+                                                    <td>
+                                                        <%= order._id %>
+                                                    </td>
+                                                    <td>
+                                                        <%= order.paymentMethod %>
+                                                    </td>
+                                                    <td>₹<%= order.totalAmount %>
+                                                    </td>
+                                                    <% if (order.status==='placed' ) { %>
+                                                        <td class="text-success">Order Placed</td>
+                                                        <% } %>
+                                                            <% if (order.status==='pending' ) { %>
+                                                                <td class="text-warning">Order Pending</td>
+                                                                <% } %>
+                                                                    <% if (order.status==='delivered' ) { %>
+                                                                        <td class="text-info">Order Delivered</td>
+                                                                        <% } %>
+                                                                            <% if (order.status==='Return Approved' ) {
+                                                                                %>
+                                                                                <td class="text-secondary">Order
+                                                                                    Returned</td>
+                                                                                <% } %>
+                                                                                    <% if
+                                                                                        (order.status==='waiting for approval'
+                                                                                        ) { %>
+                                                                                        <td class="text-dark">order
+                                                                                            Waiting for Approval</td>
+                                                                                        <% } %>
+                                                                                            <% if
+                                                                                                (order.status==='canceled'
+                                                                                                ) { %>
+                                                                                                <td class="text-danger">
+                                                                                                    Order Cancelled</td>
+                                                                                                <% } %>
+                                                                                                    <td>
+                                                                                                        <a class="genric-btn info-border circle arrow"
+                                                                                                            href="/ordershow?id=<%= order._id %>">View
+                                                                                                            Order</a>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                        <% if
+                                                                                                            (order.status
+                                                                                                            !=='canceled'
+                                                                                                            ) { %>
+                                                                                                            <a onclick="cancelOrder('<%= order._id %>')"
+                                                                                                                type="button"
+                                                                                                                class="genric-btn danger-border circle arrow">cancel</a>
+                                                                                                            <% } %>
+                                                                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                                    <% } else { %>
+                                                        <tr>
+                                                            <td colspan="5" class="text-danger">No products found</td>
+                                                        </tr>
+                                                        <% } %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pagination links/buttons -->
+                        <nav aria-label="Order List Pagination">
+                            <ul class="pagination justify-content-center">
+                                <% if (currentPage> 1) { %>
+                                    <li class="page-item">
+                                        <a class="page-link" id="orderDetails" href="?page=<%= currentPage - 1 %>"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <% } %>
+
+                                        <% for (let page=1; page <=totalPages; page++) { %>
+                                            <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= page %>">
+                                                    <%= page %>
+                                                </a>
+                                            </li>
+                                            <% } %>
+
+                                                <% if (currentPage < totalPages) { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=<%= currentPage + 1 %>"
+                                                            aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+    </section>
 
 
 
@@ -415,55 +474,55 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
+        // ... Existing scripts ...
+
+        // Function to show the order details section and hide others
+        function toggleOrders() {
+            // ... Existing code ...
+
+            // Scroll to the order details section after clicking the "Orders" link
+            if (orderDetails.style.display === "block") {
+                window.scrollTo({
+                    top: orderDetails.getBoundingClientRect().top + window.scrollY,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
     // ... Existing scripts ...
+    </script>
 
-    // Function to show the order details section and hide others
-    function toggleOrders() {
-        // ... Existing code ...
+    <script>
+        function cancelOrder(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to cancel this Product!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, cance it!",
+                cancelButtonText: "Cancel",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/cancelOrder",
+                        data: {
 
-        // Scroll to the order details section after clicking the "Orders" link
-        if (orderDetails.style.display === "block") {
-            window.scrollTo({
-                top: orderDetails.getBoundingClientRect().top + window.scrollY,
-                behavior: 'smooth'
+                            id: id,
+                        },
+                        method: "post",
+                        success: (response) => {
+                            if ((response.remove = true)) {
+                                location.reload();
+                            }
+                        },
+                    });
+                }
             });
         }
-    }
+    </script>
 
-    // ... Existing scripts ...
-</script>
-
-<script>
-   function cancelOrder( id) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to cancel this Product!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, cance it!",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          url: "/cancelOrder",
-          data: {
-           
-            id: id,
-          },
-          method: "post",
-          success: (response) => {
-            if ((response.remove = true)) {
-              location.reload();
-            }
-          },
-        });
-      }
-    });
-  }
-</script>
-  
 
     <script>
         function toggleProfileForm() {
@@ -529,17 +588,17 @@
                 name.setCustomValidity("")
             }
 
-   
+
             name.addEventListener("input", () => {
-    if (name.value.trim() == "") {
-        name.setCustomValidity("please enter the name")
-    }
-    else {
-        name.setCustomValidity("")
-    }
-});
-});
+                if (name.value.trim() == "") {
+                    name.setCustomValidity("please enter the name")
+                }
+                else {
+                    name.setCustomValidity("")
+                }
+            });
+        });
     </script>
 
-    
+
     <%- include("../layouts/userPartials/footer.ejs") %>

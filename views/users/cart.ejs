@@ -34,6 +34,7 @@
     .quantity-controls {
       display: flex;
       align-items: center;
+      margin-left: 120px;
     }
 
     .quantity-controls button {
@@ -54,7 +55,7 @@
     .genric-btn.danger-border.small {
       padding: 5px 10px;
       font-size: 12px;
-      background-color: #dc3545;
+      background-color: #ff0019;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -63,7 +64,7 @@
     }
 
     .genric-btn.danger-border.small:hover {
-      background-color: #c82333;
+      background-color: #686767;
     }
 
     /* Style the Subtotal and Proceed buttons */
@@ -140,6 +141,28 @@
     .quantity-controls button:hover {
       background-color: #616161;
     }
+    /* Style the red buttons */
+
+/* Style the red button */
+.red-btn {
+  background-color: #ff0000; /* Red color */
+  color: #fff; /* White text */
+  padding: 10px 20px; /* Add padding for better appearance */
+  text-decoration: none; /* Remove underline from the link */
+  border-radius: 30px; /* Add rounded corners */
+  display: inline-block; /* Ensure the button size fits the content */
+}
+
+/* Add some space between the icon and text */
+.red-btn i {
+  margin-right: 10px;
+}
+
+/* Hover effect for the red button */
+.red-btn:hover {
+  background-color: #3f3e3e; /* Darker red on hover */
+}
+
   </style>
 
   <main>
@@ -151,6 +174,7 @@
             <div class="col-xl-12">
               <div class="hero-cap text-center">
                 <h2>Cart List</h2>
+                <p>Wearing a watch is a constant reminder that time is always moving forward.</p>
               </div>
             </div>
           </div>
@@ -284,15 +308,25 @@
                 </tbody>
               </table>
               <div class="checkout_btn_inner">
-                <a class="genric-btn checkout_btn_2" href="./shop">Continue Shopping</a>
-                <a class="genric-btn checkout_btn_1" href="/checkout">Proceed to checkout</a>
+                <a class="genric-btn checkout_btn_2 red-btn" href="./shop">Continue Shopping</a>
+                <a class="genric-btn checkout_btn_1 red-btn" href="/checkout">Proceed to checkout</a>
               </div>
+              
               <% } else { %>
-                <h1>Your Cart is empty</h1>
-                <div class="checkout_btn_inner">
-                  <a class="genric-btn checkout_btn_2" href="./shop">Go To Shop</a>
+                <div style="text-align: center;">
+                    <p style="color: red; font-size: xx-large; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic;">
+                        Your Cart is empty!!!
+                        <br>
+                        <br>
+                         But the treasures of our shop await!
+                    </p>
+                    <div class="checkout_btn_inner">
+                      <a class="red-btn" href="./shop"><i class="fas fa-arrow-left"></i> Explore Our Collection</a>
+                    </div>
+                    
                 </div>
-                <% } %>
+            <% } %>
+            
           </div>
         </div>
       </div>

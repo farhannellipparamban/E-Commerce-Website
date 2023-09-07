@@ -4,29 +4,42 @@ const CatDB = require("../models/categoryModel");
 const productdb = require("../models/prodectModel");
 
 //category list get
-const categoryLoad = async (req, res,next) => {
+const categoryLoad = async (req, res, next) => {
   try {
-    const categryDetails = await CatDB.find();
+    const page = parseInt(req.query.page)|| 1;
+    const skip = (page - 1) * 8;
 
-    res.render("productCategory", { catData: categryDetails });
+    const categryDetails = await CatDB.find()
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(8);
+
+    const totalCategory = await CatDB.countDocuments({});
+    const totalPages = Math.ceil(totalCategory / 8);
+
+    res.render("productCategory", {
+      catData: categryDetails,
+      totalPages: totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //add category page get
-const add_categoryLoad = async (req, res,next) => {
+const add_categoryLoad = async (req, res, next) => {
   try {
     res.render("add_category");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // add category page post
-const insert_category = async (req, res,next) => {
+const insert_category = async (req, res, next) => {
   try {
     const name = req.body.name;
 
@@ -53,12 +66,12 @@ const insert_category = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // edit category page get
-const edit_catLoad = async (req, res,next) => {
+const edit_catLoad = async (req, res, next) => {
   try {
     const id = req.query.id;
     const name = req.body.name;
@@ -70,12 +83,12 @@ const edit_catLoad = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //edit category page updation post
-const updatecategory = async (req, res,next) => {
+const updatecategory = async (req, res, next) => {
   try {
     const id = req.body.id;
     const data = await CatDB.findById({ _id: id });
@@ -104,12 +117,12 @@ const updatecategory = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //category blocking get
-const catBlock = async (req, res,next) => {
+const catBlock = async (req, res, next) => {
   try {
     const id = req.query.id;
     const catData = await CatDB.findOne({ _id: id });
@@ -124,12 +137,12 @@ const catBlock = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // category unblocking get
-const catUnblock = async (req, res,next) => {
+const catUnblock = async (req, res, next) => {
   try {
     const id = req.query.id;
     const catData = await CatDB.findOne({ _id: id });
@@ -144,7 +157,7 @@ const catUnblock = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 

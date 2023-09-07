@@ -7,7 +7,7 @@ const order = require("../models/orderModel");
 const CatDB = require("../models/categoryModel");
 const randomstring = require("randomstring");
 const coupon = require("../models/couponModel");
-const Banner = require("../models/bannerModel")
+const Banner = require("../models/bannerModel");
 
 const dotenv = require("dotenv");
 
@@ -90,7 +90,7 @@ const otpVerify = async (req, res) => {
 };
 
 //otpValidation post
-const otpValidation = async (req, res,next) => {
+const otpValidation = async (req, res, next) => {
   try {
     const otpinput = req.body.otp;
     const email = req.body.email;
@@ -109,22 +109,22 @@ const otpValidation = async (req, res,next) => {
     } else res.redirect("/otp");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //register page load get
-const loadRegister = async (req, res,next) => {
+const loadRegister = async (req, res, next) => {
   try {
     res.render("registration");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //register page insert user post
-const verifyUser = async (req, res,next) => {
+const verifyUser = async (req, res, next) => {
   try {
     const spassword = await securePassword(req.body.password);
     const email = req.body.email;
@@ -161,22 +161,22 @@ const verifyUser = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //login page get
-const loadLogin = async (req, res,next) => {
+const loadLogin = async (req, res, next) => {
   try {
     res.render("login");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // Verify Login Post
-const verifyLogin = async (req, res,next) => {
+const verifyLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userData = await User.findOne({ email: email });
@@ -185,7 +185,7 @@ const verifyLogin = async (req, res,next) => {
         const passwordMatch = await bcrypt.compare(password, userData.password);
         if (passwordMatch) {
           req.session.user_id = userData._id;
-          return res.json({});
+          return res.redirect("/")
         } else {
           return res.json({ error: "Incorrect password" });
         }
@@ -197,12 +197,12 @@ const verifyLogin = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //verifyuser email get
-const verifyFromLogin = async (req, res,next) => {
+const verifyFromLogin = async (req, res, next) => {
   try {
     const email = req.query.email;
     email2 = email;
@@ -212,39 +212,94 @@ const verifyFromLogin = async (req, res,next) => {
     res.render("otp_verification");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
-//reset password send mail
 const resetsendVerifymail = async (name, email, token) => {
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
-      securel: false,
+      secure: false,
       requireTLS: true,
       auth: {
         user: process.env.email,
         pass: process.env.password,
       },
     });
-    const mailOption = {
+
+    const mailOptions = {
       from: process.env.email,
       to: email,
-      subject: "For Reset Password",
-      html:
-        "<p>hi " +
-        name +
-        ' ,please click here to<a href="http://localhost:3000/resetPassword?token=' +
-        token +
-        '">Reset</a> your password </p>',
+      subject: "Password Reset",
+      html: `
+        <html>
+          <head>
+            <style>
+              /* Add your CSS styles here */
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f3f8;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                max-width: 670px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 3px;
+                text-align: center;
+                box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.06);
+              }
+              h1 {
+                color: #1e1e2d;
+                font-weight: 500;
+                margin: 0;
+                font-size: 32px;
+                font-family: 'Rubik', sans-serif;
+              }
+              p {
+                color: #455056;
+                font-size: 15px;
+                line-height: 24px;
+                margin: 0;
+              }
+              a.button {
+                background: red;
+                text-decoration: none !important;
+                font-weight: 500;
+                margin-top: 35px;
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 14px;
+                padding: 10px 24px;
+                display: inline-block;
+                border-radius: 50px;
+              }
+            </style>
+          </head>
+          <body>
+          <div style='border-bottom:1px solid #eee'>
+        <a href='' style='font-size:1.4em;color: #f30d0d;text-decoration:none;font-weight:600'>CLOC<a style='color: #f30d0d;'></a>KSY</a>
+        </div>
+            <div class="container">
+              <h1>You have requested to reset your password</h1>
+              <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+              <p>We cannot simply send you your old password. A unique link to reset your password has been generated for you. To reset your password, click the following link and follow the instructions.</p>
+              <a class="button" href="http://localhost:3000/resetPassword?token=${token}">Reset Password</a>
+            </div>
+          </body>
+        </html>
+      `,
     };
-    transporter.sendMail(mailOption, (error, info) => {
+
+    transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error.message);
       } else {
-        console.log("email has been send to:", info.response);
+        console.log("Email has been sent to:", info.response);
       }
     });
   } catch (error) {
@@ -252,8 +307,9 @@ const resetsendVerifymail = async (name, email, token) => {
   }
 };
 
+
 //reset password get
-const resetPassword = async (req, res,next) => {
+const resetPassword = async (req, res, next) => {
   try {
     const token = req.query.token;
     const userData = await User.findOne({ token: token });
@@ -264,12 +320,12 @@ const resetPassword = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //reset password post
-const resetpassVerify = async (req, res,next) => {
+const resetpassVerify = async (req, res, next) => {
   try {
     const password = req.body.password;
     const email = req.body.email;
@@ -282,23 +338,23 @@ const resetpassVerify = async (req, res,next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //forget password get
 
-const forgetLoad = async (req, res,next) => {
+const forgetLoad = async (req, res, next) => {
   try {
     res.render("forgetPassword");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //forget post
-const forgetSendEmail = async (req, res,next) => {
+const forgetSendEmail = async (req, res, next) => {
   try {
     const email = req.body.email;
     const userData = await User.findOne({ email: email });
@@ -322,66 +378,72 @@ const forgetSendEmail = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //home get
-const loadHome = async (req, res,next) => {
+const loadHome = async (req, res, next) => {
   try {
-   
-    const BannerData = await Banner.find()
+    const BannerData = await Banner.find();
     const loadlogIn = req.session.user_id;
     const products = await productdb.find({ is_blocked: false });
-    res.render("home", { loadlogIn, data: products ,bannerData:BannerData});
+    res.render("home", { loadlogIn, data: products, bannerData: BannerData });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //logout get
-const userLogout = async (req, res,next) => {
+const userLogout = async (req, res, next) => {
   try {
     req.session.destroy();
     res.redirect("/login");
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //shop get
-const loadShoping = async (req, res,next) => {
+const loadShoping = async (req, res, next) => {
   try {
     let page = req.query.page || 1;
+    
     const limit = 6;
     const skip = (page - 1) * limit;
 
     let search = req.query.search || "";
 
     let category = req.query.category || "All";
+    search = search.trim();
+    const price = req.query.price;
 
-    let cat = [];
-    const categoryData = await CatDB.find();
-    if (categoryData) {
-      for (let i = 0; i < categoryData.length; i++) {
-        cat[i] = categoryData[i].name;
-      }
-    }
-
-    category == "All"
-      ? (category = [...cat])
-      : (category = req.query.category.split(","));
+    const categoryData = await CatDB.find({ is_blocked: false });
+    let cat = categoryData.map((category) => category.name);
 
     let sort;
-    let price = req.query.price || "Low";
-    price == "Low" ? (sort = 1) : (sort = -1);
+    category === "All" ? (category = [...cat]) : (category = req.query.category.split(","));
+    req.query.price === "High" ? (sort = -1) : (sort = 1);
+    let catId = [];
+
+    for (let i = 0; i < categoryData.length; i++) {
+      if (category.includes(categoryData[i].name) || category === "All") {
+        catId.push(categoryData[i]._id);
+      }
+    }
+//===============================================
+    const searchQuery = req.query.search || "";
+
+    const searchFilter = searchQuery.trim() ? { name: { $regex: new RegExp(searchQuery, "i") } } : {};
+
     const productData = await productdb.aggregate([
       {
         $match: {
-          name: { $regex: "^" + search, $options: "i" },
-          category: { $in: [...category] },
+          ...searchFilter,
+          category: { $in: catId },
+          is_blocked: false,
         },
       },
       { $sort: { price: sort } },
@@ -389,14 +451,47 @@ const loadShoping = async (req, res,next) => {
       { $limit: limit },
     ]);
 
-    const productCount = (
-      await productdb
-        .find({ name: { $regex: "^" + search, $options: "i" } })
-        .where("category")
-        .in([...category])
-    ).length;
+    const productCount = await productdb.countDocuments({
+      name: { $regex: ".*" + search+".*" ,$options: "i" },
+      is_blocked: false,
+      category: { $in: catId },
+    });
+    // let cat = [];
+    // const categoryData = await CatDB.find();
+    // if (categoryData) {
+    //   for (let i = 0; i < categoryData.length; i++) {
+    //     cat[i] = categoryData[i].name;
+    //   }
+    // }
 
-    const totalpages = Math.ceil(productCount / limit);
+    // category == "All"
+    //   ? (category = [...cat])
+    //   : (category = req.query.category.split(","));
+
+    // let sort;
+    // let price = req.query.price || "Low";
+    // price == "Low" ? (sort = 1) : (sort = -1);
+    // const productData = await productdb.aggregate([
+    //   {
+    //     $match: {
+    //       is_blocked: { $eq: false },
+    //       name: { $regex: ".*" + search+".*" ,$options: "i" },
+    //       category: { $in: [...category] },
+    //     },
+    //   },
+    //   { $sort: { price: sort } },
+    //   { $skip: skip },
+    //   { $limit: limit },
+    // ]);
+
+    // const productCount = (
+    //   await productdb
+    //     .find({ name: { $regex: ".*" + search+".*" ,$options: "i" } })
+    //     .where("category")
+    //     .in([...category])
+    // ).length;
+    const totalpages = Math.max(1, Math.ceil(productCount / limit));
+    // const totalpages = Math.ceil(productCount / limit);
     const userd = await User.findOne({ _id: req.session.user_id });
     const loadlogIn = req.session.user_id;
     if (req.session.user_id) {
@@ -406,9 +501,9 @@ const loadShoping = async (req, res,next) => {
         // user: userd.name,
         totalpages,
         page,
-        categoryData,
+        categoryData: categoryData,
         price,
-        category,
+        category: category,
         search,
       });
     } else {
@@ -418,84 +513,98 @@ const loadShoping = async (req, res,next) => {
         // user: userd.name,
         totalpages,
         page,
-        categoryData,
+        categoryData: categoryData,
         price,
-        category,
+        category: category,
         search,
+        
       });
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //single product details get
-const productDetails = async (req, res,next) => {
+const productDetails = async (req, res, next) => {
   try {
     const loadlogIn = req.session.user_id;
     const productId = req.query.id;
-    const product = await productdb.findById({_id:productId}).populate("review.user")
+    const product = await productdb
+      .findById({ _id: productId })
+      .populate("review.user").populate("category");
 
     res.render("product_details", { loadlogIn, data: product });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
-//review 
-const review =async(req,res,next)=>{
+//review
+const review = async (req, res, next) => {
   try {
-    const id = req.body.id
-    const {review,rating} = req.body
+    const id = req.body.id;
+    const { review, rating } = req.body;
     const newReview = {
-      user : req.session.user_id,
-      review:review,
-      rating:rating
-    }
+      user: req.session.user_id,
+      review: review,
+      rating: rating,
+    };
     await productdb.findByIdAndUpdate(
-      {_id:id},
-      {$push:{review:newReview}}
+      { _id: id },
+      { $push: { review: newReview } }
     );
-    res.redirect(`/product_details?id=${id}`)
+    res.redirect(`/product_details?id=${id}`);
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
-}
+};
 
 //about get
-const loadAbout = async (req, res,next) => {
+const loadAbout = async (req, res, next) => {
   try {
     const loadlogIn = req.session.user_id;
     res.render("about", { loadlogIn });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //contact get
-const loadContact = async (req, res,next) => {
+const loadContact = async (req, res, next) => {
   try {
     const loadlogIn = req.session.user_id;
     res.render("contact", { loadlogIn });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // myAcco get route
-const myAcco = async (req, res,next) => {
+const myAcco = async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * 6;
+
     const loadlogIn = req.session.user_id;
     const userAddress = await user_address.findOne({
       user: req.session.user_id,
     });
     const userData = await User.findOne({ _id: req.session.user_id });
-    const orders = await order.find({ user: req.session.user_id });
+    const totalOrders = await order.countDocuments();
+    const totalPages = Math.ceil(totalOrders / 6);
+    const orders = await order
+      .find({})
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(6);
+
+
     const coupon1 = await coupon.find();
 
     if (userAddress && coupon1) {
@@ -506,6 +615,8 @@ const myAcco = async (req, res,next) => {
         userAddress: userAddress,
         orders: orders,
         coupon1,
+        currentPage: page,
+        totalPages: totalPages,
       });
     } else {
       res.render("myacco", {
@@ -514,16 +625,18 @@ const myAcco = async (req, res,next) => {
         userAddress: userAddress,
         orders: orders,
         userData: userData,
+        currentPage: page,
+        totalPages: totalPages,
       });
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 // //profile post
-const profilesubmit = async (req, res,next) => {
+const profilesubmit = async (req, res, next) => {
   try {
     const name = req.body.name;
     const email = req.body.email;
@@ -557,25 +670,25 @@ const profilesubmit = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
 
 //Wallet History
-const walletHistory = async(req,res,next)=>{
+const walletHistory = async (req, res, next) => {
   try {
-    const loadlogIn = req.session.user_id
+    const loadlogIn = req.session.user_id;
     const user_id = req.session.user_id;
-    const user = await User.findOne({_id:user_id})
+    const user = await User.findOne({ _id: user_id });
     res.render("walletHistory", { wallet: user.walletHistory, loadlogIn });
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
-}
+};
 
 //wallet post
-const walletAmount = async (req, res,next) => {
+const walletAmount = async (req, res, next) => {
   try {
     const user = req.session.user_id;
     const wallet = req.body.wallet;
@@ -592,10 +705,9 @@ const walletAmount = async (req, res,next) => {
     }
   } catch (error) {
     console.log(error.message);
-    next(error)
+    next(error);
   }
 };
-
 
 module.exports = {
   loadRegister,

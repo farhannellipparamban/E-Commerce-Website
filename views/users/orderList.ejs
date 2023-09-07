@@ -1,10 +1,11 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 <style>
-  /* Add your custom styles here */
+  /* Container styles */
   .container {
     margin-top: 50px;
   }
 
+  /* Table styles */
   .table {
     width: 100%;
     border-collapse: collapse;
@@ -21,6 +22,7 @@
     background-color: #f2f2f2;
   }
 
+  /* Button styles */
   .btn {
     display: inline-block;
     padding: 5px 10px;
@@ -45,12 +47,65 @@
   .btn.warning-border {
     background-color: #f39c12;
     color: #fff;
+    
   }
 
   .btn.genric-btn:hover {
     background-color: #333;
   }
+
+  /* Pagination styles */
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page-item {
+    margin: 0 3px;
+    list-style: none;
+  }
+
+  .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+  }
+
+  .page-link:hover {
+    background-color: #f2f2f2;
+  }
+
+  .page-item.active .page-link {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* Additional table styling */
+  .table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+
+  /* Button styling */
+  .genric-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .genric-btn:hover {
+    background-color: #333;
+    color: #fff;
+  }
 </style>
+
 
 
 <div class="container mt-5">
@@ -78,14 +133,14 @@
           <td><%= value.totalAmount %></td>
           <td><%= value.paymentMethod %></td>
           <td><%= value.status %></td>
-    <td><a href="/ordershow?id=<%= value._id%>" type="button" class="genric-btn info-border circle arrow">View</a>
+    <td><a href="/ordershow?id=<%= value._id%>" type="button" class="genric-btn info-border circle arrow py-0">View</a>
           <% if(value.status!=="canceled"&&value.status!=="delivered"&&value.status!=="Return Approved"&&value.status!=="pending"&&value.status!=="waiting for approval"){%>
 
-            <a onclick="cancelOrder('<%= value._id %>')" type="button" class="genric-btn danger-border circle arrow">cancel</a>
+            <a onclick="cancelOrder('<%= value._id %>')" type="button" class="genric-btn danger-border circle arrow py-0">cancel</a>
             <%}%>
 
         <% if(value.status=="delivered"){%>
-          <a  onclick="returnOrder('<%= value._id%>')" type="button" class="genric-btn warning-border circle arrow">Return</a>
+          <a  onclick="returnOrder('<%= value._id%>')" type="button" class="genric-btn warning-border circle arrow py-0">Return</a>
         
           <%}%>
           <% if(value.status=="delivered"||value.status=="Return Approved"){%>
@@ -97,6 +152,34 @@
   <%})%> 
 </tbody>
   </table>
+
+  <!-- Pagination links/buttons -->
+  <nav aria-label="Order List Pagination">
+    <ul class="pagination justify-content-center">
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="/orderlist?page=<%= currentPage - 1 %>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      <% } %>
+      
+      <% for (let page = 1; page <= totalPages; page++) { %>
+        <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+          <a class="page-link" href="/orderlist?page=<%= page %>"><%= page %></a>
+        </li>
+      <% } %>
+      
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="/orderlist?page=<%= currentPage + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+
 </div>
 
 

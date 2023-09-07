@@ -141,66 +141,101 @@
       padding: 6px 12px;
       font-size: 12px;
     }
-/* Add a hover effect to table rows */
-tbody tr:hover {
-  background-color: #f5f5f5;
-}
 
-/* Style the link within the first table cell */
-td a.order-link {
-  color: #616161;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+    /* Add a hover effect to table rows */
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
 
-td a.order-link:hover {
-  color: #0056b3;
-}
+    /* Style the link within the first table cell */
+    td a.order-link {
+      color: #616161;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
 
-/* Style the price in the second table cell */
-td.price {
-  color: #272727;
-}
+    td a.order-link:hover {
+      color: #0056b3;
+    }
 
-/* Add more padding to the status cells */
-td.status-cell {
-  padding: 12px 0;
-}
+    /* Style the price in the second table cell */
+    td.price {
+      color: #272727;
+    }
 
-/* Style status cells on hover */
-td.status-cell:hover .status-label {
-  transform: scale(1.05);
-}
+    /* Add more padding to the status cells */
+    td.status-cell {
+      padding: 12px 0;
+    }
 
-/* Adjust padding for action cells */
-td.action-cell {
-  padding: 12px 0;
-}
+    /* Style status cells on hover */
+    td.status-cell:hover .status-label {
+      transform: scale(1.05);
+    }
 
-/* Style the "Canceled" label */
-td.action-cell a.canceled-label {
-  color: #d61b00;
-  background-color: #fccfcf;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 10px;
-}
+    /* Adjust padding for action cells */
+    td.action-cell {
+      padding: 12px 0;
+    }
 
-/* Style the "Approve" and "Delivered" buttons */
-td.action-cell a span.btn-secondary,
-td.action-cell a span.btn-primary {
-  font-size: 13px;
-  padding: 10px 12px;
-  border-radius: 20px;
-}
+    /* Style the "Canceled" label */
+    td.action-cell a.canceled-label {
+      color: #d61b00;
+      background-color: #fccfcf;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+    }
 
-/* Add some spacing between action buttons */
-td.action-cell a span.btn-secondary + span,
-td.action-cell a span.btn-primary + span {
-  margin-left: 10px;
-}
+    /* Style the "Approve" and "Delivered" buttons */
+    td.action-cell a span.btn-secondary,
+    td.action-cell a span.btn-primary {
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 20px;
+    }
 
+    /* Add some spacing between action buttons */
+    td.action-cell a span.btn-secondary+span,
+    td.action-cell a span.btn-primary+span {
+      margin-left: 10px;
+    }
+
+    /* Styling for Pagination */
+    .pagination {
+      margin-top: 20px;
+    }
+
+    .pagination .page-item {
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    .pagination .page-link {
+      border-radius: 20px;
+      padding: 5px 10px;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .pagination .page-link:hover {
+      background-color: #f0f0f0;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+      color: #ccc;
+      background-color: transparent;
+      border-color: transparent;
+      cursor: not-allowed;
+    }
   </style>
   <main class="h-full pb-16 overflow-y-auto">
     <div class="container grid px-6 mx-auto">
@@ -241,7 +276,7 @@ td.action-cell a span.btn-primary + span {
                       ₹ <%= orderData[i].totalAmount %>
                     </td>
                     <td class="px-5 py-4 price">
-                       <%= orderData[i].paymentMethod %>
+                      <%= orderData[i].paymentMethod %>
                     </td>
 
                     <td class="px-5 py-3 status-cell">
@@ -319,5 +354,45 @@ td.action-cell a span.btn-primary + span {
         </div>
       </div>
     </div>
+    <!-- Pagination links/buttons with styling -->
+    <nav aria-label="Order List Pagination">
+      <ul class="pagination justify-content-center">
+
+        <% if (currentPage> 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="/admin/orderDetails?page=<%= currentPage - 1 %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <% } else { %>
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+            <% } %>
+
+              <% for (let page=1; page <=totalPages; page++) { %>
+                <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+                  <a class="page-link" href="/admin/orderDetails?page=<%= page %>">
+                    <%= page %>
+                  </a>
+                </li>
+                <% } %>
+
+                  <% if (currentPage < totalPages) { %>
+                    <li class="page-item">
+                      <a class="page-link" href="/admin/orderDetails?page=<%= currentPage + 1 %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                    <% } else { %>
+                      <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                      </li>
+                      <% } %>
+
+      </ul>
+    </nav>
+
+
   </main>
   <%- include("../layouts/adminPartials/footer.ejs") %>

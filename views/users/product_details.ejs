@@ -403,7 +403,7 @@ textarea {
             <h2>₹ <%= data.price %>
             </h2>
             <ul class="list">
-              <li><span>Category</span>: <%= data.category %>
+              <li><span>Category</span>: <%= data.category.name %>
               </li>
               <li>
                 <span>Availability</span>: <% if (data.stock> 0) { %> In Stock

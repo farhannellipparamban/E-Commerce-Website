@@ -1,73 +1,106 @@
-
-
 <%- include("../layouts/adminPartials/header.ejs") %>
-<style>
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-  
-    .table th,
-    .table td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #e2e8f0;
-    }
-  
-    .table th {
-      background-color: #fcfafa;
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: bold;
-      color: #000000;
-    }
-  
-    .table td {
-      font-size: 14px;
-      color: #000000;
-    }
-  
-    .table img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    }
-  
-    .btn {
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  
-    .btn-primary {
-      background-color: #545bdf;
-      color: #ffffff;
-      border: none;
-    }
-  
-    .btn-success {
-      background-color: #229113;
-      color: #ffffff;
-      border: none;
-    }
-  
-    .btn-danger {
-      background-color: #ff0000;
-      color: #ffffff;
-      border: none;
-    }
-  
-    .btn:focus {
-      outline: none;
-    }
-  
-    .btn:not(:last-child) {
-      margin-right: 6px;
-    }
-  </style>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background-color: #fcfafa;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .table td {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .table img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #545bdf;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-success {
+            background-color: #229113;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .btn:not(:last-child) {
+            margin-right: 6px;
+        }
+
+        /* Styling for Pagination */
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination .page-item {
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .pagination .page-link {
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #ccc;
+            background-color: transparent;
+            border-color: transparent;
+            cursor: not-allowed;
+        }
+    </style>
 
     <main class="h-full pb-16 overflow-y-auto">
         <div class="container grid px-6 mx-auto">
@@ -149,6 +182,47 @@
                                         <% } %>
                         </tbody>
                     </table>
+                    <!-- Pagination links/buttons with styling -->
+                    <nav aria-label="Order List Pagination">
+                        <ul class="pagination justify-content-center">
+
+                            <% if (currentPage> 1) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="/admin/productCategory?page=<%= currentPage - 1 %>"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <% } else { %>
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                                    </li>
+                                    <% } %>
+
+                                        <% for (let page=1; page <=totalPages; page++) { %>
+                                            <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+                                                <a class="page-link" href="/admin/productCategory?page=<%= page %>">
+                                                    <%= page %>
+                                                </a>
+                                            </li>
+                                            <% } %>
+
+                                                <% if (currentPage < totalPages) { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link"
+                                                            href="/admin/productCategory?page=<%= currentPage + 1 %>"
+                                                            aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <% } else { %>
+                                                        <li class="page-item disabled">
+                                                            <span class="page-link" aria-hidden="true">&raquo;</span>
+                                                        </li>
+                                                        <% } %>
+
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

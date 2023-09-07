@@ -10,9 +10,11 @@
   .price {
     margin-left: 60px;
   }
+
   .stock {
     margin-left: 75px;
   }
+
   .name {
     margin-left: 35px;
   }
@@ -34,6 +36,41 @@
 
   .card-header h4 {
     margin: 5px;
+  }
+
+  /* Styling for Pagination */
+  .pagination {
+    margin-top: 20px;
+  }
+
+  .pagination .page-item {
+    display: inline-block;
+    margin: 0 4px;
+  }
+
+  .pagination .page-link {
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .pagination .page-link:hover {
+    background-color: #f0f0f0;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+
+  .pagination .page-item.disabled .page-link {
+    color: #ccc;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: not-allowed;
   }
 </style>
 
@@ -75,7 +112,7 @@
     </header>
 
     <div class="card-body">
-      <% for (let i = 0; i < data.length; i++) { %>
+      <% for (let i=0; i < data.length; i++) { %>
       <article class="itemlist">
         <div class="row align-items-center item-row">
           <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
@@ -96,7 +133,7 @@
             <span class="price">&#8377;<%=data[i].price%></span>
           </div>
           <div class="col-lg-3 col-sm-2 col-4 col-date">
-            <span class="stock"><%=data[i].stock%></span>
+            <span class="stock"> <%=data[i].stock%> </span>
           </div>
           <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
             <a
@@ -105,7 +142,7 @@
             >
               <i class="material-icons md-edit"></i> Edit
             </a>
-            <% if (data[i].is_blocked === false) { %>
+            <% if (data[i].is_blocked===false) { %>
             <a
               href="/admin/productBlock/?id=<%= data[i]._id %>"
               class="btn btn-sm btn-success btn-action"
@@ -124,6 +161,46 @@
       <% } %>
     </div>
   </div>
+  <!-- Pagination links/buttons with styling -->
+  <nav aria-label="Order List Pagination">
+    <ul class="pagination justify-content-center">
+      <% if (currentPage> 1) { %>
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="/admin/productsList?page=<%= currentPage - 1 %>"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&laquo;</span>
+      </li>
+      <% } %> <% for (let page=1; page <=totalPages; page++) { %>
+      <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+        <a class="page-link" href="/admin/productsList?page=<%= page %>">
+          <%= page %>
+        </a>
+      </li>
+      <% } %> <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="/admin/productsList?page=<%= currentPage + 1 %>"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&raquo;</span>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
 </section>
 
 <%- include("../layouts/adminPartials/footer.ejs") %>

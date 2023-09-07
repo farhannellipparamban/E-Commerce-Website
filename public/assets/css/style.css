@@ -2557,102 +2557,139 @@ input:focus {
   -ms-flex-pack: center;
   justify-content: center;
 }
+/* Stylish Slider Styles */
 .slider-height {
   min-height: 980px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  /* Add a subtle box-shadow to the slider */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  /* Add a transition for smoother changes */
+  transition: min-height 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* Media Queries for Responsive Design */
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
   .slider-height {
     min-height: 750px;
   }
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .slider-height {
     min-height: 500px;
   }
 }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .slider-height {
     min-height: 500px;
   }
 }
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .slider-height {
     min-height: 400px;
   }
 }
+
 @media (max-width: 575px) {
   .slider-height {
     min-height: 430px;
   }
 }
+
+/* Stylish Second Slider */
 .slider-height2 {
-  background-image: url(../img/hero/about_hero.png);
+  background-image: url(/assets/IMAGES/image1692706781269-397546118-store-bg.png);
   min-height: 500px;
   background-repeat: no-repeat;
   background-position: center center;
+  /* Add a subtle gradient overlay for depth */
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+              url(/assets/IMAGES/image1692706781269-397546118-store-bg.png) center/cover no-repeat;
 }
+
 @media (max-width: 575px) {
   .slider-height2 {
     min-height: 260px;
   }
 }
+
+/* Stylish Slider Area */
 .slider-area {
   overflow: hidden;
 }
+
+/* Stylish Hero Image */
 .slider-area .hero__img {
   position: relative;
+  /* Add a slight animation on hover */
+  transition: transform 0.3s ease;
 }
+
 @media (min-width: 1200px) and (max-width: 1400px) {
   .slider-area .hero__img {
     left: -104px;
   }
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .slider-area .hero__img img {
     height: 500px;
   }
 }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .slider-area .hero__img img {
     height: 500px;
   }
 }
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .slider-area .hero__img img {
     height: 400px;
   }
 }
+
+/* Stylish Hero Caption */
 .slider-area .hero__caption {
   overflow: hidden;
 }
+
 @media (max-width: 575px) {
   .slider-area .hero__caption {
     padding-top: 38px;
     padding-left: 22px;
   }
 }
+
+/* Stylish Heading */
 .slider-area .hero__caption h1 {
   text-transform: normal;
   font-size: 96px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 26px;
+  /* Add a subtle text-shadow for depth */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .slider-area .hero__caption h1 {
     font-size: 60px;
     line-height: 1.2;
   }
 }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .slider-area .hero__caption h1 {
     font-size: 50px;
     line-height: 1.2;
   }
 }
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .slider-area .hero__caption h1 {
     font-size: 35px;
@@ -2660,6 +2697,7 @@ input:focus {
     margin-bottom: 26px;
   }
 }
+
 @media (max-width: 575px) {
   .slider-area .hero__caption h1 {
     font-size: 33px;
@@ -2667,6 +2705,8 @@ input:focus {
     margin-bottom: 26px;
   }
 }
+
+/* Stylish Paragraph */
 .slider-area .hero__caption p {
   font-size: 17px;
   line-height: 1.6;
@@ -2676,12 +2716,14 @@ input:focus {
   margin-bottom: 60px;
   padding-right: 50px;
 }
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .slider-area .hero__caption p {
     padding-right: 0px;
     margin-bottom: 30px;
   }
 }
+
 @media (max-width: 575px) {
   .slider-area .hero__caption p {
     margin-bottom: 30px;
@@ -2689,16 +2731,26 @@ input:focus {
     margin-bottom: 30px;
   }
 }
+
+/* Stylish Hero Caption H2 */
 .slider-area .hero-cap h2 {
   font-size: 70px;
   font-weight: 700;
   text-transform: capitalize;
+  /* Add a background color and text color for contrast */
+  /* background-color: #181818; */
+  color: #db0000;
+  /* Add padding and border-radius for a stylish box */
+  padding: 10px 20px;
+  border-radius: 5px;
 }
+
 @media (max-width: 575px) {
   .slider-area .hero-cap h2 {
     font-size: 28px;
   }
 }
+
 .slide-bg {
   background: #f0f0f2;
 }

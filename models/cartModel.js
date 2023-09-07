@@ -29,6 +29,7 @@ const cartSchema = new mongoose.Schema({
   ],
   grandTotal: {
     type: Number,
+    default:0
   },
 });
 

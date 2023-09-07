@@ -1,6 +1,6 @@
-
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,33 +11,45 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/flaticon.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
+
+    <style>
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 600;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
 
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <span style='color: #f30d0d; font-family: Helvetica'>cloc</span><span style='color: #000000; font-family: Times New Roman'>ksy</span>                </div>
+                    <span style='color: #f30d0d; font-family: Helvetica'>cloc</span><span
+                        style='color: #000000; font-family: Times New Roman'>ksy</span>
                 </div>
             </div>
         </div>
     </div>
-	
-	<main>
+    </div>
+
+    <main>
         <!-- Hero Area Start-->
         <div class="slider-area">
             <div class="single-slider slider-height2 d-flex align-items-center">
@@ -52,7 +64,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Hero Area End-->
         <!--================register_part Area =================-->
         <section class="login_part section_padding ">
@@ -62,8 +74,8 @@
                         <div class="login_part_text text-center">
                             <div class="login_part_text_iner">
                                 <h2>Already have an account?</h2>
-                                <p>There are advances being made in science and technology 
-									everyday, and a good example of this is the</p>
+                                <p>There are advances being made in science and technology
+                                    everyday, and a good example of this is the</p>
                                 <a href="/login" class="btn_3">Login Now</a>
                             </div>
                         </div>
@@ -72,40 +84,56 @@
                         <div class="login_part_form">
                             <div class="login_part_form_iner">
                                 <h3>CREATE AN ACCOUNT</h3>
-						        <% if (typeof message !== "undefined") { %>
-									<p style=" padding: 5px 10px; border: 1px solid red; margin-top: 15px; background-color: rgb(236, 160, 160); color: red;" class="text-center"><%= message %></p>
-								  <% } %>
-								
-								  <form class="row contact_form" action="/register" method="post" novalidate="novalidate" onsubmit="return validateForm()">
-                                    <div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="name" name="name" value="" placeholder="Username" required>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-                                        <input type="email" class="form-control" id="email" name="email" value="" placeholder="Email Address" required>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-                                        <input type="text" class="form-control" id="number" name="mob" placeholder="Mobile Number"
-                                            required 
-                                            pattern="[0-9]{10}" 
-                                            > 
-                                    </div>
-                                    
-                                    <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password" required>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-										<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="" placeholder="Confirm Password" required>
+                                <% if (typeof message !=="undefined" ) { %>
+                                    <p style=" padding: 5px 10px; border: 1px solid red; margin-top: 15px; background-color: rgb(236, 160, 160); color: red;"
+                                        class="text-center">
+                                        <%= message %>
+                                    </p>
+                                    <% } %>
 
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <div class="creat_account d-flex align-items-center">
-                                            <input type="checkbox" id="f-option" name="selector">
-                                            <label for="f-option">Keep me logged in</label>
-                                        </div>
-                                        <button type="submit" value="submit" class="btn btn-primary btn-block">Register</button>
-                                        <!-- <a class="lost_pass" href="#">forget password?</a> -->
-                                    </div>
-                                </form>
+                                        <!-- ... (previous HTML code) ... -->
+
+                                        <form class="row contact_form" action="/register" method="post"
+                                            novalidate="novalidate" onsubmit="return validateForm()">
+                                            <div class="col-md-12 form-group p_star">
+                                                <input type="text" class="form-control" id="name" name="name" value=""
+                                                    placeholder="Username" required>
+                                                <span class="error-message" id="name-error"></span>
+                                            </div>
+                                            <div class="col-md-12 form-group p_star">
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    value="" placeholder="Email Address" required>
+                                                <span class="error-message" id="email-error"></span>
+                                            </div>
+                                            <div class="col-md-12 form-group p_star">
+                                                <input type="text" class="form-control" id="number" name="mob"
+                                                    placeholder="Mobile Number" required pattern="[0-9]{10}">
+                                                <span class="error-message" id="number-error"></span>
+                                            </div>
+
+                                            <div class="col-md-12 form-group p_star">
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" value="" placeholder="Password" required>
+                                                <span class="error-message" id="password-error"></span>
+                                            </div>
+                                            <div class="col-md-12 form-group p_star">
+                                                <input type="password" class="form-control" id="confirmPassword"
+                                                    name="confirmPassword" value="" placeholder="Confirm Password"
+                                                    required>
+                                                <span class="error-message" id="confirmPassword-error"></span>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="creat_account d-flex align-items-center">
+                                                    <input type="checkbox" id="f-option" name="selector">
+                                                    <label for="f-option">Keep me logged in</label>
+                                                </div>
+                                                <button type="submit" value="submit"
+                                                    class="btn btn-primary btn-block">Register</button>
+                                            </div>
+                                        </form>
+
+                                        <!-- ... (rest of the HTML code) ... -->
+
                             </div>
                         </div>
                     </div>
@@ -115,50 +143,76 @@
         <!--================register_part end =================-->
     </main>
 
-	<script>
-		function validateForm() {
-			var name = document.getElementById("name").value;
-			var email = document.getElementById("email").value;
-            var number = document.getElementById("number").value
-			var password = document.getElementById("password").value;
-			var confirmPassword = document.getElementById("confirmPassword").value;
-		
-			if (name === "") {
-				alert("Please enter a username");
-				return false;
-			}
-		
-			if (email === "") {
-				alert("Please enter an email address");
-				return false;
-			}
-		
-			if (number === "") {
-				alert("Please enter the mobile Number");
-				return false;
-			}
-		
-			// Add more specific validation for email format if needed
-		
-			if (password === "") {
-				alert("Please enter a password");
-				return false;
-			}
-		
-			if (confirmPassword === "") {
-				alert("Please confirm your password");
-				return false;
-			}
-		
-			if (password !== confirmPassword) {
-				alert("Passwords do not match");
-				return false;
-			}
-		
-			return true;
-		}
-		</script>
-		
+    <script>
+      function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var number = document.getElementById("number").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    var nameError = document.getElementById("name-error");
+    var emailError = document.getElementById("email-error");
+    var numberError = document.getElementById("number-error");
+    var passwordError = document.getElementById("password-error");
+    var confirmPasswordError = document.getElementById("confirmPassword-error");
+
+    nameError.innerText = "";
+    emailError.innerText = "";
+    numberError.innerText = "";
+    passwordError.innerText = "";
+    confirmPasswordError.innerText = "";
+
+    if (name === "") {
+        nameError.innerText = "Please enter a username";
+        return false;
+    }
+
+    if (name.indexOf(" ") !== -1) {
+        nameError.innerText = "Username cannot contain spaces";
+        return false;
+    }
+
+    if (email === "") {
+        emailError.innerText = "Please enter an email address";
+        return false;
+    }
+
+    if (number === "") {
+        numberError.innerText = "Please enter the mobile Number";
+        return false;
+    }
+
+    if (!number.match(/^\d{10}$/)) {
+        numberError.innerText = "Mobile number must be 10 digits";
+        return false;
+    }
+
+    if (password === "") {
+        passwordError.innerText = "Please enter a password";
+        return false;
+    }
+
+    if (password.indexOf(" ") !== -1) {
+        passwordError.innerText = "Password cannot contain spaces";
+        return false;
+    }
+
+    if (confirmPassword === "") {
+        confirmPasswordError.innerText = "Please confirm your password";
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        confirmPasswordError.innerText = "Passwords do not match";
+        return false;
+    }
+
+    return true;
+}
+
+    </script>
 
 
-<%- include("../layouts/userPartials/footer.ejs") %>
+
+    <%- include("../layouts/userPartials/footer.ejs") %>

@@ -3,108 +3,148 @@
 
     <style>
         /* Add styles to the Sales Report page header */
-     /* Header Styling */
-.content-title {
-    color: #000000;
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+        /* Header Styling */
+        .content-title {
+            color: #000000;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-.btn-light {
-    background-color: #1da345d3;
-    color: #ffffff;
-    font-size: 18px;
-    padding: 10px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-.btn-light:hover{
-    background-color: #01f868;
-}
-/* Table Styling */
-.table {
-    background-color: #ffffff;
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        .btn-light {
+            background-color: #1da345d3;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
 
-.table th {
-    background-color: #b6bbb4; /* Header background color */
-    color: #000000; /* Header text color */
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 16px;
-    border-bottom: 2px solid #ddd;
-}
+        .btn-light:hover {
+            background-color: #01f868;
+        }
 
-.table td {
-    text-align: center;
-    padding: 12px;
-    font-size: 14px;
-    border-bottom: 1px solid #ddd;
-}
+        /* Table Styling */
+        .table {
+            background-color: #ffffff;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-.table tbody tr:hover {
-    background-color: #f5f5f5; /* Hover background color */
-}
+        .table th {
+            background-color: #b6bbb4;
+            /* Header background color */
+            color: #000000;
+            /* Header text color */
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 16px;
+            border-bottom: 2px solid #ddd;
+        }
 
-/* Status Column Styling */
-.table td.status {
-    font-weight: bold;
-    color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    text-transform: uppercase;
-}
+        .table td {
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
 
-.table td.status.pending {
-    background-color: #ffc107; /* Yellow for pending status */
-}
+        .table tbody tr:hover {
+            background-color: #f5f5f5;
+            /* Hover background color */
+        }
 
-.table td.status.completed {
-    background-color: #00ff3c; /* Green for completed status */
-}
+        /* Status Column Styling */
+        .table td.status {
+            font-weight: bold;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
 
-.table td.status.cancelled {
-    background-color: #ff0019; /* Red for cancelled status */
-}
+        .table td.status.pending {
+            background-color: #ffc107;
+            /* Yellow for pending status */
+        }
 
-/* Form Element Styling */
-.form-select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-}
+        .table td.status.completed {
+            background-color: #00ff3c;
+            /* Green for completed status */
+        }
 
-.form-control {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
+        .table td.status.cancelled {
+            background-color: #ff0019;
+            /* Red for cancelled status */
+        }
 
-.btn-primary {
-    background-color: #4bc46f;
-    color: #6d6666;
-    font-size: 18px;
-    padding: 10px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+        /* Form Element Styling */
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
 
-/* Additional Styling */
-.row.gx-3.align-items-center {
-    align-items: center;
-}
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
 
-/* Add more styles as needed */
+        .btn-primary {
+            background-color: #4bc46f;
+            color: #6d6666;
+            font-size: 18px;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
+        /* Additional Styling */
+        .row.gx-3.align-items-center {
+            align-items: center;
+        }
+
+        /* Styling for Pagination */
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination .page-item {
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .pagination .page-link {
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #ccc;
+            background-color: transparent;
+            border-color: transparent;
+            cursor: not-allowed;
+        }
     </style>
 
 
@@ -136,7 +176,7 @@
                                     <option <%=sortOrder==='Descending' ? 'selected' : '' %>>Descending</option>
                                 </select>
                             </div> -->
-                     
+
                             <div class="col-md-4">
                                 <button class="btn btn-primary">Sort</button>
                             </div>
@@ -144,7 +184,7 @@
                     </form>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    <form action="/admin/salesReport"  method="post" id="salesReportForm">
+                    <form action="/admin/salesReport" method="post" id="salesReportForm">
                         <div class="row gx-3">
                             <div class="col-md-4">
                                 <label for="from-date" class="form-label">From Date:</label>
@@ -179,32 +219,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (orders && orders.length > 0) { %>
-                        <% orders.forEach(order=> { %>
-                            <tr>
-                                <td>
-                                    <%=order._id %>
-                                </td>
-                                <td><b><%= order.user.name %></b></td>
-
-                                <td>
-                                    <%=order.Date.toLocaleDateString('en-US', { year: 'numeric' ,month: 'short' , day: '2-digit' }).replace(/\//g,'-') %>
-                                </td>
-                                <td>₹ <%= order.totalAmount.toFixed(2) %></td>
-                            </td>
-                                <td>
-                                    <%=order.paymentMethod %>
-                                </td>
-                                <td>
-                                    <%=order.status %>
-                                </td>
-                            </tr>
-                            <% }); %>
-                            <% } else { %>
+                        <% if (orders && orders.length> 0) { %>
+                            <% orders.forEach(order=> { %>
                                 <tr>
-                                    <td class="text-danger" colspan="7"><b>No orders found...</b></td>
+                                    <td>
+                                        <%=order._id %>
+                                    </td>
+                                    <td><b>
+                                            <%= order.userName %>
+                                        </b></td>
+
+                                    <td>
+                                        <%=order.Date.toLocaleDateString('en-US', { year: 'numeric' ,month: 'short' ,
+                                            day: '2-digit' }).replace(/\//g,'-') %>
+                                    </td>
+                                    <td>₹ <%= order.totalAmount.toFixed(2) %>
+                                    </td>
+                                    </td>
+                                    <td>
+                                        <%=order.paymentMethod %>
+                                    </td>
+                                    <td>
+                                        <%=order.status %>
+                                    </td>
                                 </tr>
-                            <% } %>
+                                <% }); %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td class="text-danger" colspan="7"><b>No orders found...</b></td>
+                                        </tr>
+                                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -213,20 +257,42 @@
         <!-- card-body end// -->
         </div>
         <!-- card end// -->
-        <!-- <div class="pagination-area mt-15 mb-50">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-start">
-                <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                <li class="page-item"><a class="page-link" href="#">02</a></li>
-                <li class="page-item"><a class="page-link" href="#">03</a></li>
-                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">16</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
-                </li>
+        <!-- Pagination links/buttons with styling -->
+        <nav aria-label="Order List Pagination">
+            <ul class="pagination justify-content-center">
+                <% if (currentPage> 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/SalesReport?page=<%= currentPage - 1 %>"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <% } else { %>
+                        <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&laquo;</span>
+                        </li>
+                        <% } %>
+                            <% for (let page=1; page <=totalPages; page++) { %>
+                                <li class="page-item <%= currentPage === page ? 'active' : '' %>">
+                                    <a class="page-link" href="/admin/SalesReport?page=<%= page %>">
+                                        <%= page %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% if (currentPage < totalPages) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/admin/SalesReport?page=<%= currentPage + 1 %>"
+                                                aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                        <% } else { %>
+                                            <li class="page-item disabled">
+                                                <span class="page-link" aria-hidden="true">&raquo;</span>
+                                            </li>
+                                            <% } %>
             </ul>
         </nav>
-    </div> -->
     </section>
 
     <script>
@@ -234,177 +300,181 @@
         // date validation
 
         const salesReportForm = document.getElementById('salesReportForm');
-        // const fromDateInput = document.getElementById('fromDate');
-        // const toDateInput = document.getElementById('toDate');
+        const fromDateInput = document.getElementById('from-date');
+        const toDateInput = document.getElementById('to-date');
 
-        // salesReportForm.addEventListener('submit', (event) => {
-        //     const fromDate = new Date(fromDateInput.value);
-        //     const toDate = new Date(toDateInput.value);
-        //     const today = new Date();
+        salesReportForm.addEventListener('submit', (event) => {
+            const fromDate = new Date(fromDateInput.value);
+            const toDate = new Date(toDateInput.value);
+            const today = new Date();
 
-        //     if (fromDate > today) {
-        //         event.preventDefault();
-        //         Swal.fire({
-        //             icon: 'warning',
-        //             title: 'Oops...',
-        //             text: 'From date cannot be greater than today date!',
-        //         })
-        //         return;
-        //     }
-        //     if (toDate > today) {
-        //         event.preventDefault();
-        //         Swal.fire({
-        //             icon: 'warning',
-        //             title: 'Oops...',
-        //             text: 'To date cannot be greater than today date!',
-        //         })
-        //         return;
-        //     }
-        //     if (fromDate > toDate) {
-        //         event.preventDefault();
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Oops...',
-        //             text: 'From date cannot be greater than To date.',
-        //         })
-        //         toastr.error('');
-        //         return;
-        //     }
-        // })
+            // Check if "From Date" is greater than today's date
+    if (fromDate > today) {
+      event.preventDefault();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'From date cannot be greater than today date!',
+      });
+      return;
+    }
+
+    // Check if "To Date" is greater than today's date
+    if (toDate > today) {
+      event.preventDefault();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'To date cannot be greater than today date!',
+      });
+      return;
+    }
+
+    // Check if "From Date" is greater than "To Date"
+    if (fromDate > toDate) {
+      event.preventDefault();
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'From date cannot be greater than To date.',
+      });
+      return;
+    }
+  });
 
         // pdf 
         function generatePDF() {
-  const orders = document.querySelectorAll('.table tbody tr');
+            const orders = document.querySelectorAll('.table tbody tr');
 
-  const orderRows = [];
-  orders.forEach((order) => {
-    const orderId = order.cells[0].innerText;
-    const name = order.cells[1].innerText; // Changed "Name" to "name"
-    const date = order.cells[2].innerText;
-    const total = order.cells[3].innerText;
-    const paymentMethod = order.cells[4].innerText;
-    const status = order.cells[5].innerText;
+            const orderRows = [];
+            orders.forEach((order) => {
+                const orderId = order.cells[0].innerText;
+                const name = order.cells[1].innerText; // Changed "Name" to "name"
+                const date = order.cells[2].innerText;
+                const total = order.cells[3].innerText;
+                const paymentMethod = order.cells[4].innerText;
+                const status = order.cells[5].innerText;
 
-    orderRows.push([orderId, name, date, total, paymentMethod, status]);
-  });
-
-  const pdfFormat = {
-    content: [
-      {
-        text: 'SALES REPORT',
-        style: 'header',
-      },
-      {
-        table: {
-          headerRows: 1,
-          widths: [100, 70, 80, 80, 70, 90], // Adjusted the widths here
-
-          body: [
-            // Header row
-            [
-              { text: 'Order ID', style: 'tableHeader' },
-              { text: 'Name', style: 'tableHeader' },
-              { text: 'Date', style: 'tableHeader' },
-              { text: 'Total', style: 'tableHeader' },
-              { text: 'Payment Method', style: 'tableHeader' },
-              { text: 'Status', style: 'tableHeader' },
-            ],
-            ...orderRows, // Data rows
-          ],
-        },
-        layout: {
-          fillColor: '#ccc2c2', // Background color of the table
-          hLineWidth: () => 0.5, // Horizontal line width
-          vLineWidth: () => 0.5, // Vertical line width
-        },
-        style: 'tableStyle', // Apply custom style
-      },
-    ],
-    styles: {
-      header: {
-        fontSize: 30,
-        bold: true,
-        alignment: 'center',
-        margin: [0, 0, 0, 20],
-        color: '#ff0000', // Header text color
-      },
-      tableStyle: {
-        fontSize: 12,
-        margin: [0, 10, 0, 0],
-        color: '#333', // Text color
-      },
-      tableHeader: {
-        bold: true,
-        fontSize: 13,
-        color: 'white', // Header text color
-        fillColor: '#CFB53B', // Header background color
-        alignment: 'center',
-      },
-    },
-  };
-
-  pdfMake.createPdf(pdfFormat).print();
-}
-
-
-
-
-function generateExcel() {
-    const orders = document.querySelectorAll('.table tbody tr');
-
-    const orderData = [];
-    orders.forEach(order => {
-        const orderId = order.cells[0].innerText;
-        const Name = order.cells[1].innerText;
-        const date = order.cells[2].innerText;
-        const total = order.cells[3].innerText;
-        const paymentMethod = order.cells[4].innerText;
-        const status = order.cells[5].innerText;
-
-        orderData.push([orderId,Name, date, total, paymentMethod, status]);
-    });
-
-    const headerStyle = {
-        font: { bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "2F75B5" } },
-        alignment: { horizontal: "center" }
-    };
-
-    const cellStyle = {
-        alignment: { horizontal: "left" }
-    };
-
-    const header = ['OrderId',"Name", 'Date', 'Total', 'Payment Method', 'Status'];
-    const data = [header, ...orderData];
-
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    
-    // Apply header style
-    XLSX.utils.format_cell(ws['A1'], headerStyle);
-    XLSX.utils.format_cell(ws['B1'], headerStyle);
-    XLSX.utils.format_cell(ws['C1'], headerStyle);
-    XLSX.utils.format_cell(ws['D1'], headerStyle);
-    XLSX.utils.format_cell(ws['E1'], headerStyle);
-    XLSX.utils.format_cell(ws['F1'], headerStyle);
-
-    // Apply cell styles
-    data.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-            row.forEach((cell, columnIndex) => {
-                XLSX.utils.format_cell(ws[XLSX.utils.encode_cell({ r: rowIndex, c: columnIndex })], cellStyle);
+                orderRows.push([orderId, name, date, total, paymentMethod, status]);
             });
+
+            const pdfFormat = {
+                content: [
+                    {
+                        text: 'SALES REPORT',
+                        style: 'header',
+                    },
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: [100, 70, 80, 80, 70, 90], // Adjusted the widths here
+
+                            body: [
+                                // Header row
+                                [
+                                    { text: 'Order ID', style: 'tableHeader' },
+                                    { text: 'Name', style: 'tableHeader' },
+                                    { text: 'Date', style: 'tableHeader' },
+                                    { text: 'Total', style: 'tableHeader' },
+                                    { text: 'Payment Method', style: 'tableHeader' },
+                                    { text: 'Status', style: 'tableHeader' },
+                                ],
+                                ...orderRows, // Data rows
+                            ],
+                        },
+                        layout: {
+                            fillColor: '#ccc2c2', // Background color of the table
+                            hLineWidth: () => 0.5, // Horizontal line width
+                            vLineWidth: () => 0.5, // Vertical line width
+                        },
+                        style: 'tableStyle', // Apply custom style
+                    },
+                ],
+                styles: {
+                    header: {
+                        fontSize: 30,
+                        bold: true,
+                        alignment: 'center',
+                        margin: [0, 0, 0, 20],
+                        color: '#ff0000', // Header text color
+                    },
+                    tableStyle: {
+                        fontSize: 12,
+                        margin: [0, 10, 0, 0],
+                        color: '#333', // Text color
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 13,
+                        color: 'white', // Header text color
+                        fillColor: '#CFB53B', // Header background color
+                        alignment: 'center',
+                    },
+                },
+            };
+
+            pdfMake.createPdf(pdfFormat).print();
         }
-    });
 
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sales Report');
 
-    // Generating filename based on the current date and time
-    const filename = 'Sales_Report_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.xlsx';
 
-    // Convert the workbook to a binary Excel file and trigger the download
-    XLSX.writeFile(wb, filename);
-}
+
+        function generateExcel() {
+            const orders = document.querySelectorAll('.table tbody tr');
+
+            const orderData = [];
+            orders.forEach(order => {
+                const orderId = order.cells[0].innerText;
+                const Name = order.cells[1].innerText;
+                const date = order.cells[2].innerText;
+                const total = order.cells[3].innerText;
+                const paymentMethod = order.cells[4].innerText;
+                const status = order.cells[5].innerText;
+
+                orderData.push([orderId, Name, date, total, paymentMethod, status]);
+            });
+
+            const headerStyle = {
+                font: { bold: true, color: { rgb: "FFFFFF" } },
+                fill: { fgColor: { rgb: "2F75B5" } },
+                alignment: { horizontal: "center" }
+            };
+
+            const cellStyle = {
+                alignment: { horizontal: "left" }
+            };
+
+            const header = ['OrderId', "Name", 'Date', 'Total', 'Payment Method', 'Status'];
+            const data = [header, ...orderData];
+
+            const ws = XLSX.utils.aoa_to_sheet(data);
+
+            // Apply header style
+            XLSX.utils.format_cell(ws['A1'], headerStyle);
+            XLSX.utils.format_cell(ws['B1'], headerStyle);
+            XLSX.utils.format_cell(ws['C1'], headerStyle);
+            XLSX.utils.format_cell(ws['D1'], headerStyle);
+            XLSX.utils.format_cell(ws['E1'], headerStyle);
+            XLSX.utils.format_cell(ws['F1'], headerStyle);
+
+            // Apply cell styles
+            data.forEach((row, rowIndex) => {
+                if (rowIndex > 0) {
+                    row.forEach((cell, columnIndex) => {
+                        XLSX.utils.format_cell(ws[XLSX.utils.encode_cell({ r: rowIndex, c: columnIndex })], cellStyle);
+                    });
+                }
+            });
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sales Report');
+
+            // Generating filename based on the current date and time
+            const filename = 'Sales_Report_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.xlsx';
+
+            // Convert the workbook to a binary Excel file and trigger the download
+            XLSX.writeFile(wb, filename);
+        }
 
     </script>
 

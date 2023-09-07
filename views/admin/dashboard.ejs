@@ -65,7 +65,7 @@
               </article>
           </div>
       </div>
-      <!-- <div class="col-lg-3">
+      <div class="col-lg-3">
           <div class="card card-body mb-4">
               <article class="icontext">
                   <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-shopping_basket"></i></span>
@@ -76,7 +76,7 @@
                   </div>
               </article>
           </div>
-      </div> -->
+      </div>
       <div class="col-lg-3">
           <div class="card card-body mb-4">
               <article class="icontext">
@@ -104,25 +104,27 @@
               </article>
           </div>
       </div>
-  
 
-      <div class="col-xl-4 col-lg-12 col-12">
-          <div class="card mb-4">
-              <article class="card-body">
-                  <h5 class="card-title">Payment Method</h5>
-                  <canvas id="myChart3" height="170px"></canvas>
-              </article>
-          </div>
-      </div>
+    
       <!--  -->
-      <!-- <div class="col-xl-8 col-lg-12 col-12">
-          <div class="card mb-4">
-              <article class="card-body">
-                  <h5 class="card-title">Category by Sales </h5>
-                  <canvas id="myChart2" height="133px"></canvas>
-              </article>
-          </div>
-      </div> -->
+      <div class="col-xl-8 col-lg-12 col-12">
+        <div class="card mb-4">
+            <article class="card-body">
+                <h5 class="card-title">Category by Sales.</h5>
+                <canvas id="myChart2" height="133px"></canvas>
+            </article>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-12 col-12">
+        <div class="card mb-4">
+            <article class="card-body">
+                <h5 class="card-title">Payment Method</h5>
+                <canvas id="myChart3" height="170px"></canvas>
+            </article>
+        </div>
+    </div>
+   
       <!--  -->
       <div class="col-lg-12">
         <div class="card card-body mb-4">
@@ -136,6 +138,8 @@
 <!-- content-main end// -->
 
 <%- include("../layouts/adminPartials/footer.ejs") %>
+
+
 <script>
     var ctx = document.getElementById('salesReportChart').getContext('2d');
 
@@ -147,6 +151,13 @@
                 data: <%= JSON.stringify(dailySalesData) %>,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2
+            },
+            {
+                label: 'Weekly Sales',
+                data: <%= JSON.stringify(weeklySalesData) %>,
+                backgroundColor: 'rgba(0, 128, 0, 0.2)', 
+                borderColor: 'rgba(0, 128, 0, 1)', 
                 borderWidth: 2
             },
             {
@@ -174,10 +185,47 @@
 
 
 <script>
-
+    
+        const catQty = (<%- JSON.stringify(categorySales.map(item => item.qty)) %>);
+    const catName = (<%- JSON.stringify(categorySales.map(item => item._id)) %>);
+console.log("catQty:", catQty);
+console.log("catName:", catName);
 
 (function ($) {
-"use strict";
+  "use strict";
+
+/*Sale statistics Chart*/
+if ($('#myChart2').length) {
+        var ctx = document.getElementById("myChart2");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: catName,
+            datasets: [
+                {
+                    label: "Qauntity",
+                    backgroundColor:["#6312cc","#39CAF0","#65910d","#e67c12","#0ca6cc","#0ca6cc"],
+                    barThickness:10,
+                    data: catQty
+                }
+            ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                        usePointStyle: true,
+                        },
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } //end if
 
 // Payment method.
 if ($('#myChart3').length) {
