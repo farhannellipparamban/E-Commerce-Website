@@ -1,4 +1,6 @@
-const sessionSecret = "mysitesessionsecret";
+// const sessionSecret = "mysitesessionsecret";
+require ("dotenv").config()
+const sessionSecret = process.env.SESSION_SECRET
 const mongoose = require("mongoose");
 
 const mongooseConnect = () => {
