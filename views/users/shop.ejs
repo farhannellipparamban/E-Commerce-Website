@@ -1,75 +1,85 @@
 <%- include("../layouts/userPartials/header.ejs") %>
-<style>
-  .genric-btn{
-    background-color: red;
-  }
-  .pagination-container {
-    text-align: center;
-    margin: 20px 0;
-  }
+  <style>
+    .genric-btn {
+      background-color: red;
+    }
 
-  .pagination ul.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 0;
-    border-radius: 4px;
-  }
+    .pagination-container {
+      text-align: center;
+      margin: 20px 0;
+    }
 
-  .pagination li.page-item {
-    display: inline;
-    margin-right: 5px;
-  }
+    .pagination ul.pagination {
+      display: inline-block;
+      padding-left: 0;
+      margin: 0;
+      border-radius: 4px;
+    }
 
-  .pagination a.page-link {
-    color: #007bff;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-  }
+    .pagination li.page-item {
+      display: inline;
+      margin-right: 5px;
+    }
 
-  .pagination a.page-link:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
+    .pagination a.page-link {
+      color: #007bff;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-  .pagination .page-item.active .page-link {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
+    .pagination a.page-link:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
 
-  /* Styling for Clear Filters button */
-  .clear-filters-btn {
-    background-color: #fff;
-    border: 1px solid #007bff;
-    color: #007bff;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-  }
+    .pagination .page-item.active .page-link {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
 
-  .clear-filters-btn:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
-/* Style the rounded input */
-.rounded-input {
-  border-radius: 20px; /* You can adjust the value to control the level of rounding */
-  padding: 8px; /* Add padding for better appearance */
-}
-.select-itms{
-  margin-right: 50px;
-  margin-top: 5px;
-}
-</style>
+    /* Styling for Clear Filters button */
+    .clear-filters-btn {
+      background-color: #fff;
+      border: 1px solid #007bff;
+      color: #007bff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .clear-filters-btn:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    /* Style the rounded input */
+    .rounded-input {
+      border-radius: 20px;
+      /* You can adjust the value to control the level of rounding */
+      padding: 8px;
+      /* Add padding for better appearance */
+    }
+
+    .select-itms {
+      margin-right: 50px;
+      margin-top: 5px;
+    }
+
+
+
+/*  */
+  </style>
 
 
   <main>
     <!-- Hero Area Start-->
-    <div class="slider-area" style="background-image: url('/assets/IMAGES/image1692706781269-397546118-store-bg.png'); background-size: cover;">
+    <div class="slider-area"
+      style="background-image: url('/assets/IMAGES/image1692706781269-397546118-store-bg.png'); background-size: cover;">
       <div class="single-slider slider-height2 d-flex align-items-center">
         <div class="container">
           <div class="row">
@@ -83,16 +93,18 @@
         </div>
       </div>
     </div>
-    
-    
-    
+
+
+
     <!-- Hero Area End-->
 
     <!-- Latest Products Start -->
     <section class="popular-items latest-padding">
       <div class="container">
-        <a href="/shop?page=1" id="clear-filters-btn" class="clear-filters-btn" style="display: none;">Clear Filters</a>
-        <br>
+        <a href="/shop?page=1" id="clear-filters-btn" class="clear-filters-btn" style="display: none; background-color: red; color: white; padding: 10px 20px; text-decoration: none; border-radius: 45px;">
+          Clear Filters
+        </a>
+                <br>
         <br>
         <hr />
         <div class="row product-btn justify-content-between mb-40">
@@ -136,11 +148,15 @@
 
 
             <div class="subscribe_form" style="margin-left: 10px;">
-  <input class="input rounded-input" type="text" placeholder="Search Product" name="search" />
-  <button type="submit" class="genric-btn success circle arrow" style="background-color: rgb(255, 0, 0);">
-    search
-  </button>
-</div>
+              <input class="input rounded-input" type="text" placeholder="Search Product" name="search" />
+              <button type="submit" class="genric-btn success circle arrow" style="background-color: rgb(255, 0, 0);">
+                <i class="fas fa-search" style="margin-right: 15px;"></i>
+                Search
+              </button>
+            </div>
+
+
+
 
             </form>
           </div>
@@ -156,19 +172,21 @@
                     <div class="single-popular-items mb-50 text-center">
                       <div class="popular-img">
                         <a href="/product_details?id=<%= value._id %>">
-                          <img src="/assets/CropedImages/<%= value.image[0] %>" alt="<%= value.name %>" class="img-fluid" />
+                          <img src="/assets/CropedImages/<%= value.image[0] %>" alt="<%= value.name %>"
+                            class="img-fluid" />
                         </a>
                         <div class="favorit-items">
                           <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                             <span class="flaticon-heart" onclick="addToWishlist('<%= value._id %>')"></span></a>
                         </div>
                         <div class="img-cap">
-                          <button type="submit" onclick="addToCart('<%=value._id%>')" class="btn btn-danger" id="add-to-cart">
+                          <button type="submit" onclick="addToCart('<%=value._id%>')" class="btn btn-danger"
+                            id="add-to-cart">
                             add to cart
                           </button>
                         </div>
                       </div>
-                  
+
                       <div class="popular-caption">
                         <h3>
                           <a href="/product_details?id=<%= value._id %>">
@@ -195,35 +213,37 @@
         </section>
       </div>
       <div class="pagination-container">
-    <ul class="pagination justify-content-center">
-        <% if (page > 1) { %>
+        <ul class="pagination justify-content-center">
+          <% if (page> 1) { %>
             <li class="page-item">
-                <a class="page-link" href="?page=<%= page - 1 %>&category=<%= category %>&price=<%= price %>&search=<%= search %>"
-                   aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
+              <a class="page-link"
+                href="?page=<%= page - 1 %>&category=<%= category %>&price=<%= price %>&search=<%= search %>"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
             </li>
-        <% } %>
+            <% } %>
 
-        <% for (let i = 1; i <= totalpages; i++) { %>
-            <li class="page-item ml-2">
-                <a class="page-link"
-                   href="?page=<%= i %>&category=<%= category %>&price=<%= price %>&search=<%= search %>">
+              <% for (let i=1; i <=totalpages; i++) { %>
+                <li class="page-item ml-2">
+                  <a class="page-link"
+                    href="?page=<%= i %>&category=<%= category %>&price=<%= price %>&search=<%= search %>">
                     <%= i %>
-                </a>
-            </li>
-        <% } %>
+                  </a>
+                </li>
+                <% } %>
 
-        <% if (page < totalpages) { %>
-            <li class="page-item">
-                <a class="page-link" href="?page=<%= page + 1 %>&category=<%= category %>&price=<%= price %>&search=<%= search %>"
-                   aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        <% } %>
-    </ul>
-</div>
+                  <% if (page < totalpages) { %>
+                    <li class="page-item">
+                      <a class="page-link"
+                        href="?page=<%= page + 1 %>&category=<%= category %>&price=<%= price %>&search=<%= search %>"
+                        aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                    <% } %>
+        </ul>
+      </div>
 
 
 
@@ -281,7 +301,7 @@
             showConfirmButton: false,
             timer: 1500,
           });
-        }else {
+        } else {
           window.location.href = '/login';
         }
       });
@@ -320,27 +340,27 @@
   </script>
 
   <script>
-  // Function to show/hide Clear Filters button based on applied filters
-  function toggleClearFiltersButton() {
-    const category = document.getElementById('selxaect1').value;
-    const price = document.getElementById('select1').value;
-    const search = document.querySelector('input[name="search"]').value;
+    // Function to show/hide Clear Filters button based on applied filters
+    function toggleClearFiltersButton() {
+      const category = document.getElementById('selxaect1').value;
+      const price = document.getElementById('select1').value;
+      const search = document.querySelector('input[name="search"]').value;
 
-    const clearFiltersButton = document.getElementById('clear-filters-btn');
+      const clearFiltersButton = document.getElementById('clear-filters-btn');
 
-    if (category !== 'All' || price !== 'Low' || search.trim() !== '') {
-      clearFiltersButton.style.display = 'inline-block';
-    } else {
-      clearFiltersButton.style.display = 'none';
+      if (category !== 'All' || price !== 'Low' || search.trim() !== '') {
+        clearFiltersButton.style.display = 'inline-block';
+      } else {
+        clearFiltersButton.style.display = 'none';
+      }
     }
-  }
 
-  // Call the function initially and whenever filter values change
-  toggleClearFiltersButton();
-  document.getElementById('selxaect1').addEventListener('change', toggleClearFiltersButton);
-  document.getElementById('select1').addEventListener('change', toggleClearFiltersButton);
-  document.querySelector('input[name="search"]').addEventListener('input', toggleClearFiltersButton);
-</script>
+    // Call the function initially and whenever filter values change
+    toggleClearFiltersButton();
+    document.getElementById('selxaect1').addEventListener('change', toggleClearFiltersButton);
+    document.getElementById('select1').addEventListener('change', toggleClearFiltersButton);
+    document.querySelector('input[name="search"]').addEventListener('input', toggleClearFiltersButton);
+  </script>
 
 
   <%- include("../layouts/userPartials/footer.ejs") %>

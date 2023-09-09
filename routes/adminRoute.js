@@ -23,7 +23,7 @@ admin_route.get("/", adminAuth.isLogout, adminController.loadLogin);
 admin_route.post("/", adminController.verifyLogin);
 
 //admin home
-admin_route.get("/dashboard", adminController.loadDashboard);
+admin_route.get("/dashboard", adminAuth.isLogin,adminController.loadDashboard);
 
 //logout
 admin_route.get("/logout", adminAuth.isLogin, adminController.logout);

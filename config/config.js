@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const mongooseConnect = () => {
   mongoose
-    .connect("mongodb://127.0.0.1:27017/watch_palace")
+    .connect("mongodb+srv://anufarhan111:F8l69NfMepg3zn1H@cluster0.q6aomli.mongodb.net/watch_palace")
     .then(() => {
       console.log("database Connected");
     })
