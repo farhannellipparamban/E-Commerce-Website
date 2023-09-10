@@ -6,6 +6,9 @@ const cart = require("../models/cartModel");
 const order = require("../models/orderModel");
 const coupon = require("../models/couponModel");
 const Razorpay = require("razorpay");
+require('dotenv').config();
+
+
 
 var instance = new Razorpay({
   key_id: process.env.Razorpay_Key_Id,
