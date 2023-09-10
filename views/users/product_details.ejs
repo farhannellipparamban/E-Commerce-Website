@@ -1,8 +1,6 @@
 <%- include("../layouts/userPartials/header.ejs") %>
   <style>
-    /* Add your custom styles here */
 
-    /* Hero Area */
     .hero-area {
       background: url("/path/to/hero-image.jpg") no-repeat center;
       background-size: cover;
@@ -18,7 +16,6 @@
       margin-bottom: 20px;
     }
 
-    /* Breadcrumb Area */
     .breadcrumb-area {
       padding: 20px 0;
       background-color: #e6e6e6;
@@ -35,7 +32,6 @@
       font-size: 16px;
     }
 
-    /* Single Product Area */
     .single-product-area {
       margin-top: 50px;
     }
@@ -73,13 +69,7 @@
       margin-bottom: 20px;
     }
 
-    /* 
-    .product-actions {
-      display: flex;
-    } */
 
-
-    /* Subscribe Part */
     .subscribe-part {
       padding: 50px 0;
       width: 100%;
@@ -122,12 +112,10 @@
       background-color: #222;
     }
 
-    /* Styling for tab navigation */
     .nav-tabs .nav-item {
       margin-bottom: 10px;
     }
 
-    /* Styling for product CropedImages */
     .product__thumb__pic img {
       max-width: 100%;
       height: auto;
@@ -144,7 +132,6 @@
       cursor: pointer;
     }
 
-    /* Hover effect to add a subtle zoom */
     .zoom-image:hover {
       transform: scale(1.1);
       border-color: #ff9900;
@@ -159,7 +146,6 @@
       flex-direction: column;
       display: flex;
       padding: 20px;
-      /* align-items: center; */
     }
 
     .input-number {
@@ -198,23 +184,20 @@
     .fa-heart {
   color: #ff0000;
   margin: 20px;
-  font-size: 32px; /* Adjust the size as needed */
-  transition: color 0.3s; /* Smooth color transition */
-  cursor: pointer; /* Change cursor to pointer on hover */
+  font-size: 32px; 
+  transition: color 0.3s; 
+  cursor: pointer; 
 }
 
 .fa-heart:hover {
-  color: #59ec14; /* New color on hover */
+  color: #59ec14; 
 }
 
 .fa-heart:active {
-  transform: scale(1.2); /* Increase size when clicked */
+  transform: scale(1.2); 
 }
 
 
-
-   /* starts */
-/* Stylish Review and Rating Section */
 .review-container {
   max-width: 800px;
   margin: 0 auto;
@@ -233,7 +216,6 @@
   margin-bottom: 30px;
 }
 
-/* Stylish Review Form */
 .review-form {
   text-align: center;
   margin-top: 20px;
@@ -350,23 +332,7 @@ textarea {
     <section class="single-product-area">
       <div class="container">
         <div class="row">
-          <!-- <div class="col-lg-6">
-            <div class="ltn__shop-details-img-gallery">
-              <div class="ltn__shop-details-large-img">
-                <div class="single-large-img">
-                  <img src="/assets/CropedImages/<%= data.image[0] %>" alt="<%= data.name %>" class="zoom-image" />
-                </div>
-              </div>
-            </div>
-
-            <div class="ltn__shop-details-small-img slick-arrow-2">
-              <% for (let i=0; i < data.image.length; i++) { %>
-                <div class="single-small-img">
-                  <img src="/assets/CropedImages/<%= data.image[i] %>" alt="<%= data.name %>" class="zoom-image">
-                </div>
-                <% } %>
-            </div>
-          </div> -->
+        
           <div class="col-lg-3 col-md-3">
             <ul class="nav nav-tabs" role="tablist">
               <% for (let i=0; i < data.image.length; i++) { %>
@@ -450,11 +416,6 @@ textarea {
           <div class="col-md-12 pills">
             <div class="bd-example bd-example-tabs">
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
-                <!-- <li class="nav-item">
-                  <a class="nav-link active" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Reviews</a>
-                </li> -->
-      
 
               <div class="tab-content" id="pills-tabContent">
    
@@ -564,28 +525,7 @@ textarea {
 
     <!-- End Review  -->
 
-    <!-- Subscribe Part Start -->
-    <!-- <section class="subscribe-part">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8" style="width: 100%;">
-            <div class="subscribe-content">
-              <h2>Get promotions & updates!</h2>
-              <p>
-                Seamlessly empower fully researched growth strategies and
-                interoperable internal or “organic” sources credibly innovate
-                granular internal.
-              </p>
-              <div class="subscribe-form">
-                <input type="email" placeholder="Enter your email" />
-                <a href="#" class="btn_1">Subscribe</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- Subscribe Part End -->
+    
   </main>
   <style>
     /* Zoom on hover */

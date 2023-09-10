@@ -60,7 +60,6 @@ const categorySales = async () => {
   ]);
 
   
-  console.log("Category Sales Data:", catSales);
   return catSales
 }
 
@@ -82,43 +81,12 @@ const paymentMethod = async()=>{
   return result
 };
 
-// const monthlyEarning = async ( currentMonthStartDate, now ) =>{
 
-//   const monthlyEarning = await Order.aggregate([
-//       {
-//           $match : 
-//           {
-//             Date : 
-//               {
-//                   $gte : currentMonthStartDate,
-//                   $lt : now
-//               },
-//               status :
-//               {
-//                   $ne : "pending"
-//               }
-//           }
-//       },
-//       {
-//           $group : 
-//           {
-//               _id : null,
-//               monthlyEarning : 
-//               {
-//                   $sum : "$totalAmount"
-//               }
-//           }
-//       }
-//   ])
-//   const result = monthlyEarning.length > 0 ? monthlyEarning[0].monthlyEarning : 0
-//   return result
-// }
 
 
 module.exports = {
   totalRevenue,
   categorySales,
   paymentMethod,
-  // monthlyEarning,
 
 };

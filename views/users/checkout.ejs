@@ -1,9 +1,7 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
   <style>
-    /* Your existing styles */
 
-    /* Additional styles for checkout page */
     .checkout_area {
       padding: 50px 0;
     }
@@ -53,16 +51,11 @@
       margin-bottom: 15px;
     }
 
-    /* Rest of your styles */
-
-    /* Customize modal styles */
-    /* Style modal header background color and text color */
     .modal-header {
       background-color: #ff0000;
       color: white;
     }
 
-    /* Style coupon codes with a subtle shadow and border */
     .coupon-code {
       padding: 10px 16px;
       margin-bottom: 15px;
@@ -80,7 +73,6 @@
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     }
 
-    /* Center-align coupon codes in their container */
     .coupons-list {
       display: flex;
       flex-wrap: wrap;
@@ -88,7 +80,6 @@
       gap: 20px;
     }
 
-    /* Style the "No Coupon Available" text */
     .no-coupon {
       display: block;
       text-align: center;
@@ -96,7 +87,6 @@
       color: #ca0000;
     }
 
-    /* Adjust the close button style */
     .btn-close {
       color: #000000;
       opacity: 0.8;
@@ -108,13 +98,11 @@
       color: rgb(255, 255, 255);
     }
 
-    /* Style the modal footer */
     .modal-footer {
       border-top: 1px solid #dfd9d9;
       padding: 10px;
     }
 
-    /* Style the "Close" button */
     .modal-footer .btn-secondary {
       background-color: #ff0000;
       border-color: #000000;
@@ -126,7 +114,6 @@
       background-color: #8d8a8a;
     }
 
-    /* Style the "Apply Coupon" button */
     .modal-footer .btn-primary {
       background-color: #007bff;
       border-color: #007bff;
@@ -176,13 +163,11 @@
 
     .percentage-off {
       background-color: #1ac70a;
-      /* Green for percentage-off */
       color: white;
     }
 
     .fixed-off {
       background-color: #ff0000;
-      /* Blue for fixed-off */
       color: white;
     }
 
@@ -196,12 +181,8 @@
       font-size: 16px;
       font-weight: bold;
       color: #f00;
-      /* Red for no coupons */
     }
 
-    /* styles.css */
-
-    /* Global styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
@@ -209,12 +190,7 @@
       padding: 0;
     }
 
-    /* Header styles */
-    header {
-      /* Add your header styles here */
-    }
-
-    /* Main content styles */
+ 
     .checkout-main {
       padding: 20px;
       display: flex;
@@ -235,7 +211,6 @@
     }
 
  
-    /* Coupon input styles */
     .coupon-input-wrapper {
       display: flex;
       justify-content: space-between;
@@ -258,7 +233,6 @@
       margin-right: 10px;
     }
 
-    /* Apply Coupon button styles */
     .apply-coupon-btn {
       background-color: #ff0000;
       color: #fff;
@@ -268,7 +242,6 @@
       cursor: pointer;
     }
 
-    /* Wallet button styles */
     .wallet-btn {
       background-color: #ff0000;
       color: #fff;
@@ -278,20 +251,16 @@
       cursor: pointer;
     }
 
-    /* Apply hover effect to Apply Coupon button */
     .apply-coupon-btn:hover {
       opacity: 1;
       background-color: rgb(54, 54, 54);
     }
 
-    /* Apply hover effect to Wallet button */
     .wallet-btn:hover {
       opacity: 1;
       background-color: rgb(41, 41, 41);
     }
 
-    /* Billing address styles */
-    /* Style the billing title */
     .billing-title {
       font-size: 24px;
       font-weight: bold;
@@ -300,7 +269,6 @@
       color: #333;
     }
 
-    /* Style the "ADD ADDRESS" button */
     .add-address-btn {
       background-color: #ff0000;
       color: #fff;
@@ -317,14 +285,12 @@
       
     }
 
-    /* Style the address list */
     .address-list {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    /* Style each address item */
     .address-item {
       display: flex;
       align-items: center;
@@ -339,7 +305,6 @@
       background-color: #f8f8f8;
     }
 
-    /* Style the address details */
     .address-details {
       display: flex;
       flex-direction: column;
@@ -373,14 +338,12 @@
       margin-right: 10px;
     }
 
-    /* Style the edit and delete buttons */
     .edit-btn,
     .delete-btn {
       background-color: #ff0000;
       color: #fff;
       border: none;
       border-radius: 45px;
-      /* padding: 5px 10px; */
       margin-bottom: 0;
       text-decoration: none;
       font-weight: bold;
@@ -394,7 +357,6 @@
       background-color: #8d8a8a;
     }
 
-    /* Style the order-box */
     .order-box {
       background-color: #f8f8f8;
       padding: 20px;
@@ -402,7 +364,6 @@
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Style the payment details title */
     .order-box h2 {
       font-size: 24px;
       font-weight: bold;
@@ -410,14 +371,12 @@
       color: #000000;
     }
 
-    /* Style the order title */
     .order-title {
       font-size: 24px;
       font-weight: bold;
       color: #000000;
     }
 
-    /* Style the order list */
     .order-list {
       list-style-type: none;
       padding: 0;
@@ -441,7 +400,6 @@
       color: #000000;
     }
 
-    /* Style the payment methods */
     .payment-methods {
       margin-top: 30px;
     }
@@ -470,7 +428,6 @@
       cursor: pointer;
     }
 
-    /* Style the place order button */
     .place-order-btn {
       background-color: #ff0000;
       color: #fff;
@@ -489,7 +446,6 @@
     }
 
 
-    /* Style the wallet section container */
     .wallet-section {
       background-color: #f8f8f8;
       border: 1px solid #ddd;
@@ -498,7 +454,6 @@
       margin-top: 20px;
     }
 
-    /* Style the wallet title */
     .wallet-title {
       font-size: 18px;
       font-weight: bold;
@@ -507,7 +462,6 @@
       cursor: pointer;
     }
 
-    /* Style the wallet information */
     .wallet-info {
       display: flex;
       align-items: center;
@@ -515,15 +469,12 @@
       font-weight: 500;
     }
 
-    /* Style the wallet label */
     .wallet-label {
       margin-right: 10px;
     }
 
-    /* Style the wallet amount */
     .wallet-amount {
       color: #ff0000;
-      /* You can choose your desired color */
     }
   </style>
 
@@ -545,13 +496,15 @@
     </div> <!--================Checkout Area =================-->
     <section class="checkout_area section_padding">
       <div class="checkout-container">
-        <div class="order_box col-lg-4"> <!-- Button trigger modal --> <button type="button"
+        <div class="order_box col-lg-4"> 
+          <!-- Button trigger modal --> 
+          <button type="button"
             class="btn py-4 mb-5 circle arrow" data-bs-toggle="modal" data-bs-target="#exampleModal"> Available Coupons
           </button>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Add 'modal-lg' class for large width -->
+            <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Available Coupons</h1>
@@ -589,15 +542,12 @@
                 </div>
                 <div class="modal-footer"> <button type="button" class="btn btn-secondary py-4"
                     data-bs-dismiss="modal">Close</button>
-                  <!-- <button type="button" class="btn btn-primary">Apply Coupon</button> -->
                 </div>
               </div>
             </div>
           </div>
           <h2>Coupon</h2>
-          <!-- <label for="coupon"></label>
-         <input type="text" name="code" id="code" placeholder="Enter Coupon code" required>
-          <button class=" genric-btn success circle arrow" onclick="applycoupon($('#code').val())">apply</button> -->
+ 
           <form id="coupon-form">
             <div class="cart-coupon">
               <input type="text" id="code" name="cart-coupon" placeholder="Coupon code">
@@ -613,10 +563,7 @@
             </div>
           </div>
 
-          <!-- <h2> wallet</h2>
-          <h6 id="walletbalance" class="text-success">
-            <%=userd.wallet%>
-          </h6> -->
+      
 
 
           <label for="wallet"></label> <input type="text" name="wallet" id="wallet" placeholder="Enter Wallet Amount"
@@ -767,7 +714,7 @@
             Swal.fire({
               title: "Error",
               icon: "error",
-              text: response.message, // Use response.message instead of success.message
+              text: response.message,
               timer: 2000,
             });
           }
@@ -782,20 +729,20 @@
 
     function razorpayPayment(order) {
       var options = {
-        "key": "rzp_test_X5XhJ53T3zS8E9",   // Enter the Key ID generated from the Dashboard
-        "amount": order.amount,             // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "key": "rzp_test_X5XhJ53T3zS8E9",   
+        "amount": order.amount,             
         "currency": "INR",
-        "name": "Clocksy Watches",       //your business name
+        "name": "Clocksy Watches",       
         "description": "Test Transaction",
         "image": "https://example.com/your_logo",
-        "order_id": order.id,               //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "order_id": order.id,               
         "handler": function (response) {
-          verifyPayment(response, order); // Call the verifyPayment function
+          verifyPayment(response, order); 
         },
-        "prefill": {                        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-          "name": "Gaurav Kumar",         //your customer's name
+        "prefill": {                        
+          "name": "Gaurav Kumar",         
           "email": "gaurav.kumar@example.com",
-          "contact": "9000090000"         //Provide the customer's phone number for better conversion rates 
+          "contact": "9000090000"         
         },
         "notes": {
           "address": "Razorpay Corporate Office"
@@ -831,34 +778,12 @@
       })
     }
 
-    // function verifyPayment(payment, order) {
-    //   const amount = document.getElementById("total1").innerHTML;
-    //   // const amount2 = document.getElementById("gt2").innerHTML;
-    //   $.ajax({
-    //     url: "/verifyOnlinePayment",
-    //     method: "post",
-    //     data: {
-    //       payment,
-    //       amount,
-    //       order
-    //     },
-    //     success: (response) => {
-    //       if (response.success) {
-    //         location.href = '/orderplaced';
-    //       } else {
-    //         alert('payment failed');
-    //         location.href = '/';
-
-    //       }
-    //     }
-    //   })
-    // }
+  
 
   </script>
 
 
   <script>
-    // Apply coupon
     $("#coupon-form").submit((e) => {
       e.preventDefault();
       const code = $("#code").val();

@@ -1,21 +1,19 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 
   <style>
-    /* Add this CSS to style the confirmation message */
 .confirmation-message {
-  font-size: 24px; /* Adjust the font size as needed */
+  font-size: 24px; 
   font-weight: bold;
   text-align: center;
-  color: #3c3c3c; /* Set your desired text color */
-  margin: 20px 0; /* Adjust the margin as needed */
-  padding: 10px; /* Add padding for better visual appearance */
-  background-color: #f8f8f8; /* Set the background color */
-  border: 2px solid #ddd; /* Add a border */
-  border-radius: 5px; /* Add border-radius for rounded corners */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  color: #3c3c3c;
+  margin: 20px 0; 
+  padding: 10px;
+  background-color: #f8f8f8; 
+  border: 2px solid #ddd;
+  border-radius: 5px; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
-    /* Add these styles to your CSS file */
 
     .order-details-iner {
       background-color: #f9f9f9;
@@ -123,50 +121,16 @@
               </ul>
             </div>
           </div>
-          <!-- <div class="col-lg-6 col-lx-4">
-          <div class="single_confirmation_details">
-            <h4>Billing Address</h4>
-            <ul>
-              <li>
-                <p>Street</p>
-                <span>: 56/8</span>
-              </li>
-              <li>
-                <p>city</p>
-                <span>: Los Angeles</span>
-              </li>
-              <li>
-                <p>country</p>
-                <span>: United States</span>
-              </li>
-              <li>
-                <p>postcode</p>
-                <span>: 36952</span>
-              </li>
-            </ul>
-          </div>
-        </div> -->
+          
           <div class="col-lg-6 col-lx-4">
             <div class="single_confirmation_details">
               <h4>shipping Address</h4>
               <ul>
                 <li>
                   <%= orderData.deliveryDetails %>
-                    <!-- <p>Street</p>
-                <span>: 56/8</span> -->
+ 
                 </li>
-                <!-- <li>
-                <p>city</p>
-                <span>: Los Angeles</span>
-              </li>
-              <li>
-                <p>country</p>
-                <span>: United States</span>
-              </li>
-              <li>
-                <p>postcode</p>
-                <span>: 36952</span>
-              </li> -->
+                
               </ul>
             </div>
           </div>

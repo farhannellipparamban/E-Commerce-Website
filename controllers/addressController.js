@@ -81,7 +81,6 @@ const deleteaddress = async (req, res,next) => {
       { $pull: { address: { _id: id } } }
     );
     res.redirect("/myacco");
-    // res.json({ remove: true });
   } catch (error) {
     console.log(error.message);
     next(error)
@@ -96,7 +95,6 @@ const deleteaddressCheckout = async (req, res,next) => {
       { $pull: { address: { _id: id } } }
     );
     res.redirect("/checkout");
-    // res.json({ remove: true });
   } catch (error) {
     console.log(error.message);
     next(error)

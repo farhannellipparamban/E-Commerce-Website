@@ -149,7 +149,6 @@ const verifyUser = async (req, res, next) => {
       const Udata = await data.save();
 
       if (Udata) {
-        // Generate a random 4-digit OTP
         const otpGenarated = Math.floor(1000 + Math.random() * 9999);
         otp = otpGenarated;
         req.session.otp = otp;
@@ -456,49 +455,14 @@ const loadShoping = async (req, res, next) => {
       is_blocked: false,
       category: { $in: catId },
     });
-    // let cat = [];
-    // const categoryData = await CatDB.find();
-    // if (categoryData) {
-    //   for (let i = 0; i < categoryData.length; i++) {
-    //     cat[i] = categoryData[i].name;
-    //   }
-    // }
-
-    // category == "All"
-    //   ? (category = [...cat])
-    //   : (category = req.query.category.split(","));
-
-    // let sort;
-    // let price = req.query.price || "Low";
-    // price == "Low" ? (sort = 1) : (sort = -1);
-    // const productData = await productdb.aggregate([
-    //   {
-    //     $match: {
-    //       is_blocked: { $eq: false },
-    //       name: { $regex: ".*" + search+".*" ,$options: "i" },
-    //       category: { $in: [...category] },
-    //     },
-    //   },
-    //   { $sort: { price: sort } },
-    //   { $skip: skip },
-    //   { $limit: limit },
-    // ]);
-
-    // const productCount = (
-    //   await productdb
-    //     .find({ name: { $regex: ".*" + search+".*" ,$options: "i" } })
-    //     .where("category")
-    //     .in([...category])
-    // ).length;
+    
     const totalpages = Math.max(1, Math.ceil(productCount / limit));
-    // const totalpages = Math.ceil(productCount / limit);
     const userd = await User.findOne({ _id: req.session.user_id });
     const loadlogIn = req.session.user_id;
     if (req.session.user_id) {
       res.render("shop", {
         loadlogIn,
         product: productData,
-        // user: userd.name,
         totalpages,
         page,
         categoryData: categoryData,
@@ -510,7 +474,6 @@ const loadShoping = async (req, res, next) => {
       res.render("shop", {
         loadlogIn,
         product: productData,
-        // user: userd.name,
         totalpages,
         page,
         categoryData: categoryData,

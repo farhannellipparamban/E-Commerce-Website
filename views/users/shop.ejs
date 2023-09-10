@@ -41,7 +41,6 @@
       border-color: #007bff;
     }
 
-    /* Styling for Clear Filters button */
     .clear-filters-btn {
       background-color: #fff;
       border: 1px solid #007bff;
@@ -57,12 +56,9 @@
       color: #fff;
     }
 
-    /* Style the rounded input */
     .rounded-input {
       border-radius: 20px;
-      /* You can adjust the value to control the level of rounding */
       padding: 8px;
-      /* Add padding for better appearance */
     }
 
     .select-itms {
@@ -70,9 +66,6 @@
       margin-top: 5px;
     }
 
-
-
-/*  */
   </style>
 
 
@@ -340,7 +333,6 @@
   </script>
 
   <script>
-    // Function to show/hide Clear Filters button based on applied filters
     function toggleClearFiltersButton() {
       const category = document.getElementById('selxaect1').value;
       const price = document.getElementById('select1').value;
@@ -355,7 +347,6 @@
       }
     }
 
-    // Call the function initially and whenever filter values change
     toggleClearFiltersButton();
     document.getElementById('selxaect1').addEventListener('change', toggleClearFiltersButton);
     document.getElementById('select1').addEventListener('change', toggleClearFiltersButton);

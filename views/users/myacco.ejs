@@ -2,14 +2,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* Style the anchor tag */
         a.text-decoration-none {
             color: black;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        /* Add hover effect */
         a.text-decoration-none:hover {
             color: #277eca;
         }
@@ -147,7 +145,6 @@
 
         }
 
-        /* Style the Order Details table */
         .table-sm td,
         .table-sm th {
             font-size: 14px;
@@ -242,24 +239,13 @@
                                 </div>
                             </div>
                             <hr />
-                            <!-- <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">Wallet:</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <span class="text-danger" style="font-weight: 500;font-size: larger;">₹
-                                    <%= userData.wallet%>
-                                  </span>
-                                </div>
-                              </div> -->
+                  
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0 mt-2">Actions:</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <!-- <a href="/resetPassword?token=<%= userData._id %>" class="btn btn-primary btn-sm mr-2">
-                                      <i class="fas fa-key"></i> Change Password
-                                  </a> -->
+                           
                                     <a href="/addAddress" class="btn btn-primary btn-sm">
                                         <i class="fas fa-plus"></i> Add Address
                                     </a>
@@ -273,7 +259,6 @@
                                             <%= userData.wallet%>.00
                                         </b>
                                     </p>
-                                    <!-- Add more elements or information about the wallet here -->
                                 </div>
 
                             </div>
@@ -348,7 +333,6 @@
 
                         </div>
                     </div>
-                    <!-- ... ... -->
                     <div class="card mb-4" id="orderDetails" style="display: none">
                         <div class="card-body">
                             <h5 class="card-title">Order Details</h5>
@@ -478,9 +462,7 @@
 
         // Function to show the order details section and hide others
         function toggleOrders() {
-            // ... Existing code ...
 
-            // Scroll to the order details section after clicking the "Orders" link
             if (orderDetails.style.display === "block") {
                 window.scrollTo({
                     top: orderDetails.getBoundingClientRect().top + window.scrollY,

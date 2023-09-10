@@ -1,11 +1,9 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 <style>
-  /* Container styles */
   .container {
     margin-top: 50px;
   }
 
-  /* Table styles */
   .table {
     width: 100%;
     border-collapse: collapse;
@@ -22,7 +20,6 @@
     background-color: #f2f2f2;
   }
 
-  /* Button styles */
   .btn {
     display: inline-block;
     padding: 5px 10px;
@@ -54,7 +51,6 @@
     background-color: #333;
   }
 
-  /* Pagination styles */
   .pagination {
     margin-top: 20px;
     display: flex;
@@ -85,12 +81,10 @@
     font-weight: bold;
   }
 
-  /* Additional table styling */
   .table tbody tr:hover {
     background-color: #f2f2f2;
   }
 
-  /* Button styling */
   .genric-btn {
     padding: 8px 16px;
     border-radius: 20px;
@@ -145,7 +139,6 @@
           <%}%>
           <% if(value.status=="delivered"||value.status=="Return Approved"){%>
 
-          <!-- <a   href="./invoice_pdf?id=<%= value._id%>"><span style="color:rgb(6, 0, 12); margin-left: 13px;"><i class="ti-printer"></i></span></a> -->
           <%}%>
        </td>
   </tr>

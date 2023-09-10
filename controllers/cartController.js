@@ -69,7 +69,7 @@ const loadCart = async (req, res, next) => {
 const addtoCart = async (req, res,next) => {
   try {
     const userid = req.session.user_id;
-    const quantity = 1; // Change this to the desired initial quantity
+    const quantity = 1; 
     const productId = req.body.id;
     const cartdata = await cart.findOne({ user: userid });
     const productData = await productdb.findOne({ _id: productId });
@@ -88,7 +88,6 @@ const addtoCart = async (req, res,next) => {
           cartdata.product[existingProductIndex].quantity = updatedQuantity;
           cartdata.product[existingProductIndex].total =
             updatedQuantity * productData.price;
-          // cartdata.grandTotal += quantity * productData.price;
           const updatedCart = await cartdata.save();
           res.json({
             success: true,
@@ -108,7 +107,6 @@ const addtoCart = async (req, res,next) => {
           total: total,
           price: productData.price,
         });
-        // cartdata.grandTotal += total;
         cartdata.count += 1;
         const updatedCart = await cartdata.save();
         res.json({

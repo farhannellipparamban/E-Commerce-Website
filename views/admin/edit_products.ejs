@@ -27,7 +27,7 @@
                 multiple />
             </div>
             <!-- Existing Images -->
-            <!-- Existing Images -->
+
             <div style="display: flex">
               <% for (let index=0; index < dataedit.image.length; index++) { %>
                 <div style="
@@ -61,12 +61,6 @@
               </select>
             </div>
             <!-- Description -->
-            <!-- <div class="mb-3">
-              <label for="description" class="form-label text-sm">Description</label>
-              <textarea name="description"
-                class="form-control text-sm dark:text-gray-300 dark:bg-gray-700"
-                rows="3" placeholder="Enter some long form content." id="description" value="<%= dataedit.discription %>"></textarea>
-            </div> -->
             <div class="m-3">
               <label for="discription" class="form-label text-sm">Description</label>
               <input value="<%= dataedit.discription %>"
@@ -94,7 +88,6 @@
   <!-- Add this script after the form -->
   <script>
     function deletePhoto(index, productId) {
-      // Perform an AJAX request to delete the image
       fetch(`/admin/delete_image`, {
         method: "POST",
         headers: {
@@ -107,7 +100,6 @@
       })
         .then((response) => response.json())
         .then((data) => {
-          // If the image was deleted successfully, remove it from the view
           if (data.success) {
             document.getElementById(`imgView-${index}`).remove();
           } else {

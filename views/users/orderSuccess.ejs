@@ -1,15 +1,12 @@
 <%- include("../layouts/userPartials/header.ejs") %>
 <style>
-  /* Add your custom styles here */
 
-  /* Background and font styles */
   body {
     background-color: #f5f5f5;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
   }
 
-  /* Progress bar styles */
   .progresses {
     display: flex;
     align-items: center;
@@ -33,7 +30,6 @@
     border-radius: 50%;
   }
 
-  /* Checkmark styles */
   .check1 {
     display: flex;
     background-color: #2bff00;
@@ -47,7 +43,6 @@
     margin-bottom: 10px;
   }
 
-  /* Invoice link styles */
   .invoice-link {
     font-size: 15px;
     color: #3498db;
@@ -59,7 +54,6 @@
     color: #0099ff;
   }
 
-  /* Order button styles */
   .order-button {
     height: 50px;
     background-color: #ff1900;
@@ -75,7 +69,6 @@
     background-color: #ff1900;
   }
 
-  /* Background-muted styles */
   .background-muted {
     background-color: #fafafc;
   }
@@ -84,7 +77,6 @@
   color: #28b803;
 
 }
-  /* Product card styles */
   .product_card {
     display: flex;
     align-items: center;
@@ -163,13 +155,10 @@
             </div>
       
             <hr>
-            <!-- <h3>Order Details</h3> -->
               <div class="product_card">
                 <div class="product_details">
                   <p class="product_price"><strong class="text-dark">Order ID &nbsp;:&nbsp; </strong>  <%= orderData._id %></p>
-                  <!-- Add more product information here if needed -->
                 </div>
-                <!-- Add product image and status here if needed -->
               </div>
           </div>
         </div>

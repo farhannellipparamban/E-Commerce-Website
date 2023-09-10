@@ -68,7 +68,7 @@
       <div class="col-lg-3">
           <div class="card card-body mb-4">
               <article class="icontext">
-                  <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-shopping_basket"></i></span>
+                  <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-trending_up"></i></span>
                   <div class="text">
                       <h6 class="mb-1 card-title">Weekly Earning</h6>
                       <span>₹ <%= totalWeeklyEarnings %>.00</span>
@@ -107,14 +107,14 @@
 
     
       <!--  -->
-      <div class="col-xl-8 col-lg-12 col-12">
+      <!-- <div class="col-xl-8 col-lg-12 col-12">
         <div class="card mb-4">
             <article class="card-body">
                 <h5 class="card-title">Category by Sales.</h5>
                 <canvas id="myChart2" height="133px"></canvas>
             </article>
         </div>
-    </div>
+    </div> -->
 
     <div class="col-xl-4 col-lg-12 col-12">
         <div class="card mb-4">
@@ -144,7 +144,7 @@
     var ctx = document.getElementById('salesReportChart').getContext('2d');
 
     var data = {
-        labels: ['Day 1', 'Day 2', 'Day 3', /* ... and so on ... */],
+        labels: ['Day 1', 'Day 2', 'Day 3', ],
         datasets: [
             {
                 label: 'Daily Sales',
@@ -171,7 +171,7 @@
                 label: 'Yearly Sales',
                 data: <%= JSON.stringify(yearlySalesData) %>,
                 backgroundColor: 'rgba(205, 205, 205, 0.2)',
-                borderColor: 'rgba(255, 193, 7, 1)', // Change to a different color (e.g., orange)
+                borderColor: 'rgba(255, 193, 7, 1)',
                 borderWidth: 2
             }
         ]

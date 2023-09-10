@@ -3,12 +3,10 @@
   <style>
     .table-responsive {
       width: 100%;
-      /* Set width to 100% to make it span the full width */
       overflow-x: auto;
 
     }
 
-    /* Add your custom styles here */
     .cart_area th {
       background-color: #f2f2f2;
       font-weight: bold;
@@ -17,20 +15,17 @@
       text-align: center;
     }
 
-    /* Style the table rows */
     .cart_area td {
       padding: 15px;
       text-align: center;
       vertical-align: middle;
     }
 
-    /* Style the product images */
     .cart_area img {
       max-width: 100px;
       max-height: 100px;
     }
 
-    /* Style the quantity controls */
     .quantity-controls {
       display: flex;
       align-items: center;
@@ -51,7 +46,6 @@
       background-color: #616161;
     }
 
-    /* Style the "Remove" button */
     .genric-btn.danger-border.small {
       padding: 5px 10px;
       font-size: 12px;
@@ -67,7 +61,6 @@
       background-color: #686767;
     }
 
-    /* Style the Subtotal and Proceed buttons */
     .checkout_btn_inner {
       margin-top: 30px;
       display: flex;
@@ -112,7 +105,6 @@
       flex-direction: column;
       display: flex;
       padding-top: 60px;
-      /* align-items: center; */
     }
 
     .input-number {
@@ -141,26 +133,22 @@
     .quantity-controls button:hover {
       background-color: #616161;
     }
-    /* Style the red buttons */
 
-/* Style the red button */
 .red-btn {
-  background-color: #ff0000; /* Red color */
-  color: #fff; /* White text */
-  padding: 10px 20px; /* Add padding for better appearance */
-  text-decoration: none; /* Remove underline from the link */
-  border-radius: 30px; /* Add rounded corners */
-  display: inline-block; /* Ensure the button size fits the content */
+  background-color: #ff0000; 
+  color: #fff;
+  padding: 10px 20px; 
+  text-decoration: none; 
+  border-radius: 30px; 
+  display: inline-block;
 }
 
-/* Add some space between the icon and text */
 .red-btn i {
   margin-right: 10px;
 }
 
-/* Hover effect for the red button */
 .red-btn:hover {
-  background-color: #3f3e3e; /* Darker red on hover */
+  background-color: #3f3e3e;
 }
 
   </style>
@@ -215,20 +203,7 @@
                         </div>
                       </td>
                       <!-- ... -->
-                      <!-- <td class="product_count" colspan="2" style="display: flex">
-                        <button type="button" class="genric-btn primary-border small"
-                          onclick="changeQuantity('<%= value.productId._id %>', -1)">
-                          -
-                        </button>
-                        <span id="quantity-<%= value.productId._id %>"
-                          class="genric-btn dark-border small quantity input-number">
-                          <%= value.quantity %>
-                        </span>
-                        <button type="button" class="genric-btn primary-border small"
-                          onclick="changeQuantity('<%= value.productId._id %>', 1)">
-                          +
-                        </button>
-                      </td> -->
+                     
                       <td class="product_count" colspan="2" style="display: flex">
                         <div class="quantity">
                           <div class="quantity-controls">
@@ -279,30 +254,11 @@
                         <td></td>
                         <td></td>
                         <td>
-                          <!-- <h5>Shipping</h5> -->
                         </td>
                         <td></td>
                         <td></td>
                         <td>
-                          <!-- <div class="shipping_box">
-                              <ul class="list">
-                                <li>
-                                  Flat Rate: ₹5.00<input type="radio"
-                                    aria-label="Radio button for following text input" />
-                                </li>
-                                <li>
-                                  Free Shipping<input type="radio" aria-label="Radio button for following text input" />
-                                </li>
-                                <li>
-                                  Flat Rate: ₹10.00<input type="radio"
-                                    aria-label="Radio button for following text input" />
-                                </li>
-                                <li class="active">
-                                  Local Delivery: ₹2.00<input type="radio"
-                                    aria-label="Radio button for following text input" />
-                                </li>
-                              </ul>
-                            </div> -->
+                          
                         </td>
                       </tr>
                 </tbody>
@@ -346,7 +302,7 @@
         success: (response) => {
           if (response.success) {
             const quantitySpan = $("#quantity-" + productId);
-            quantitySpan.text(response.newQuantity); // Update the quantity displayed on the page
+            quantitySpan.text(response.newQuantity); 
             $("#total").load("/cart #total");
             $("#prices").load("/cart #prices");
 

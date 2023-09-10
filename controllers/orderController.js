@@ -18,7 +18,6 @@ const placeTheOrder = async (req, res, next) => {
     const userDetails = await User.findOne({ _id: req.session.user_id });
     const cartData = await cart.findOne({ user: userDetails._id });
 
-    // Check if all the products in the cart have sufficient stock
     for (const cartProduct of cartData.product) {
       const product = await productdb.findOne({ _id: cartProduct.productId });
       if (cartProduct.quantity > product.stock) {
@@ -43,14 +42,7 @@ const placeTheOrder = async (req, res, next) => {
     const status =
       payment === "COD" || payment == "wallet" ? "placed" : "pending";
 
-    // Deduct the ordered quantity from the product stock
-    // for (const cartProduct of cartData.product) {
-    //   const product = await productdb.findOne({ _id: cartProduct.productId });
-    //   product.stock -= cartProduct.quantity;
-    //   await product.save();
-    // }
 
-    // Create and save the order
     const newOrder = new order({
       deliveryDetails: address,
       user: userDetails._id,
@@ -84,12 +76,7 @@ const placeTheOrder = async (req, res, next) => {
     }
 
     if (status == "placed") {
-      // const wallet = subtotal - Total1 - couponamt;
 
-      // await User.updateOne(
-      //   { _id: req.session.user_id },
-      //   { $inc: { wallet: -wallet } }
-      // );
       await cart.deleteOne({ user: userDetails._id });
       res.json({ codsuccess: true });
     } else {
@@ -122,7 +109,6 @@ const verifyPayment = async (req, res, next) => {
     );
     hmac = hmac.digest("hex");
     if (hmac == details.payment.razorpay_signature) {
-      //await User.updateOne({_id:req.session.user_id},{$inc:{wallet:-wal}});
       await order.findByIdAndUpdate(details.order.receipt, {
         $set: { status: "placed" },
       });
@@ -136,7 +122,7 @@ const verifyPayment = async (req, res, next) => {
       return res.json({ success: false });
     }
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     next(error);
   }
 };

@@ -51,9 +51,6 @@ const verifyLogin = async (req, res) => {
 const loadDashboard = async (req, res) => {
   try {
 
-
-//=========================
-
     const userCount = await User.count();
     const products = await productDB.count();
     const categoryData = await CatDB.find({ blocked: false });
@@ -73,7 +70,6 @@ const loadDashboard = async (req, res) => {
     oneMonthAgo.setDate(today.getDate() - 30);
     const oneYearAgo = new Date();
     oneYearAgo.setFullYear(today.getFullYear() - 1);
-    // const currentMonthStartDate = new Date(currentYear, currentMonth, 1, 0, 0, 0);
 
     const dailyOrders = orders.filter((order) => order.Date >= startOfToday);
     const weeklyOrders = orders.filter((order) => order.Date >= oneWeekAgo);
@@ -262,7 +258,7 @@ const unblockUser = async (req, res) => {
 
 //orderDetails listing get
 const orderDetails = async (req, res) => {
-  try {
+  try { 
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * 8;
 
@@ -474,7 +470,7 @@ const SalesReport = async (req, res) => {
     if (sortData) {
       sort[sortData] = sortOrder === "Ascending" ? 1 : -1;
     } else {
-      sort.date = -1; // Default sorting by date in descending order
+      sort.date = -1;
     }
 
     const orders = await order
@@ -509,7 +505,7 @@ const datewiseSalesRp = async (req, res) => {
     if (sortData) {
       sort[sortData] = sortOrder === "Ascending" ? 1 : -1;
     } else {
-      sort.date = -1; // Default sorting by date in descending order
+      sort.date = -1; 
     }
 
     let fromDate = req.body.fromDate ? new Date(req.body.fromDate) : null;
@@ -542,7 +538,7 @@ const datewiseSalesRp = async (req, res) => {
         },
       },
       { $unwind: "$product" },
-      { $match: matchStage }, // This is where you would put your additional matching criteria if needed
+      { $match: matchStage }, 
       {
         $group: {
           _id: null,

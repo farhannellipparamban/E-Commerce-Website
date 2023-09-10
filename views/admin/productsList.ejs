@@ -1,6 +1,5 @@
 <%- include("../layouts/adminPartials/header.ejs") %>
 <style>
-  /* Add these styles to adjust the alignment of price and stock columns */
   .col-price,
   .col-date {
     display: flex;
@@ -19,13 +18,11 @@
     margin-left: 35px;
   }
 
-  /* Add these styles to make the buttons uniform in size */
   .col-action .btn {
     width: 80px;
     margin-left: 100px;
   }
 
-  /* Add these styles to adjust the alignment of checkbox and content in the header */
   .card-header .form-check {
     margin: 0;
   }
@@ -38,7 +35,6 @@
     margin: 5px;
   }
 
-  /* Styling for Pagination */
   .pagination {
     margin-top: 20px;
   }
@@ -80,8 +76,7 @@
       <h2 class="content-title card-title">Products List</h2>
     </div>
     <div>
-      <!-- <a href="#" class="btn btn-success rounded font-md">Export</a>
-      <a href="#" class="btn btn-danger rounded font-md">Import</a> -->
+
       <a href="/admin/addproduct" class="btn btn-primary btn-sm rounded"
         >Add Product</a
       >
@@ -161,7 +156,6 @@
       <% } %>
     </div>
   </div>
-  <!-- Pagination links/buttons with styling -->
   <nav aria-label="Order List Pagination">
     <ul class="pagination justify-content-center">
       <% if (currentPage> 1) { %>

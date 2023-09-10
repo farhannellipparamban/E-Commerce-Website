@@ -1,7 +1,6 @@
 <%- include("../layouts/adminPartials/header.ejs") %>
 
 <style>
-  /* Sample CSS styles, customize as needed */
 .action-button {
   padding: 6px 10px;
   border: none;
@@ -11,7 +10,7 @@
 }
 
 .action-button:hover {
-  background-color: #5e5e5e; /* Change to your desired hover color */
+  background-color: #5e5e5e;
 }
 
 .edit-button {
@@ -23,7 +22,6 @@
   background-color: #ff0800;
   color: white;
 }
- /* Styling for Pagination */
  .pagination {
     margin-top: 20px;
   }
@@ -111,7 +109,6 @@
     </div>
   </div>
  
-  <!-- Pagination links/buttons with styling -->
   <nav aria-label="Order List Pagination">
     <ul class="pagination justify-content-center">
       <% if (currentPage> 1) { %>

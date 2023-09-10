@@ -1,14 +1,12 @@
 <%- include("../layouts/adminPartials/header.ejs") %>
 
   <style>
-    /* Add some spacing and background color to the header section */
     .header {
       padding: 20px;
       background-color: #000000;
       color: #fff;
     }
 
-    /* Add some spacing and background color to the footer section */
     .footer {
       padding: 20px;
       background-color: #000000;
@@ -16,25 +14,21 @@
       text-align: center;
     }
 
-    /* Style for the "Order Details" heading */
     h2 {
       border-bottom: 2px solid #ccc;
       padding-bottom: 20px;
     }
 
-    /* Style for the table container */
     .table-container {
       border: 1px solid #ccc;
       border-radius: 10px;
       overflow: hidden;
     }
 
-    /* Add some shadow to the table */
     .table-container {
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Style for the table headers */
     .table th {
       background-color: #f2f2f2;
       font-weight: bold;
@@ -42,17 +36,14 @@
       font-size: 22px;
     }
 
-    /* Style for the table rows */
     .table tr {
       transition: background-color 0.2s ease;
     }
 
-    /* Highlight the table rows on hover */
     .table tr:hover {
       background-color: #f9f9f9;
     }
 
-    /* Style for the "View" button */
     .genric-btn {
       display: inline-block;
       padding: 8px 16px;
@@ -69,9 +60,7 @@
       background-color: #f2f2f2;
     }
 
-    /* Style for the different order statuses */
 
-    /* Style for status labels */
     .status-label {
       display: inline-block;
       padding: 6px 10px;
@@ -80,7 +69,6 @@
       font-weight: bold;
     }
 
-    /* Status specific styles */
     .status-placed {
       color: #1e3a2b;
       background-color: #89dd9f;
@@ -117,7 +105,6 @@
 
     }
 
-    /* Button styles */
     .btn-danger {
       background-color: #ff0000;
       color: #fff;
@@ -142,12 +129,10 @@
       font-size: 12px;
     }
 
-    /* Add a hover effect to table rows */
     tbody tr:hover {
       background-color: #f5f5f5;
     }
 
-    /* Style the link within the first table cell */
     td a.order-link {
       color: #616161;
       font-weight: 600;
@@ -159,27 +144,22 @@
       color: #0056b3;
     }
 
-    /* Style the price in the second table cell */
     td.price {
       color: #272727;
     }
 
-    /* Add more padding to the status cells */
     td.status-cell {
       padding: 12px 0;
     }
 
-    /* Style status cells on hover */
     td.status-cell:hover .status-label {
       transform: scale(1.05);
     }
 
-    /* Adjust padding for action cells */
     td.action-cell {
       padding: 12px 0;
     }
 
-    /* Style the "Canceled" label */
     td.action-cell a.canceled-label {
       color: #d61b00;
       background-color: #fccfcf;
@@ -188,7 +168,6 @@
       font-size: 10px;
     }
 
-    /* Style the "Approve" and "Delivered" buttons */
     td.action-cell a span.btn-secondary,
     td.action-cell a span.btn-primary {
       font-size: 13px;
@@ -196,13 +175,11 @@
       border-radius: 20px;
     }
 
-    /* Add some spacing between action buttons */
     td.action-cell a span.btn-secondary+span,
     td.action-cell a span.btn-primary+span {
       margin-left: 10px;
     }
 
-    /* Styling for Pagination */
     .pagination {
       margin-top: 20px;
     }
@@ -242,9 +219,6 @@
       <h2 class="my-6 text-3xl font-semibold text-gray-700 dark:text-gray-200">
         Order Details
       </h2>
-
-      <!-- With avatar -->
-      <!-- With actions -->
 
       <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">

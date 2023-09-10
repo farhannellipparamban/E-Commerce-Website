@@ -1,27 +1,22 @@
 <%- include("../layouts/userPartials/header.ejs") %>
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Wishlist</title>
     <link rel="stylesheet" href="path-to-your-styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   </head>
+
   <body>
     <style>
-      /* Your existing CSS styles */
-
-      /* Additional styling for enhanced appearance */
-
       body {
         margin: 0;
         padding: 0;
         font-family: "Roboto", sans-serif;
-        background-color: #f8f9fa; /* Light gray background */
+        background-color: #f8f9fa;
         color: #333;
       }
 
@@ -29,7 +24,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #ffffff; /* White background */
+        background-color: #ffffff;
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         border-radius: 15px;
         overflow-x: auto;
@@ -46,12 +41,14 @@
         margin: 0;
         font-size: 28px;
       }
+
       .text-dark {
         font-size: medium;
         font-weight: bold;
         font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
           "Lucida Sans", Arial, sans-serif;
       }
+
       .wishlist-table {
         width: 100%;
         border-collapse: collapse;
@@ -64,22 +61,22 @@
         padding: 20px;
         text-align: left;
         border-bottom: 1px solid #ccc;
-        vertical-align: middle; /* Align content vertically */
+        vertical-align: middle;
       }
 
       .wishlist-table th {
-        background-color: #f0f0f0; /* Light gray header */
+        background-color: #f0f0f0;
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
 
       .wishlist-item-title {
-        color: #000; /* Set product name color to black */
+        color: #000;
       }
 
       .wishlist-item:hover {
-        background-color: #f5f5f5; /* Light background on hover */
+        background-color: #f5f5f5;
       }
 
       .wishlist-item-image img {
@@ -95,11 +92,11 @@
       }
 
       .stock-in {
-        color: #00b62a; /* Green for "In Stock" */
+        color: #00b62a;
       }
 
       .stock-out {
-        color: #ff0000; /* Red for "Out of Stock" */
+        color: #ff0000;
       }
 
       .remove-button {
@@ -129,7 +126,7 @@
         font-weight: bold;
         transition: background-color 0.3s ease;
       }
-      /* Style for the empty wishlist message */
+
       .empty-wishlist-message {
         text-align: center;
         padding: 200px;
@@ -146,7 +143,6 @@
         color: #000000;
       }
 
-      /* Style for the call-to-action section */
       .call-to-action-6 {
         padding: 60px 0;
         text-align: center;
@@ -180,144 +176,129 @@
       .call-to-action-6 .btn:hover {
         background-color: #0069d9;
       }
-      /* Style the button container */
-.styled-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: rgb(255, 0, 0);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 25px;
-  transition: background-color 0.3s ease;
-  font-size: 18px;
-  /* font-weight: bold; */
-}
 
-/* Style the button on hover */
-.styled-button:hover {
-  background-color: #414141; /* Change the background color on hover */
-}
+      .styled-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(255, 0, 0);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+        font-size: 18px;
+      }
 
-/* Style the arrow icon */
-.styled-button i {
-  margin-left: 10px;
-  font-size: 20px;
-}
+      .styled-button:hover {
+        background-color: #414141;
+      }
 
-/* Center the button text and icon vertically */
-.button-text {
-  vertical-align: middle;
-  margin-right: 5px;
-}
+      .styled-button i {
+        margin-left: 10px;
+        font-size: 20px;
+      }
 
+      .button-text {
+        vertical-align: middle;
+        margin-right: 5px;
+      }
     </style>
-<div class="slider-area">
-  <div class="single-slider slider-height2 d-flex align-items-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="hero-cap text-center">
-            <h2>Wish List</h2>
-            <p>Time is precious; spend it wisely, like you're shopping for a fine watch.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <% if (!products || products.length === 0) { %>
-    <!-- WISHLIST AREA START -->
-    <div class="liton__wishlist-area mb-105">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="empty-wishlist-message text-center">
-              <h1>Your Wishlist is Empty !!!</h1>
-              <br>
-
-              <p>
-                Explore our collection and start adding products to your
-                wishlist.
-              </p>
-              <br><br>
-              <a class="styled-button" href="/shop">
-                <span class="button-text">Explore More Products</span>
-                <i class="fas fa-arrow-right"></i>
-              </a>
-              
-            
+    <div class="slider-area">
+      <div class="single-slider slider-height2 d-flex align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="hero-cap text-center">
+                <h2>Wish List</h2>
+                <p>Time is precious; spend it wisely, like you're shopping for a fine watch.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- WISHLIST AREA END -->
-    <% } else { %>
-    <!-- Display the wishlist table here -->
+    <% if (!products || products.length===0) { %>
+      <!-- WISHLIST AREA START -->
+      <div class="liton__wishlist-area mb-105">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="empty-wishlist-message text-center">
+                <h1>Your Wishlist is Empty !!!</h1>
+                <br>
 
-    <div class="wishlist-container">
-      <h1 class="wishlist-title">My Wishlist</h1>
-      <table class="wishlist-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% products.forEach(product => { %>
-          <tr class="wishlist-item animate__animated animate__fadeIn">
-            <td class="wishlist-item-image">
-              <% if (product && product.productId && product.productId.image &&
-              product.productId.image.length > 0) { %>
-              <img
-                src="/assets/CropedImages/<%= product.productId.image[0] %>"
-                alt="<%= product.productId.name %>"
-              />
-              <% } %>
-            </td>
-            <td class="wishlist-item-info">
-              <h3 class="wishlist-item-title">
-                <a
-                  class="text-dark"
-                  href="/product_details?id=<%= product._id %>"
-                  ><%= product.productId.name %></a
-                >
-              </h3>
-            </td>
-            <td class="wishlist-item-price">₹<%= product.productId.price %></td>
-            <td>
-              <% if (product.productId.stock > 0) { %>
-              <span class="stock-in">In Stock</span>
-              <% } else { %>
-              <span class="stock-out">Out of stock</span>
-              <% } %>
-            </td>
-            <td class="wishlist-item-actions">
-              <a
-                class="add-to-cart-button"
-                href="/addFromWish?id=<%= product.productId.id %>"
-                >Add to Cart</a
-              >
-              <a
-                class="remove-button"
-                href="/removeWishlist?id=<%= product.productId.id %>"
-                >Remove</a
-              >
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+                <p>
+                  Explore our collection and start adding products to your
+                  wishlist.
+                </p>
+                <br><br>
+                <a class="styled-button" href="/shop">
+                  <span class="button-text">Explore More Products</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
 
-      <% } %>
-    </div>
 
-    <div class="ltn__utilize-overlay"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- WISHLIST AREA END -->
+      <% } else { %>
+        <!-- Display the wishlist table here -->
 
-    <%- include("../layouts/userPartials/footer.ejs") %>
+        <div class="wishlist-container">
+          <h1 class="wishlist-title">My Wishlist</h1>
+          <table class="wishlist-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach(product=> { %>
+                <tr class="wishlist-item animate__animated animate__fadeIn">
+                  <td class="wishlist-item-image">
+                    <% if (product && product.productId && product.productId.image && product.productId.image.length> 0)
+                      { %>
+                      <img src="/assets/CropedImages/<%= product.productId.image[0] %>"
+                        alt="<%= product.productId.name %>" />
+                      <% } %>
+                  </td>
+                  <td class="wishlist-item-info">
+                    <h3 class="wishlist-item-title">
+                      <a class="text-dark" href="/product_details?id=<%= product._id %>">
+                        <%= product.productId.name %>
+                      </a>
+                    </h3>
+                  </td>
+                  <td class="wishlist-item-price">₹<%= product.productId.price %>
+                  </td>
+                  <td>
+                    <% if (product.productId.stock> 0) { %>
+                      <span class="stock-in">In Stock</span>
+                      <% } else { %>
+                        <span class="stock-out">Out of stock</span>
+                        <% } %>
+                  </td>
+                  <td class="wishlist-item-actions">
+                    <a class="add-to-cart-button" href="/addFromWish?id=<%= product.productId.id %>">Add to Cart</a>
+                    <a class="remove-button" href="/removeWishlist?id=<%= product.productId.id %>">Remove</a>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+
+          <% } %>
+        </div>
+
+        <div class="ltn__utilize-overlay"></div>
+
+        <%- include("../layouts/userPartials/footer.ejs") %>
   </body>
-</html>
+
+  </html>

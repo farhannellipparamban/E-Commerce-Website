@@ -11,28 +11,7 @@
         </div>
     </div>
     <div class="card mb-4">
-        <!-- <header class="card-header">
-            <div class="row gx-3 align-items-center">
-                <div class="col-lg-4 col-md-6">
-                    <input type="text" placeholder="Search Banners..." class="form-control" />
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <select class="form-select">
-                        <option>All Categories</option>
-                        <option>Electronics</option>
-                        <option>Clothing</option>
-                        <option>Something Else</option>
-                    </select>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <select class="form-select">
-                        <option>Latest Added</option>
-                        <option>Oldest First</option>
-                        <option>Most Viewed</option>
-                    </select>
-                </div>
-            </div>
-        </header> -->
+        
         <!-- card-header end// -->
         <div class="card-body">
             <div class="row gx-4 gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
@@ -45,7 +24,6 @@
                         </a>
                         <a href="#" class="title text-truncate"><%= banner.bannerTitle %></a>
                         <div class="info-wrap">
-                            <!-- <a href="" class="title text-truncate"><%= banner.bannerUrl %></a> -->
                             <p class="description"><%= banner.description %></p>
                             <div class="button-group">
                                 <a href="/admin/editBanner/?id=<%= banner._id %>" class="btn btn-sm btn-primary rounded">

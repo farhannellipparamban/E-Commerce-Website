@@ -31,7 +31,6 @@ const productload = async (req, res, next) => {
 //add product page get
 const addProductload = async (req, res, next) => {
   try {
-    // const id=req.body.id
 
     const categoryData = await CatDB.find({ is_blocked: false });
 
@@ -97,6 +96,7 @@ const editProduct = async (req, res, next) => {
     next(error);
   }
 };
+
 //product editing page post
 const updateProduct = async (req, res, next) => {
   try {
@@ -105,11 +105,8 @@ const updateProduct = async (req, res, next) => {
     if (name.trim().length == 0) {
       res.redirect("/admin/edit_products");
     } else {
-      // if (req.files.length != 0) {
       const id = req.query.id;
-      //   for (let i = 0; i < req.files.length; i++) {
-      //     editimage.push(req.files[i].filename);
-      //   }
+
       if (req.files && req.files.length > 0) {
         for (let i = 0; i < req.files.length; i++) {
           const filePath = path.join(
@@ -122,7 +119,6 @@ const updateProduct = async (req, res, next) => {
             .toFile(filePath);
           editimage.push(req.files[i].filename);
 
-          //  imageArr.push(req.files[i].filename);
         }
         const { name, stock, price, discription,category } = req.body;
         const catData = await CatDB.findOne({name:category});

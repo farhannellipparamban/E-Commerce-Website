@@ -13,10 +13,7 @@ const bannerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // bannerUrl: {
-  //   type: String,
-  //   required: true,
-  // },
+
 });
 
 module.exports = mongoose.model("Banner", bannerSchema);
