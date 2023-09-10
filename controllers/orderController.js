@@ -6,13 +6,10 @@ const cart = require("../models/cartModel");
 const order = require("../models/orderModel");
 const coupon = require("../models/couponModel");
 const Razorpay = require("razorpay");
-require('dotenv').config();
-
-
 
 var instance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_SECRET_KEY,
+  key_id: process.env.Razorpay_Key_Id,
+  key_secret: process.env.Razorpay_Secret_Key,
 });
 
 // placetheorder
@@ -125,7 +122,7 @@ const verifyPayment = async (req, res, next) => {
       return res.json({ success: false });
     }
   } catch (error) {
-    console.error(error.message);
+    console.log(error.message);
     next(error);
   }
 };
