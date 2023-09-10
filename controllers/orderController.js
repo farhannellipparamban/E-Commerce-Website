@@ -11,8 +11,8 @@ require('dotenv').config();
 
 
 var instance = new Razorpay({
-  key_id: process.env.Razorpay_Key_Id,
-  key_secret: process.env.Razorpay_Secret_Key,
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_SECRET_KEY,
 });
 
 // placetheorder
