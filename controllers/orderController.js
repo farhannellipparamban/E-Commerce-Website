@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config()
 const User = require("../models/userModels");
 const admin = require("../models/adminModel");
 const productdb = require("../models/prodectModel");
