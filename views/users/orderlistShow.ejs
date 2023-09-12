@@ -79,10 +79,21 @@
 }
 
 .list_2 span {
-  color: #e74c3c;
+  color: #ff1900;
   font-weight: bold;
   float: right;
 }
+.invoice-btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #1c7215;
+    border-radius: 30px;
+    padding: 15px;
+    color: #ffffff; 
+    font-weight: bold;
+}
+
+
 </style>
 
 <main>
@@ -97,9 +108,17 @@
             </div>
           </div>
           <br>
-          <h3>Order Details</h3>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 class="px-4 py-3">Order Details</h2>
+             <a href="/invoice?orderId=<%= orderData._id %>" class="invoice-btn">
+                <span style="font-weight: bold; text-decoration: underline;">Download Invoice</span>
+            </a>
+        </div>
+        
           <% product.forEach((value, index) => { %>
             <div class="order_card">
+              
               <div class="product_card">
                 <img class="product_image" src="/assets/CropedImages/<%= value.productId.image[0] %>" alt="">
                 <div class="product_details">
