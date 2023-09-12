@@ -117,6 +117,9 @@ user_route.get(
 user_route.get("/myacco", userAuth.isLogin, userController.myAcco);
 user_route.post("/myacco", userController.profilesubmit);
 
+//Invoice Download
+user_route.get("/invoice",userAuth.isLogin,userController.invoiceDownload)
+
 //coupon
 user_route.post("/applyCoupon", couponController.applyCoupon);
 

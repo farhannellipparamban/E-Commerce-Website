@@ -8,7 +8,10 @@ const CatDB = require("../models/categoryModel");
 const randomstring = require("randomstring");
 const coupon = require("../models/couponModel");
 const Banner = require("../models/bannerModel");
-
+const ejs = require("ejs");
+const puppeteer = require("puppeteer");
+const fs = require("fs");
+const path = require("path");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -637,6 +640,50 @@ const profilesubmit = async (req, res, next) => {
   }
 };
 
+//Invoice download
+const invoiceDownload = async (req, res,next) => {
+  try {
+    const { orderId } = req.query;
+    const userId = req.session.user_id;
+    let subTotal = 0;
+    const userData = await User.findById(userId);
+    const orderData = await order
+      .findById(orderId)
+      .populate("product.productId");
+
+    orderData.product.forEach((item) => {
+      const total = item.productId.price * item.quantity;
+      subTotal += total;
+    });
+
+    const date = new Date();
+    const data = {
+      order: orderData,
+      user: userData,
+      date,
+      subTotal,
+    };
+
+    const filepathName = path.resolve(__dirname, "../views/users/invoice.ejs");
+    const html = fs.readFileSync(filepathName).toString();
+    const ejsData = ejs.render(html, data);
+    const browser = await puppeteer.launch({ headless: "new" });
+    const page = await browser.newPage();
+    await page.setContent(ejsData, { waitUntil: "networkidle0" });
+    const pdfBytes = await page.pdf({ format: "Letter" });
+    await browser.close();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename= orderInvoice_Clocksy.pdf"
+    );
+    res.send(pdfBytes);
+  } catch (error) {
+    next(error);
+  }
+};
+
 //Wallet History
 const walletHistory = async (req, res, next) => {
   try {
@@ -693,6 +740,7 @@ module.exports = {
   userLogout,
   myAcco,
   profilesubmit,
+  invoiceDownload,
   walletHistory,
   walletAmount,
 };

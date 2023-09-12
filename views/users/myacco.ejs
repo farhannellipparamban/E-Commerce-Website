@@ -150,6 +150,19 @@
             font-size: 14px;
             color: #000;
         }
+
+.invoice-btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #1c7215;
+    border-radius: 30px;
+    padding: 15px;
+    color: #ffffff; 
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
     </style>
     <title>User Profile</title>
 
@@ -239,13 +252,13 @@
                                 </div>
                             </div>
                             <hr />
-                  
+
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0 mt-2">Actions:</p>
                                 </div>
                                 <div class="col-sm-9">
-                           
+
                                     <a href="/addAddress" class="btn btn-primary btn-sm">
                                         <i class="fas fa-plus"></i> Add Address
                                     </a>
@@ -350,66 +363,60 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% if (orders && orders.length> 0) {
+                                            <% if (orders && orders.length > 0) {
                                                 orders.forEach((order) => { %>
                                                 <tr class="cart-item">
                                                     <td>
                                                         <%= order._id %>
+                                                        <br>
+                                                      <br>
+                                                        
+                                                        <a href="/invoice?orderId=<%= order._id %>" class="invoice-btn">
+    <span style="font-weight: bold; text-decoration: underline;">Download Invoice</span>
+</a>
+
                                                     </td>
                                                     <td>
                                                         <%= order.paymentMethod %>
                                                     </td>
-                                                    <td>₹<%= order.totalAmount %>
-                                                    </td>
-                                                    <% if (order.status==='placed' ) { %>
+                                                    <td>₹<%= order.totalAmount %></td>
+                                                    <% if (order.status === 'placed') { %>
                                                         <td class="text-success">Order Placed</td>
+                                                    <% } %>
+                                                    <% if (order.status === 'pending') { %>
+                                                        <td class="text-warning">Order Pending</td>
+                                                    <% } %>
+                                                    <% if (order.status === 'delivered') { %>
+                                                        <td class="text-info">Order Delivered</td>
+                                                    <% } %>
+                                                    <% if (order.status === 'Return Approved') { %>
+                                                        <td class="text-secondary">Order Returned</td>
+                                                    <% } %>
+                                                    <% if (order.status === 'waiting for approval') { %>
+                                                        <td class="text-dark">Order Waiting for Approval</td>
+                                                    <% } %>
+                                                    <% if (order.status === 'canceled') { %>
+                                                        <td class="text-danger">Order Cancelled</td>
+                                                    <% } %>
+                                                    <td>
+                                               
+                                                        <a class="genric-btn info-border circle arrow" href="/ordershow?id=<%= order._id %>">View Order</a>
+                                                        <br>
+                                                        <br>
+                                                        <% if (order.status !== 'canceled') { %>
+                                                            <a onclick="cancelOrder('<%= order._id %>')" type="button"
+                                                                class="genric-btn danger-border circle arrow">Cancel</a>
                                                         <% } %>
-                                                            <% if (order.status==='pending' ) { %>
-                                                                <td class="text-warning">Order Pending</td>
-                                                                <% } %>
-                                                                    <% if (order.status==='delivered' ) { %>
-                                                                        <td class="text-info">Order Delivered</td>
-                                                                        <% } %>
-                                                                            <% if (order.status==='Return Approved' ) {
-                                                                                %>
-                                                                                <td class="text-secondary">Order
-                                                                                    Returned</td>
-                                                                                <% } %>
-                                                                                    <% if
-                                                                                        (order.status==='waiting for approval'
-                                                                                        ) { %>
-                                                                                        <td class="text-dark">order
-                                                                                            Waiting for Approval</td>
-                                                                                        <% } %>
-                                                                                            <% if
-                                                                                                (order.status==='canceled'
-                                                                                                ) { %>
-                                                                                                <td class="text-danger">
-                                                                                                    Order Cancelled</td>
-                                                                                                <% } %>
-                                                                                                    <td>
-                                                                                                        <a class="genric-btn info-border circle arrow"
-                                                                                                            href="/ordershow?id=<%= order._id %>">View
-                                                                                                            Order</a>
-                                                                                                        <br>
-                                                                                                        <br>
-                                                                                                        <% if
-                                                                                                            (order.status
-                                                                                                            !=='canceled'
-                                                                                                            ) { %>
-                                                                                                            <a onclick="cancelOrder('<%= order._id %>')"
-                                                                                                                type="button"
-                                                                                                                class="genric-btn danger-border circle arrow">cancel</a>
-                                                                                                            <% } %>
-                                                                                                    </td>
+                                                    </td>
                                                 </tr>
                                                 <% }); %>
-                                                    <% } else { %>
-                                                        <tr>
-                                                            <td colspan="5" class="text-danger">No products found</td>
-                                                        </tr>
-                                                        <% } %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="5" class="text-danger">No products found</td>
+                                                </tr>
+                                            <% } %>
                                         </tbody>
+                                        
                                     </table>
 
                                 </div>
@@ -458,9 +465,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-        // ... Existing scripts ...
 
-        // Function to show the order details section and hide others
         function toggleOrders() {
 
             if (orderDetails.style.display === "block") {
@@ -471,7 +476,6 @@
             }
         }
 
-    // ... Existing scripts ...
     </script>
 
     <script>
