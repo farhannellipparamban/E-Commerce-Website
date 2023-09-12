@@ -667,7 +667,7 @@ const invoiceDownload = async (req, res,next) => {
     const filepathName = path.resolve(__dirname, "../views/users/invoice.ejs");
     const html = fs.readFileSync(filepathName).toString();
     const ejsData = ejs.render(html, data);
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.setContent(ejsData, { waitUntil: "networkidle0" });
     const pdfBytes = await page.pdf({ format: "Letter" });
