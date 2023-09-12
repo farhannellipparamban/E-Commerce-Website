@@ -107,14 +107,14 @@
 
     
       <!--  -->
-      <!-- <div class="col-xl-8 col-lg-12 col-12">
+      <div class="col-xl-8 col-lg-12 col-12">
         <div class="card mb-4">
             <article class="card-body">
                 <h5 class="card-title">Category by Sales.</h5>
                 <canvas id="myChart2" height="133px"></canvas>
             </article>
         </div>
-    </div> -->
+    </div>
 
     <div class="col-xl-4 col-lg-12 col-12">
         <div class="card mb-4">
@@ -188,8 +188,7 @@
     
         const catQty = (<%- JSON.stringify(categorySales.map(item => item.qty)) %>);
     const catName = (<%- JSON.stringify(categorySales.map(item => item._id)) %>);
-console.log("catQty:", catQty);
-console.log("catName:", catName);
+
 
 (function ($) {
   "use strict";
@@ -204,7 +203,7 @@ if ($('#myChart2').length) {
             datasets: [
                 {
                     label: "Qauntity",
-                    backgroundColor:["#6312cc","#39CAF0","#65910d","#e67c12","#0ca6cc","#0ca6cc"],
+                    backgroundColor:["yellow","#39CAF0","#65910d","#e67c12","#0ca6cc","#0ca6cc"],
                     barThickness:10,
                     data: catQty
                 }

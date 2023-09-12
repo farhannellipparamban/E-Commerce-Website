@@ -29,7 +29,7 @@ const categorySales = async () => {
       {
           $lookup :
           {
-              from: "product",
+              from: "products",
               localField : "product.productId",
               foreignField: "_id",
               as: "productsData"
@@ -59,7 +59,6 @@ const categorySales = async () => {
       }
   ]);
 
-  
   return catSales
 }
 
