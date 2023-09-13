@@ -2,7 +2,6 @@
 
 
     <style>
-
         .content-title {
             color: #000000;
             font-size: 36px;
@@ -158,7 +157,7 @@
                                     </option>
                                 </select>
                             </div>
-                 
+
 
                             <div class="col-md-4">
                                 <button class="btn btn-primary">Sort</button>
@@ -196,9 +195,9 @@
                             <th>Order #ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Total</th>
                             <th scope="col">Payment Method</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -216,14 +215,15 @@
                                         <%=order.Date.toLocaleDateString('en-US', { year: 'numeric' ,month: 'short' ,
                                             day: '2-digit' }).replace(/\//g,'-') %>
                                     </td>
-                                    <td>₹ <%= order.totalAmount.toFixed(2) %>
-                                    </td>
+
                                     </td>
                                     <td>
                                         <%=order.paymentMethod %>
                                     </td>
                                     <td>
                                         <%=order.status %>
+                                    </td>
+                                    <td>₹ <%= order.totalAmount.toFixed(2) %>
                                     </td>
                                 </tr>
                                 <% }); %>
@@ -292,53 +292,58 @@
             const today = new Date();
 
             // Check if "From Date" is greater than today's date
-    if (fromDate > today) {
-      event.preventDefault();
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops...',
-        text: 'From date cannot be greater than today date!',
-      });
-      return;
-    }
+            if (fromDate > today) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'From date cannot be greater than today date!',
+                });
+                return;
+            }
 
-    // Check if "To Date" is greater than today's date
-    if (toDate > today) {
-      event.preventDefault();
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops...',
-        text: 'To date cannot be greater than today date!',
-      });
-      return;
-    }
+            // Check if "To Date" is greater than today's date
+            if (toDate > today) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'To date cannot be greater than today date!',
+                });
+                return;
+            }
 
-    // Check if "From Date" is greater than "To Date"
-    if (fromDate > toDate) {
-      event.preventDefault();
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'From date cannot be greater than To date.',
-      });
-      return;
-    }
-  });
+            // Check if "From Date" is greater than "To Date"
+            if (fromDate > toDate) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'From date cannot be greater than To date.',
+                });
+                return;
+            }
+        });
 
         // pdf 
         function generatePDF() {
             const orders = document.querySelectorAll('.table tbody tr');
 
             const orderRows = [];
+            let grandTotal = 0; // Initialize the grand total
+
             orders.forEach((order) => {
                 const orderId = order.cells[0].innerText;
-                const name = order.cells[1].innerText; // Changed "Name" to "name"
+                const name = order.cells[1].innerText;
                 const date = order.cells[2].innerText;
-                const total = order.cells[3].innerText;
-                const paymentMethod = order.cells[4].innerText;
-                const status = order.cells[5].innerText;
+                const paymentMethod = order.cells[3].innerText;
+                const status = order.cells[4].innerText;
+                const totalText = order.cells[5].innerText.replace(/[^0-9.]/g, '');
+                const total = parseFloat(totalText);
 
-                orderRows.push([orderId, name, date, total, paymentMethod, status]);
+
+                orderRows.push([orderId, name, date, paymentMethod, status, total]);
+                grandTotal += total;
             });
 
             const pdfFormat = {
@@ -350,27 +355,30 @@
                     {
                         table: {
                             headerRows: 1,
-                            widths: [100, 70, 80, 80, 70, 90], // Adjusted the widths here
+                            widths: [100, 70, 80, 80, 70, 90],
 
                             body: [
-                                // Header row
                                 [
                                     { text: 'Order ID', style: 'tableHeader' },
                                     { text: 'Name', style: 'tableHeader' },
                                     { text: 'Date', style: 'tableHeader' },
-                                    { text: 'Total', style: 'tableHeader' },
                                     { text: 'Payment Method', style: 'tableHeader' },
                                     { text: 'Status', style: 'tableHeader' },
+                                    { text: 'Total', style: 'tableHeader' },
                                 ],
-                                ...orderRows, // Data rows
+                                ...orderRows,
+
+
+                                ['', '', '', '', { text: 'GRAND TOTAL', style: 'grandTotalText' }, { text: grandTotal.toFixed(2), style: 'grandTotal' }], // Add the grand total row
+
                             ],
                         },
                         layout: {
-                            fillColor: '#ccc2c2', // Background color of the table
-                            hLineWidth: () => 0.5, // Horizontal line width
-                            vLineWidth: () => 0.5, // Vertical line width
+                            fillColor: '#ccc2c2',
+                            hLineWidth: () => 0.5,
+                            vLineWidth: () => 0.5,
                         },
-                        style: 'tableStyle', // Apply custom style
+                        style: 'tableStyle',
                     },
                 ],
                 styles: {
@@ -379,28 +387,40 @@
                         bold: true,
                         alignment: 'center',
                         margin: [0, 0, 0, 20],
-                        color: '#ff0000', // Header text color
+                        color: '#ff0000',
                     },
                     tableStyle: {
                         fontSize: 12,
                         margin: [0, 10, 0, 0],
-                        color: '#333', // Text color
+                        color: '#333',
                     },
                     tableHeader: {
                         bold: true,
                         fontSize: 13,
-                        color: 'white', // Header text color
-                        fillColor: '#CFB53B', // Header background color
+                        color: 'white',
+                        fillColor: '#CFB53B',
                         alignment: 'center',
+                    },
+                    grandTotalText: {
+                        fontSize: 14,
+                        bold: true,
+                        fillColor: 'white', // Background color
+                        color: 'black',// Change the text color to red
+                    },
+                    grandTotal: {
+                        fontSize: 14,
+                        bold: true,
+                        fillColor: 'white', // Background color
+                        color: 'black', // Text color
+                        alignment: 'right', // Align to the right
+                        margin: [0, 5, 0, 0], // Margin for spacing
                     },
                 },
             };
 
             pdfMake.createPdf(pdfFormat).print();
+
         }
-
-
-
 
         function generateExcel() {
             const orders = document.querySelectorAll('.table tbody tr');
@@ -432,7 +452,6 @@
 
             const ws = XLSX.utils.aoa_to_sheet(data);
 
-            // Apply header style
             XLSX.utils.format_cell(ws['A1'], headerStyle);
             XLSX.utils.format_cell(ws['B1'], headerStyle);
             XLSX.utils.format_cell(ws['C1'], headerStyle);
@@ -440,7 +459,6 @@
             XLSX.utils.format_cell(ws['E1'], headerStyle);
             XLSX.utils.format_cell(ws['F1'], headerStyle);
 
-            // Apply cell styles
             data.forEach((row, rowIndex) => {
                 if (rowIndex > 0) {
                     row.forEach((cell, columnIndex) => {
@@ -452,10 +470,8 @@
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sales Report');
 
-            // Generating filename based on the current date and time
             const filename = 'Sales_Report_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.xlsx';
 
-            // Convert the workbook to a binary Excel file and trigger the download
             XLSX.writeFile(wb, filename);
         }
 
