@@ -514,7 +514,7 @@ const datewiseSalesRp = async (req, res) => {
     toDate.setHours(23, 59, 59, 999);
 
     const currentDate = new Date();
-
+      
     if (fromDate && toDate) {
       if (toDate < fromDate) {
         const temp = fromDate;
@@ -526,7 +526,7 @@ const datewiseSalesRp = async (req, res) => {
     } else if (toDate) {
       fromDate = currentDate;
     }
-
+console.log("cfghxxrxrxrxryxfhjyrjtxy");
     var matchStage = {
       status: "delivered",
     };
